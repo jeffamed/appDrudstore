@@ -23,7 +23,7 @@
         </button>
         <ul class="nav navbar-nav d-md-down-none">
             <li class="nav-item px-3">
-                <a class="nav-link" href="#">Escritorio</a>
+                <router-link :to="{ name : 'home' }" class="nav-link">Escritorio</router-link>
             </li>
             <li class="nav-item px-3">
                 <a class="nav-link" href="#">Configuraciones</a>
@@ -70,7 +70,7 @@
             <nav class="sidebar-nav">
                 <ul class="nav">
                     <li class="nav-item">
-                        <router-link to="home">Escritorio</router-link>
+                        <router-link :to="{ name : 'home' }" class="nav-link active"><i class="icon-speedometer"></i> Escritorio</router-link>
                     </li>
                     <li class="nav-title">
                         Mantenimiento
@@ -143,12 +143,12 @@
 
         <!-- Contenido Principal -->
         <div class="main">
-            <router-view />
+            <router-view/>
         </div>
         <!-- /Fin del contenido principal -->
     </div>
 
-    <footer class="app-footer">
+    <footer class="app-footer fixed-bottom">
         <span> &copy; 2021</span>
         <span class="ml-auto">Desarrollado por </span>
     </footer>
