@@ -16,7 +16,9 @@ class CreateProductUsageTable extends Migration
         Schema::create('product_usage', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedBigInteger('usage_id');
+            $table->foreign('usage_id')->references('id')->on('usages');
             $table->timestamps();
         });
     }
