@@ -11,4 +11,13 @@ class SaleDetails extends Model
 
     protected $guarded = [];
 
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class);
+    }
 }

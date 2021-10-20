@@ -11,4 +11,18 @@ class Order extends Model
 
     protected $guarded = [];
 
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(OrderDetails::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

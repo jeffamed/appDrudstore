@@ -11,4 +11,18 @@ class Sale extends Model
 
     protected $guarded = [];
 
+    public function details()
+    {
+        return $this->hasMany(SaleDetails::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
