@@ -36,6 +36,11 @@ class Product extends Model
         return $this->belongsToMany(Usage::class);
     }
 
+    public function presentation()
+    {
+        return $this->belongsTo(Presentation::class);
+    }
+
     public function detailsSale()
     {
         return $this->hasMany(SaleDetails::class);

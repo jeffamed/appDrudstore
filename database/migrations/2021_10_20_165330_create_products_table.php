@@ -19,10 +19,9 @@ class CreateProductsTable extends Migration
             $table->string('name', 250);
             $table->float('price', 8, 2);
             $table->float('cost', 8, 2);
+            $table->float('discount', 8, 2);
             $table->integer('stock');
-            $table->integer('unit');
-            $table->string('presentation', 10);
-            $table->float('box', 8,2);
+            $table->float('box_stock', 8,2);
             $table->date('expire_at');
             $table->unsignedBigInteger('laboratory_id')->nullable();
             $table->foreign('laboratory_id')->references('id')->on('laboratories');
