@@ -1,7 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/home.js": "/js/home.js",
     "/css/app.css": "/css/app.css",
     "/css/coreui.css": "/css/coreui.css",
-    "/js/coreui.js": "/js/coreui.js",
-    "/js/home.js": "/js/home.js"
+    "/js/coreui.js": "/js/coreui.js"
 }
