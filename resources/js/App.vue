@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="img/favicon.png">
-    <title>Farmacia - LaravelVue</title>
-    <!-- Main styles for this application -->
-    <link href="css/coreui.css" rel="stylesheet">
-</head>
-
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-<div id="app">
+<template>
     <header class="app-header navbar">
         <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
             <span class="navbar-toggler-icon"></span>
@@ -23,7 +9,7 @@
         </button>
         <ul class="nav navbar-nav d-md-down-none">
             <li class="nav-item px-3">
-                <router-link :to="{ name : 'home' }" class="nav-link">Escritorio</router-link>
+                <a class="nav-link" href="#">Escritorio</a>
             </li>
             <li class="nav-item px-3">
                 <a class="nav-link" href="#">Configuraciones</a>
@@ -70,7 +56,7 @@
             <nav class="sidebar-nav">
                 <ul class="nav">
                     <li class="nav-item">
-                        <router-link :to="{ name : 'home' }" class="nav-link active"><i class="icon-speedometer"></i> Escritorio</router-link>
+                        <router-link to="home">Escritorio</router-link>
                     </li>
                     <li class="nav-title">
                         Mantenimiento
@@ -143,19 +129,23 @@
 
         <!-- Contenido Principal -->
         <div class="main">
-            <router-view/>
+            <router-view />
         </div>
         <!-- /Fin del contenido principal -->
     </div>
 
-    <footer class="app-footer fixed-bottom">
+    <footer class="app-footer">
         <span> &copy; 2021</span>
         <span class="ml-auto">Desarrollado por </span>
     </footer>
-</div>
-<!-- Bootstrap and necessary plugins -->
-<script src="js/app.js"></script>
-<script src="js/coreui.js"></script>
-</body>
+</template>
 
-</html>
+<script>
+export default {
+    name: "App",
+}
+</script>
+
+<style scoped>
+
+</style>
