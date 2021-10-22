@@ -14,17 +14,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $orders = Order::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($orders);
     }
 
     /**
@@ -35,7 +27,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Order::create($request->toArray());
+
+        return response()->json('Registrado Correctamente');
     }
 
     /**
@@ -46,18 +40,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
+        return response()->json($order);
     }
 
     /**
@@ -69,7 +52,9 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $order->update($request);
+
+        return response()->json("Actualizado Correctamente", 200);
     }
 
     /**
@@ -80,6 +65,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+
+        return response()->json('Eliminado Correctamente');
     }
 }
