@@ -14,18 +14,10 @@ class UsageController extends Controller
      */
     public function index()
     {
-        //
+        $usages = Usage::all();
+        return response()->json($usages);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +27,9 @@ class UsageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Usage::create($request->toArray());
+
+        return response()->json('Registrado Exitosamente');
     }
 
     /**
@@ -46,19 +40,9 @@ class UsageController extends Controller
      */
     public function show(Usage $usage)
     {
-        //
+        return response()->json($usage);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Usage  $usage
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Usage $usage)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +53,8 @@ class UsageController extends Controller
      */
     public function update(Request $request, Usage $usage)
     {
-        //
+        $usage->update($request->toArray());
+        return response()->json("Actualizada correctamente");
     }
 
     /**
@@ -80,6 +65,8 @@ class UsageController extends Controller
      */
     public function destroy(Usage $usage)
     {
-        //
+        $usage->delete();
+
+        return response()->json("Eliminado correctamente");
     }
 }

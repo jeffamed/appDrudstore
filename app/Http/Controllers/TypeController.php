@@ -14,18 +14,10 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $typies = Type::all();
+        return response()->json($typies);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +27,9 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Type::create($request->toArray());
+
+        return response()->json('Registrado Correctamente', 200);
     }
 
     /**
@@ -46,18 +40,7 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Type  $type
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Type $type)
-    {
-        //
+        return response()->json($type);
     }
 
     /**
@@ -69,7 +52,9 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        $type->update($request->toArray());
+
+        return response()->json('Actualizado correctamente', 200);
     }
 
     /**
@@ -80,6 +65,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+
+        return response()->json('Eliminado Existosamente', 200);
     }
 }
