@@ -14,17 +14,8 @@ class PresentationController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $presentations = Presentation::all();
+        return response()->json($presentations);
     }
 
     /**
@@ -35,7 +26,10 @@ class PresentationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Presentation::create($request->toArray());
+
+        return response()->json("Registrado Exitosamente", 200);
+
     }
 
     /**
@@ -46,18 +40,7 @@ class PresentationController extends Controller
      */
     public function show(Presentation $presentation)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Presentation  $presentation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Presentation $presentation)
-    {
-        //
+        return response()->json($presentation);
     }
 
     /**
@@ -69,7 +52,9 @@ class PresentationController extends Controller
      */
     public function update(Request $request, Presentation $presentation)
     {
-        //
+        $presentation->update($request->toArray());
+
+        return response()->json($presentation);
     }
 
     /**
@@ -80,6 +65,8 @@ class PresentationController extends Controller
      */
     public function destroy(Presentation $presentation)
     {
-        //
+        $presentation->delete();
+
+        return response()->json('Eliminado existosamente', 200);
     }
 }

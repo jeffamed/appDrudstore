@@ -14,17 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $products = Product::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($products);
     }
 
     /**
@@ -35,7 +27,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Product::create($request->toArray());
+
+        return response()->json("Registrado Correctamente");
     }
 
     /**
@@ -46,18 +40,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
+        return response()->json($product);
     }
 
     /**
@@ -69,7 +52,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->toArray());
+
+        return response()->json("Actualizado Correctamente");
     }
 
     /**
@@ -80,6 +65,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json("Eliminado Correctamente");
     }
 }

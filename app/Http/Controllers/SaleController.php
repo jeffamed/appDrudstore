@@ -14,17 +14,9 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $sales = Sale::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($sales);
     }
 
     /**
@@ -35,7 +27,9 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Sale::create($request->toArray());
+
+        return response()->json("Registrado Exitosamente");
     }
 
     /**
@@ -46,18 +40,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Sale  $sale
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Sale $sale)
-    {
-        //
+        return response()->json($sale);
     }
 
     /**
@@ -69,7 +52,9 @@ class SaleController extends Controller
      */
     public function update(Request $request, Sale $sale)
     {
-        //
+        $sale->update($request);
+
+        return response()->json('Actualizado exitosamente');
     }
 
     /**
@@ -80,6 +65,8 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        $sale->delete();
+
+        return response()->json("Eliminado Correctamente");
     }
 }
