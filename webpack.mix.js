@@ -24,10 +24,10 @@ mix.styles([
     'resources/css/style.css',
 ],'public/css/coreui.css')
 .scripts([
-    'resources/js/jquery.min.js',
-    'resources/js/popper.min.js',
-    'resources/js/bootstrap.min.js',
-    'resources/js/pace.min.js',
-    'resources/js/Chart.min.js',
-    'resources/js/template.js',
+    'resources/js/mimify/jquery.min.js',
+    'resources/js/mimify/popper.min.js',
+    'resources/js/mimify/bootstrap.min.js',
+    'resources/js/mimify/pace.min.js',
+    'resources/js/mimify/Chart.min.js',
+    'resources/js/mimify/template.js',
 ], 'public/js/coreui.js');
