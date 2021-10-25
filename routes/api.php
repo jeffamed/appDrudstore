@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('presentations', 'PresentationController')->except('create, edit');
+Route::resource('presentations', 'PresentationController')->except(['create, edit']);

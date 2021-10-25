@@ -7,14 +7,6 @@
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <ul class="nav navbar-nav d-md-down-none">
-            <li class="nav-item px-3">
-                <router-link class="nav-link" :to="{ name : 'home' }">Escritorio</router-link>
-            </li>
-            <li class="nav-item px-3">
-                <a class="nav-link" href="#">Configuraciones</a>
-            </li>
-        </ul>
         <ul class="nav navbar-nav ml-auto">
             <li class="nav-item d-md-down-none">
                 <a class="nav-link" href="#" data-toggle="dropdown">
@@ -62,13 +54,25 @@
                         Mantenimiento
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Almacén</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-social-dropbox"></i> Almacén</a>
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> Categorías</a>
+                                <router-link :to="{ name : 'product' }" class="nav-link"><i class="icon-bag"></i> Productos</router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-bag"></i> Artículos</a>
+                                <router-link :to="{ name : 'location' }" class="nav-link"><i class="icon-location-pin"></i> Ubicación</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{ name : 'type' }" class="nav-link"><i class="icon-folder"></i> Tipos</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{ name : 'presentation' }" class="nav-link"><i class="icon-present"></i> Presentación</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{ name : 'usage' }" class="nav-link"><i class="icon-list"></i> Uso</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{ name : 'laboratory' }" class="nav-link"><i class="icon-chemistry"></i> Laboratorio</router-link>
                             </li>
                         </ul>
                     </li>
@@ -76,10 +80,10 @@
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a class="nav-link" href="i#"><i class="icon-wallet"></i> Ingresos</a>
+                                <router-link :to="{ name : 'order' }" class="nav-link"><i class="icon-wallet"></i> Ingresos</router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Proveedores</a>
+                                <router-link :to="{ name : 'supplier' }" class="nav-link"><i class="icon-notebook"></i> Proveedores</router-link>
                             </li>
                         </ul>
                     </li>
@@ -87,10 +91,11 @@
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a class="nav-link" href="i#"><i class="icon-basket-loaded"></i> Ventas</a>
+                                <router-link :to="{ name : 'sale' }" class="nav-link"><i class="icon-basket-loaded"></i> Ventas</router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Clientes</a>
+                                <router-link :to="{ name : 'customer' }" class="nav-link"><i class="icon-people"></i> Clientes</router-link>
+
                             </li>
                         </ul>
                     </li>
