@@ -1,10 +1,17 @@
 <template>
-    <h3>Laboratorios</h3>
+    <breadcrumb-component folder="Almacén" subfolder="Laboratorios"/>
+    <table-component title="Laboratorios" />
 </template>
 
 <script>
+import BreadcrumbComponent from "../components/BreadcrumbComponent";
+import TableComponent from "../components/TableComponent";
 export default {
-    name: "Laboratory"
+    name: "Laboratory",
+    components: {
+        BreadcrumbComponent,
+        TableComponent
+    }
 }
 </script>
 

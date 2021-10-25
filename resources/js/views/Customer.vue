@@ -1,10 +1,17 @@
 <template>
-    <h3>Clientes</h3>
+    <breadcrumb-component folder="Ventas" subfolder="Clientes"/>
+    <table-component title="Clientes" />
 </template>
 
 <script>
+import BreadcrumbComponent from "../components/BreadcrumbComponent";
+import TableComponent from "../components/TableComponent";
 export default {
-    name: "Customer"
+    name: "Customer",
+    components: {
+        BreadcrumbComponent,
+        TableComponent
+    }
 }
 </script>
 
