@@ -4,8 +4,62 @@ const routes = [
     {
         path:'/',
         name:'home',
-        component : import(/* webpackChunkName: "home"*/'../components/ExampleComponent')
-    }
+        component : import(/* webpackChunkName: "routes"*/'../components/ExampleComponent')
+    },
+    {
+        path:'/cliente',
+        name:'customer',
+        component : import(/* webpackChunkName: "routes"*/'../views/Customer')
+    },
+    {
+        path:'/laboratorio',
+        name:'laboratory',
+        component : import(/* webpackChunkName: "routes"*/'../views/Laboratory')
+    },
+    {
+        path:'/ubicacion',
+        name:'location',
+        component : import(/* webpackChunkName: "routes"*/'../views/Location')
+    },
+    {
+        path:'/compras',
+        name:'order',
+        component : import(/* webpackChunkName: "routes"*/'../views/Order')
+    },
+    {
+        path:'/presentacion',
+        name:'presentation',
+        component : import(/* webpackChunkName: "routes"*/'../views/Presentation')
+    },
+    {
+        path:'/productos',
+        name:'product',
+        component : import(/* webpackChunkName: "routes"*/'../views/Product')
+    },
+    {
+        path:'/ventas',
+        name:'sale',
+        component : import(/* webpackChunkName: "routes"*/'../views/Sale')
+    },
+    {
+        path:'/proveedor',
+        name:'supplier',
+        component : import(/* webpackChunkName: "routes"*/'../views/Supplier')
+    },
+    {
+        path:'/tipo-producto',
+        name:'type',
+        component : import(/* webpackChunkName: "routes"*/'../views/Type')
+    },
+    {
+        path:'/uso',
+        name:'usage',
+        component : import(/* webpackChunkName: "routes"*/'../views/Usage')
+    },
+    {
+        path:'/:pathMatch(.*)*',
+        component : import(/* webpackChunkName: "routes"*/'../views/404')
+    },
 ];
 
 export default createRouter({
