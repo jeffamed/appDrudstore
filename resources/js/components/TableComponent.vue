@@ -26,12 +26,10 @@
                     <tr>
                         <th>Opciones</th>
                         <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr v-for="item in data" :key="item.id" v-if="data.length">
                         <td>
                             <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
                                 <i class="icon-pencil"></i>
@@ -40,93 +38,17 @@
                                 <i class="icon-trash"></i>
                             </button>
                         </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-success">Activo</span>
-                        </td>
+                        <td v-text="item.name"></td>
                     </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button> &nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-success">Activo</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button> &nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-secondary">Inactivo</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button> &nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-secondary">Inactivo</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button>&nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-success">Activo</span>
-                        </td>
+                    <tr v-else>
+                        <td colspan="2" class="text-center">No hay datos Registrados</td>
                     </tr>
                     </tbody>
                 </table>
                 <nav>
                     <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#">Ant</a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Sig</a>
+                        <li class="page-item" v-for="page in pagination.last_page">
+                            <router-link :to="{ name: 'presentation', query : { page : page } }"  class="page-link" >{{ page }}</router-link>
                         </li>
                     </ul>
                 </nav>
@@ -142,11 +64,23 @@ export default {
         title : {
             type: String,
             default: 'Titulo'
+        },
+        data : {
+            type: Array,
+            default: []
+        },
+        pagination : {
+            type: Object,
+            default: []
         }
     }
 }
 </script>
 
 <style scoped>
-
+    .pagination > a.router-link-exact-active{
+        color: #fff;
+        background-color: #20a8d8;
+        border-color: #20a8d8;
+    }
 </style>
