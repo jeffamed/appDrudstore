@@ -6,7 +6,7 @@
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Agregar Presentación</h4>
+                    <h5 class="modal-title">Agregar Presentación</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -17,7 +17,7 @@
                             <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
                                 <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
-                                <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                <span class="help-block">(*) Ingrese el nombre de la Presentación</span>
                             </div>
                         </div>
                     </form>

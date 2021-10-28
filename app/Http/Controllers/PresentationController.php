@@ -14,7 +14,7 @@ class PresentationController extends Controller
      */
     public function index()
     {
-        $presentations = Presentation::paginate(5);
+        $presentations = Presentation::latest()->paginate(5);
         return response()->json($presentations);
     }
 
