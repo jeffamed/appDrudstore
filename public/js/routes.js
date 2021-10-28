@@ -243,7 +243,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     TableComponent: _components_TableComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   setup: function setup() {
-    var name = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)('');
+    var form = (0,vue__WEBPACK_IMPORTED_MODULE_4__.reactive)({
+      name: ''
+    });
 
     var _usePresentations = (0,_composables_usePresentations__WEBPACK_IMPORTED_MODULE_3__.usePresentations)(),
         presentations = _usePresentations.presentations,
@@ -258,10 +260,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                savePresentation(name);
-                getAll();
+                _context.next = 2;
+                return savePresentation(form);
 
               case 2:
+                _context.next = 4;
+                return clear();
+
+              case 4:
+                _context.next = 6;
+                return getAll();
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -272,7 +282,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return function save() {
         return _ref.apply(this, arguments);
       };
-    }(); // sirve para cargar los datos en el momento
+    }();
+
+    var clear = function clear() {
+      form.name = '';
+    }; // sirve para cargar los datos en el momento
 
 
     (0,vue__WEBPACK_IMPORTED_MODULE_4__.onMounted)(getAll); // watch para observar el cambio de la variable route y ejecuta la funcion nuevamente
@@ -286,7 +300,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       route: route,
       getAll: getAll,
       save: save,
-      name: name
+      form: form
     };
   }
 });
@@ -1035,11 +1049,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "form-control",
     placeholder: "Nombre de presentación",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $setup.name = $event;
+      return $setup.form.name = $event;
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.name]]), _hoisted_10])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.name]]), _hoisted_10])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-primary",
     onClick: _cache[1] || (_cache[1] = function () {
@@ -1238,7 +1252,7 @@ function usePresentations() {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios.get("/api/presentations?page=".concat(route.query.page || 1));
+              return axios.get("/api/presentation?page=".concat(route.query.page || 1));
 
             case 2:
               res = _context.sent;
@@ -1267,13 +1281,12 @@ function usePresentations() {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios.post('/api/presentions', data);
+              return axios.post('/api/presentation', data);
 
             case 2:
               res = _context2.sent;
-              console.log(res);
 
-            case 4:
+            case 3:
             case "end":
               return _context2.stop();
           }
@@ -1314,7 +1327,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.pagination > a.router-link-exact-active[data-v-8554570c]{\n        color: #fff;\n        background-color: #20a8d8;\n        border-color: #20a8d8;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.pagination > a.router-link-exact-active[data-v-8554570c]{\r\n        color: #fff;\r\n        background-color: #20a8d8;\r\n        border-color: #20a8d8;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

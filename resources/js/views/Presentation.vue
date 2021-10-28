@@ -16,7 +16,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
-                                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="name">
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
                                 <span class="help-block">(*) Ingrese el nombre de la categoría</span>
                             </div>
                         </div>
@@ -38,28 +38,36 @@
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/TableComponent";
 import { usePresentations } from '../composables/usePresentations';
-import {watch, onMounted, ref} from "vue";
+import { reactive, watch, onMounted } from "vue";
 export default {
     components: {
         BreadcrumbComponent,
         TableComponent
     },
     setup(){
-        const name = ref('');
+        const form = reactive({
+            name : ''
+        })
         const {presentations, pagination, route, getAll, savePresentation} = usePresentations();
 
         const save = async() => {
-            savePresentation(name);
-            getAll();
+            await savePresentation(form);
+            await clear();
+            await getAll();
+        }
+
+        const clear = () => {
+            form.name = '';
         }
 
         // sirve para cargar los datos en el momento
         onMounted(getAll);
+
         // watch para observar el cambio de la variable route y ejecuta la funcion nuevamente
         watch(route, () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, name};
+        return { presentations, pagination, route, getAll, save, form};
     }
 }
 </script>
