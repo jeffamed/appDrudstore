@@ -1,17 +1,21 @@
-import {onMounted, ref} from 'vue';
+import {ref} from 'vue';
+import { useRoute } from 'vue-router';
 export function usePresentations() {
     const presentations = ref([]);
     const pagination = ref([]);
+    const route = useRoute();
 
     const getAll = async () => {
-        let res = await axios.get('/api/presentations');
+        let res = await axios.get(`/api/presentations?page=${ route.query.page || 1}`);
         pagination.value = res.data;
         presentations.value = res.data.data;
         delete pagination.value.data;
-        console.log(pagination.value);
     };
 
-    onMounted(getAll)
+    const savePresentation = async (data) => {
+        let res = await axios.post('/api/presentions', data);
+        console.log(res)
+    }
 
-    return { presentations, pagination };
+    return { presentations, pagination, route, getAll, savePresentation };
 }
