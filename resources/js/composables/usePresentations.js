@@ -1,5 +1,6 @@
 import {ref} from 'vue';
 import { useRoute } from 'vue-router';
+import Swal from "sweetalert2";
 export function usePresentations() {
     const presentations = ref([]);
     const pagination = ref([]);
@@ -16,5 +17,18 @@ export function usePresentations() {
         let res = await axios.post('/api/presentation', data);
     }
 
-    return { presentations, pagination, route, getAll, savePresentation };
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+
+    return { presentations, pagination, route, getAll, savePresentation, Toast };
 }

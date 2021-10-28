@@ -39,6 +39,7 @@ import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/TableComponent";
 import { usePresentations } from '../composables/usePresentations';
 import { reactive, watch, onMounted } from "vue";
+import Swal from 'sweetalert2';
 export default {
     components: {
         BreadcrumbComponent,
@@ -48,12 +49,16 @@ export default {
         const form = reactive({
             name : ''
         })
-        const {presentations, pagination, route, getAll, savePresentation} = usePresentations();
+        const {presentations, pagination, route, getAll, savePresentation, Toast} = usePresentations();
 
         const save = async() => {
             await savePresentation(form);
             await clear();
             await getAll();
+            Toast.fire({
+                icon: 'success',
+                title: 'Registrado Exitosamente'
+            })
         }
 
         const clear = () => {
