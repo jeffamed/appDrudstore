@@ -17,6 +17,10 @@ export function usePresentations() {
         let res = await axios.post('/api/presentation', data);
     }
 
+    const deletePresentation = async (data) => {
+        let res = await axios.delete(`/api/presentation/${data}`);
+    }
+
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -30,5 +34,5 @@ export function usePresentations() {
     })
 
 
-    return { presentations, pagination, route, getAll, savePresentation, Toast };
+    return { presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation };
 }

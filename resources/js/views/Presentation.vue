@@ -1,6 +1,6 @@
 <template>
     <breadcrumb-component folder="Almacén" subfolder="Presentación"/>
-    <table-component title="Presentación" :data="presentations" :pagination="pagination"/>
+    <table-component title="Presentación" :data="presentations" :pagination="pagination" @eliminar="destroy"/>
     <!--Inicio del modal agregar/actualizar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
@@ -32,13 +32,14 @@
         <!-- /.modal-dialog -->
     </div>
     <!--Fin del modal-->
+
 </template>
 
 <script>
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/TableComponent";
 import { usePresentations } from '../composables/usePresentations';
-import { reactive, watch, onMounted } from "vue";
+import {reactive, watch, onMounted, ref} from "vue";
 import Swal from 'sweetalert2';
 export default {
     components: {
@@ -46,10 +47,11 @@ export default {
         TableComponent
     },
     setup(){
+        const id = ref(0);
         const form = reactive({
             name : ''
         })
-        const {presentations, pagination, route, getAll, savePresentation, Toast} = usePresentations();
+        const {presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation} = usePresentations();
 
         const save = async() => {
             await savePresentation(form);
@@ -59,7 +61,12 @@ export default {
                 icon: 'success',
                 title: 'Registrado Exitosamente'
             })
-        }
+        };
+
+        const destroy = async(id) =>{
+            deletePresentation(id);
+            await getAll();
+        };
 
         const clear = () => {
             form.name = '';
@@ -72,7 +79,7 @@ export default {
         watch(route, () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, form};
+        return { presentations, pagination, route, getAll, save, form, destroy};
     }
 }
 </script>
