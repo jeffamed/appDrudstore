@@ -31,7 +31,7 @@
                     <tbody>
                     <tr v-for="item in data" :key="item.id" v-if="data.length">
                         <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
+                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
                                 <i class="icon-pencil"></i>
                             </button> &nbsp;
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
@@ -66,11 +66,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Estas seguro de eliminar la presentacíon {{name}}?</p>
+                        <p>Estas seguro de eliminar la presentacíon {{ name }}?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="eliminar">Cerrar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnClose">Cerrar</button>
+                        <button type="button" class="btn btn-danger" @click="btnDelete">Eliminar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -78,6 +78,37 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- Fin del modal Eliminar -->
+        <!--Inicio del modal actualizar-->
+        <div class="modal fade" id="modalActualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-warning modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Actualizar Presentación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="name">
+                                    <span class="help-block">(*) Ingrese el nombre de la presentación</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" @click="btnUpdate">Actualizar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!--Fin del modal-->
     </div>
 </template>
 <script>
@@ -102,17 +133,23 @@ export default {
     setup(props, context){
         const name = ref('');
         const id = ref(0);
-        const load= (data) => {
+
+        const load = (data) => {
             name.value = data.name;
-            id.value = data.id
-            console.log(data)
+            id.value = data.id;
         }
 
-        const eliminar = () =>{
-            context.emit(eliminar, id);
+        const btnDelete = () =>{
+            context.emit('delete', id.value);
+            $('#btnClose').click();
         }
 
-        return { load, name, id, eliminar };
+        const btnUpdate = () => {
+            console.log("actualizado");
+            $('#btnClose').click();
+        }
+
+        return { load, name, id, btnDelete, btnUpdate };
     }
 }
 </script>

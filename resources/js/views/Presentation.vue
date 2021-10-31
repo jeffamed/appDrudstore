@@ -1,6 +1,6 @@
 <template>
     <breadcrumb-component folder="Almacén" subfolder="Presentación"/>
-    <table-component title="Presentación" :data="presentations" :pagination="pagination" @eliminar="destroy"/>
+    <table-component title="Presentación" :data="presentations" :pagination="pagination" @delete="destroyPresentation"/>
     <!--Inicio del modal agregar/actualizar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
@@ -17,7 +17,7 @@
                             <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
                                 <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
-                                <span class="help-block">(*) Ingrese el nombre de la Presentación</span>
+                                <span class="help-block">(*) Ingrese el nombre de la presentación</span>
                             </div>
                         </div>
                     </form>
@@ -63,9 +63,13 @@ export default {
             })
         };
 
-        const destroy = async(id) =>{
+        const destroyPresentation = async(id) =>{
             deletePresentation(id);
             await getAll();
+            Toast.fire({
+                icon: 'success',
+                title: 'Eliminado Exitosamente'
+            })
         };
 
         const clear = () => {
@@ -76,10 +80,10 @@ export default {
         onMounted(getAll);
 
         // watch para observar el cambio de la variable route y ejecuta la funcion nuevamente
-        watch(route, () => {
+        watch(() => route.query.page , () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, form, destroy};
+        return { presentations, pagination, route, getAll, save, form, destroyPresentation};
     }
 }
 </script>
