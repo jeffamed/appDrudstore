@@ -92,28 +92,29 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   setup: function setup(props, context) {
-    var name = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    var id = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    var form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
+      name: '',
+      id: ''
+    });
 
     var load = function load(data) {
-      name.value = data.name;
-      id.value = data.id;
+      form.name = data.name;
+      form.id = data.id;
     };
 
     var btnDelete = function btnDelete() {
-      context.emit('delete', id.value);
+      context.emit('delete', form.id);
       $('#btnClose').click();
     };
 
     var btnUpdate = function btnUpdate() {
-      console.log("actualizado");
-      $('#btnClose').click();
+      context.emit('update', form);
+      $('#btnCloseUpdate').click();
     };
 
     return {
       load: load,
-      name: name,
-      id: id,
+      form: form,
       btnDelete: btnDelete,
       btnUpdate: btnUpdate
     };
@@ -277,6 +278,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   setup: function setup() {
     var id = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(0);
     var form = (0,vue__WEBPACK_IMPORTED_MODULE_4__.reactive)({
+      id: 0,
       name: ''
     });
 
@@ -287,7 +289,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         Toast = _usePresentations.Toast,
         getAll = _usePresentations.getAll,
         savePresentation = _usePresentations.savePresentation,
-        deletePresentation = _usePresentations.deletePresentation;
+        deletePresentation = _usePresentations.deletePresentation,
+        updatePresentation = _usePresentations.updatePresentation;
 
     var save = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -331,17 +334,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                deletePresentation(id);
-                _context2.next = 3;
+                _context2.next = 2;
+                return deletePresentation(id);
+
+              case 2:
+                _context2.next = 4;
                 return getAll();
 
-              case 3:
+              case 4:
                 Toast.fire({
                   icon: 'success',
                   title: 'Eliminado Exitosamente'
                 });
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -351,6 +357,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return function destroyPresentation(_x) {
         return _ref2.apply(this, arguments);
+      };
+    }();
+
+    var updatingPresentation = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(data) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return updatePresentation(data);
+
+              case 2:
+                _context3.next = 4;
+                return getAll();
+
+              case 4:
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Actualizado Exitosamente'
+                });
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function updatingPresentation(_x2) {
+        return _ref3.apply(this, arguments);
       };
     }();
 
@@ -373,7 +411,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       getAll: getAll,
       save: save,
       form: form,
-      destroyPresentation: destroyPresentation
+      destroyPresentation: destroyPresentation,
+      updatingPresentation: updatingPresentation
     };
   }
 });
@@ -965,6 +1004,7 @@ var _hoisted_41 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-secondary",
+    id: "btnCloseUpdate",
     "data-dismiss": "modal"
   }, "Cerrar", -1
   /* HOISTED */
@@ -1031,7 +1071,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["to"])]);
   }), 256
   /* UNKEYED_FRAGMENT */
-  ))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Fin ejemplo de tabla Listado "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Inicio del modal Eliminar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Estas seguro de eliminar la presentacíon " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.name) + "?", 1
+  ))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Fin ejemplo de tabla Listado "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Inicio del modal Eliminar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Estas seguro de eliminar la presentacíon " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.name) + "?", 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [_hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
@@ -1046,11 +1086,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "form-control",
     placeholder: "Nombre de presentación",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $setup.name = $event;
+      return $setup.form.name = $event;
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.name]]), _hoisted_39])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [_hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.name]]), _hoisted_39])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [_hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-primary",
     onClick: _cache[2] || (_cache[2] = function () {
@@ -1301,10 +1341,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     title: "Presentación",
     data: $setup.presentations,
     pagination: $setup.pagination,
-    onDelete: $setup.destroyPresentation
+    onDelete: $setup.destroyPresentation,
+    onUpdate: $setup.updatingPresentation
   }, null, 8
   /* PROPS */
-  , ["data", "pagination", "onDelete"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Inicio del modal agregar/actualizar"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  , ["data", "pagination", "onDelete", "onUpdate"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Inicio del modal agregar/actualizar"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     id: "name",
     name: "name",
@@ -1590,6 +1631,32 @@ function usePresentations() {
     };
   }();
 
+  var updatePresentation = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(data) {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return axios.put("/api/presentation/".concat(data.id), data);
+
+            case 2:
+              res = _context4.sent;
+
+            case 3:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function updatePresentation(_x3) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
   var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().mixin({
     toast: true,
     position: 'top-end',
@@ -1608,7 +1675,8 @@ function usePresentations() {
     Toast: Toast,
     getAll: getAll,
     savePresentation: savePresentation,
-    deletePresentation: deletePresentation
+    deletePresentation: deletePresentation,
+    updatePresentation: updatePresentation
   };
 }
 

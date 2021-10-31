@@ -1,6 +1,6 @@
 <template>
     <breadcrumb-component folder="Almacén" subfolder="Presentación"/>
-    <table-component title="Presentación" :data="presentations" :pagination="pagination" @delete="destroyPresentation"/>
+    <table-component title="Presentación" :data="presentations" :pagination="pagination" @delete="destroyPresentation" @update="updatingPresentation"/>
     <!--Inicio del modal agregar/actualizar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
@@ -49,9 +49,10 @@ export default {
     setup(){
         const id = ref(0);
         const form = reactive({
-            name : ''
+            id : 0,
+            name : '',
         })
-        const {presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation} = usePresentations();
+        const {presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation, updatePresentation} = usePresentations();
 
         const save = async() => {
             await savePresentation(form);
@@ -64,13 +65,22 @@ export default {
         };
 
         const destroyPresentation = async(id) =>{
-            deletePresentation(id);
+            await deletePresentation(id);
             await getAll();
             Toast.fire({
                 icon: 'success',
                 title: 'Eliminado Exitosamente'
             })
         };
+
+        const updatingPresentation = async (data) => {
+            await updatePresentation(data);
+            await getAll();
+            Toast.fire({
+                icon: 'success',
+                title: 'Actualizado Exitosamente'
+            })
+        }
 
         const clear = () => {
             form.name = '';
@@ -83,7 +93,7 @@ export default {
         watch(() => route.query.page , () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, form, destroyPresentation};
+        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation };
     }
 }
 </script>

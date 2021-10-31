@@ -66,7 +66,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Estas seguro de eliminar la presentacíon {{ name }}?</p>
+                        <p>Estas seguro de eliminar la presentacíon {{ form.name }}?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnClose">Cerrar</button>
@@ -93,14 +93,14 @@
                             <div class="form-group row">
                                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="name">
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
                                     <span class="help-block">(*) Ingrese el nombre de la presentación</span>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" id="btnCloseUpdate" data-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary" @click="btnUpdate">Actualizar</button>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
     </div>
 </template>
 <script>
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 
 export default {
     name: "TableComponent",
@@ -131,25 +131,27 @@ export default {
         }
     },
     setup(props, context){
-        const name = ref('');
-        const id = ref(0);
+        const form = reactive({
+            name: '',
+            id: '',
+        })
 
         const load = (data) => {
-            name.value = data.name;
-            id.value = data.id;
+            form.name = data.name;
+            form.id = data.id;
         }
 
         const btnDelete = () =>{
-            context.emit('delete', id.value);
+            context.emit('delete', form.id);
             $('#btnClose').click();
         }
 
         const btnUpdate = () => {
-            console.log("actualizado");
-            $('#btnClose').click();
+            context.emit('update', form);
+            $('#btnCloseUpdate').click();
         }
 
-        return { load, name, id, btnDelete, btnUpdate };
+        return { load, form, btnDelete, btnUpdate };
     }
 }
 </script>
