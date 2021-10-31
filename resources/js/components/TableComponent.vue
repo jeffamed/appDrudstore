@@ -16,8 +16,8 @@
                                 <option value="nombre">Nombre</option>
                                 <option value="descripcion">Descripción</option>
                             </select>
-                            <input type="text" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                            <input type="text" id="texto" name="texto" class="form-control" placeholder="Texto a buscar" v-model="search" @keyup.enter="btnSearch">
+                            <button type="submit" class="btn btn-primary" @click="btnSearch"><i class="fa fa-search"></i> Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -55,6 +55,7 @@
             </div>
         </div>
         <!-- Fin ejemplo de tabla Listado -->
+
         <!-- Inicio del modal Eliminar -->
         <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-danger" role="document">
@@ -78,6 +79,7 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- Fin del modal Eliminar -->
+
         <!--Inicio del modal actualizar-->
         <div class="modal fade" id="modalActualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-warning modal-lg" role="document">
@@ -135,6 +137,7 @@ export default {
             name: '',
             id: '',
         })
+        const search = ref('');
 
         const load = (data) => {
             form.name = data.name;
@@ -151,7 +154,11 @@ export default {
             $('#btnCloseUpdate').click();
         }
 
-        return { load, form, btnDelete, btnUpdate };
+        const btnSearch = () => {
+            context.emit('search', search.value);
+        }
+
+        return { load, form, btnDelete, btnUpdate, search, btnSearch };
     }
 }
 </script>

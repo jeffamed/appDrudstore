@@ -1,6 +1,6 @@
 <template>
     <breadcrumb-component folder="Almacén" subfolder="Presentación"/>
-    <table-component title="Presentación" :data="presentations" :pagination="pagination" @delete="destroyPresentation" @update="updatingPresentation"/>
+    <table-component title="Presentación" :data="presentations" :pagination="pagination" @delete="destroyPresentation" @update="updatingPresentation" @search="findPresentation"/>
     <!--Inicio del modal agregar/actualizar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
@@ -47,7 +47,7 @@ export default {
         TableComponent
     },
     setup(){
-        const id = ref(0);
+        const search = ref('');
         const form = reactive({
             id : 0,
             name : '',
@@ -80,20 +80,22 @@ export default {
                 icon: 'success',
                 title: 'Actualizado Exitosamente'
             })
+        };
+
+        const findPresentation = async(data) => {
+            await getAll(data);
         }
 
         const clear = () => {
             form.name = '';
         }
 
-        // sirve para cargar los datos en el momento
         onMounted(getAll);
 
-        // watch para observar el cambio de la variable route y ejecuta la funcion nuevamente
         watch(() => route.query.page , () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation };
+        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation, findPresentation };
     }
 }
 </script>

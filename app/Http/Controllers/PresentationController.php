@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Presentation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PresentationController extends Controller
 {
@@ -12,9 +13,10 @@ class PresentationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $presentations = Presentation::latest()->paginate(5);
+        Log::info("variable search: ".$request->search);
+        $presentations = Presentation::where('name','like','%'.$request->search.'%')->latest()->paginate(5);
         return response()->json($presentations);
     }
 

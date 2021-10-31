@@ -6,10 +6,11 @@ export function usePresentations() {
     const pagination = ref([]);
     const route = useRoute();
 
-    const getAll = async () => {
-        let res = await axios.get(`/api/presentation?page=${ route.query.page || 1}`);
-        pagination.value = res.data;
+    const getAll = async (search = '') => {
+        console.log(search);
+        let res = await axios.get(`/api/presentation?page=${ route.query.page || 1}&search=${ search }`);
         presentations.value = res.data.data;
+        pagination.value = res.data;
         delete pagination.value.data;
     };
 
@@ -23,7 +24,7 @@ export function usePresentations() {
 
     const updatePresentation = async (data) => {
         let res = await axios.put(`/api/presentation/${data.id}`,data);
-
+        presentations.value = res.data.data;
     }
 
     const Toast = Swal.mixin({
