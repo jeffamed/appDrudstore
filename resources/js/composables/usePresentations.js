@@ -2,6 +2,7 @@ import {ref} from 'vue';
 import { useRoute } from 'vue-router';
 import Swal from "sweetalert2";
 export function usePresentations() {
+    const errors = ref('');
     const presentations = ref([]);
     const pagination = ref([]);
     const route = useRoute();
@@ -12,19 +13,38 @@ export function usePresentations() {
         presentations.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;
+
     };
 
     const savePresentation = async (data) => {
-        let res = await axios.post('/api/presentation', data);
+        errors.value = '';
+        try {
+            let res = await axios.post('/api/presentation', data);
+        }catch (e) {
+            if (e.response.status == 422){
+                for (const key in e.response.data.errors) {
+                    errors.value += e.response.data.errors[key][0] + ' ';
+                }
+            }
+        }
+    }
+
+    const updatePresentation = async (data) => {
+        errors.value = '';
+        try{
+            let res = await axios.put(`/api/presentation/${data.id}`,data);
+            presentations.value = res.data.data;
+        }catch (e) {
+            if (e.response.status == 422){
+                for (const key in e.response.data.errors) {
+                    errors.value += e.response.data.errors[key][0] + ' ';
+                }
+            }
+        }
     }
 
     const deletePresentation = async (data) => {
         let res = await axios.delete(`/api/presentation/${data}`);
-    }
-
-    const updatePresentation = async (data) => {
-        let res = await axios.put(`/api/presentation/${data.id}`,data);
-        presentations.value = res.data.data;
     }
 
     const Toast = Swal.mixin({

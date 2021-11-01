@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PresentationRequest;
 use App\Models\Presentation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -23,10 +24,10 @@ class PresentationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PresentationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PresentationRequest $request)
     {
         Presentation::create($request->toArray());
 
@@ -48,11 +49,11 @@ class PresentationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PresentationRequest  $request
      * @param  \App\Models\Presentation  $presentation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Presentation $presentation)
+    public function update(PresentationRequest $request, Presentation $presentation)
     {
         $presentation->update($request->toArray());
 
