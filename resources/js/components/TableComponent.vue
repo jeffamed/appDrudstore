@@ -14,7 +14,6 @@
                         <div class="input-group">
                             <select class="form-control col-md-3" id="opcion" name="opcion">
                                 <option value="nombre">Nombre</option>
-                                <option value="descripcion">Descripción</option>
                             </select>
                             <input type="text" id="texto" name="texto" class="form-control" placeholder="Texto a buscar" v-model="search" @keyup.enter="btnSearch">
                             <button type="submit" class="btn btn-primary" @click="btnSearch"><i class="fa fa-search"></i> Buscar</button>
@@ -23,13 +22,13 @@
                 </div>
                 <table class="table table-bordered table-striped table-sm">
                     <thead>
-                    <tr>
-                        <th>Opciones</th>
-                        <th>Nombre</th>
-                    </tr>
+                        <tr>
+                            <th  v-for="(item,index) in header" :key="index">{{ item }}</th>
+                        </tr>
                     </thead>
                     <tbody>
                     <tr v-for="item in data" :key="item.id" v-if="data.length">
+                        <td v-text="item.name"></td>
                         <td>
                             <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
                                 <i class="icon-pencil"></i>
@@ -38,7 +37,6 @@
                                 <i class="icon-trash"></i>
                             </button>
                         </td>
-                        <td v-text="item.name"></td>
                     </tr>
                     <tr v-else>
                         <td colspan="2" class="text-center">No hay datos Registrados</td>
@@ -96,7 +94,7 @@
                                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
-                                    <span class="help-block">(*) Ingrese el nombre de la presentación</span>
+                                    <span class="help-block text-danger" v-show="errors.length">(*) {{ errors.replace('name', 'nombre') }}</span>
                                 </div>
                             </div>
                         </form>
@@ -114,7 +112,7 @@
     </div>
 </template>
 <script>
-import {reactive, ref} from "vue";
+import {inject, reactive, ref} from "vue";
 
 export default {
     name: "TableComponent",
@@ -130,6 +128,10 @@ export default {
         pagination : {
             type: Object,
             default: []
+        },
+        header:{
+            type: Array,
+            default: ['Nombre','Opciones']
         }
     },
     setup(props, context){
@@ -138,6 +140,8 @@ export default {
             id: '',
         })
         const search = ref('');
+
+        const errors = inject('errors');
 
         const load = (data) => {
             form.name = data.name;
@@ -151,14 +155,13 @@ export default {
 
         const btnUpdate = () => {
             context.emit('update', form);
-            $('#btnCloseUpdate').click();
         }
 
         const btnSearch = () => {
             context.emit('search', search.value);
         }
 
-        return { load, form, btnDelete, btnUpdate, search, btnSearch };
+        return { load, form, btnDelete, btnUpdate, search, btnSearch, errors };
     }
 }
 </script>

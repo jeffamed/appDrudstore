@@ -12,18 +12,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                            <div class="col-md-9">
-                                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
-                                <span class="help-block">(*) Ingrese el nombre de la presentación</span>
-                            </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                        <div class="col-md-9">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
+                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors.replace('name', 'nombre') }}</span>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
                     <button type="button" class="btn btn-primary" @click="save">Guardar</button>
                 </div>
             </div>
@@ -39,7 +37,7 @@
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/TableComponent";
 import { usePresentations } from '../composables/usePresentations';
-import {reactive, watch, onMounted, ref} from "vue";
+import {reactive, watch, onMounted, ref, provide} from "vue";
 import Swal from 'sweetalert2';
 export default {
     components: {
@@ -52,16 +50,15 @@ export default {
             id : 0,
             name : '',
         })
-        const {presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation, updatePresentation} = usePresentations();
+
+        const {presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation, updatePresentation, errors} = usePresentations();
+
+        provide('errors', errors);
 
         const save = async() => {
             await savePresentation(form);
             await clear();
             await getAll();
-            Toast.fire({
-                icon: 'success',
-                title: 'Registrado Exitosamente'
-            })
         };
 
         const destroyPresentation = async(id) =>{
@@ -75,11 +72,8 @@ export default {
 
         const updatingPresentation = async (data) => {
             await updatePresentation(data);
+
             await getAll();
-            Toast.fire({
-                icon: 'success',
-                title: 'Actualizado Exitosamente'
-            })
         };
 
         const findPresentation = async(data) => {
@@ -95,7 +89,7 @@ export default {
         watch(() => route.query.page , () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation, findPresentation };
+        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation, findPresentation, errors, clear };
     }
 }
 </script>

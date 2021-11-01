@@ -89,6 +89,10 @@ __webpack_require__.r(__webpack_exports__);
     pagination: {
       type: Object,
       "default": []
+    },
+    header: {
+      type: Array,
+      "default": ['Nombre', 'Opciones']
     }
   },
   setup: function setup(props, context) {
@@ -97,6 +101,7 @@ __webpack_require__.r(__webpack_exports__);
       id: ''
     });
     var search = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var errors = (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)('errors');
 
     var load = function load(data) {
       form.name = data.name;
@@ -110,7 +115,6 @@ __webpack_require__.r(__webpack_exports__);
 
     var btnUpdate = function btnUpdate() {
       context.emit('update', form);
-      $('#btnCloseUpdate').click();
     };
 
     var btnSearch = function btnSearch() {
@@ -123,7 +127,8 @@ __webpack_require__.r(__webpack_exports__);
       btnDelete: btnDelete,
       btnUpdate: btnUpdate,
       search: search,
-      btnSearch: btnSearch
+      btnSearch: btnSearch,
+      errors: errors
     };
   }
 });
@@ -297,7 +302,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         getAll = _usePresentations.getAll,
         savePresentation = _usePresentations.savePresentation,
         deletePresentation = _usePresentations.deletePresentation,
-        updatePresentation = _usePresentations.updatePresentation;
+        updatePresentation = _usePresentations.updatePresentation,
+        errors = _usePresentations.errors;
+
+    (0,vue__WEBPACK_IMPORTED_MODULE_4__.provide)('errors', errors);
 
     var save = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -317,12 +325,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return getAll();
 
               case 6:
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Registrado Exitosamente'
-                });
-
-              case 7:
               case "end":
                 return _context.stop();
             }
@@ -381,12 +383,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return getAll();
 
               case 4:
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Actualizado Exitosamente'
-                });
-
-              case 5:
               case "end":
                 return _context3.stop();
             }
@@ -440,7 +436,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       form: form,
       destroyPresentation: destroyPresentation,
       updatingPresentation: updatingPresentation,
-      findPresentation: findPresentation
+      findPresentation: findPresentation,
+      errors: errors,
+      clear: clear
     };
   }
 });
@@ -858,9 +856,7 @@ var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
     name: "opcion"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
     value: "nombre"
-  }, "Nombre"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-    value: "descripcion"
-  }, "Descripción")], -1
+  }, "Nombre")], -1
   /* HOISTED */
   );
 });
@@ -879,13 +875,7 @@ var _hoisted_13 = [_hoisted_11, _hoisted_12];
 var _hoisted_14 = {
   "class": "table table-bordered table-striped table-sm"
 };
-
-var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Opciones"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Nombre")])], -1
-  /* HOISTED */
-  );
-});
-
+var _hoisted_15 = ["textContent"];
 var _hoisted_16 = ["onClick"];
 
 var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
@@ -911,12 +901,11 @@ var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_22 = [_hoisted_21];
-var _hoisted_23 = ["textContent"];
-var _hoisted_24 = {
+var _hoisted_23 = {
   key: 1
 };
 
-var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
     colspan: "2",
     "class": "text-center"
@@ -925,14 +914,14 @@ var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_26 = [_hoisted_25];
-var _hoisted_27 = {
+var _hoisted_25 = [_hoisted_24];
+var _hoisted_26 = {
   "class": "pagination"
 };
-var _hoisted_28 = {
+var _hoisted_27 = {
   "class": "page-item"
 };
-var _hoisted_29 = {
+var _hoisted_28 = {
   "class": "modal fade",
   id: "modalEliminar",
   tabindex: "-1",
@@ -943,15 +932,15 @@ var _hoisted_29 = {
   },
   "aria-hidden": "true"
 };
-var _hoisted_30 = {
+var _hoisted_29 = {
   "class": "modal-dialog modal-danger",
   role: "document"
 };
-var _hoisted_31 = {
+var _hoisted_30 = {
   "class": "modal-content"
 };
 
-var _hoisted_32 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_31 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "modal-header"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
@@ -968,14 +957,14 @@ var _hoisted_32 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_33 = {
+var _hoisted_32 = {
   "class": "modal-body"
 };
-var _hoisted_34 = {
+var _hoisted_33 = {
   "class": "modal-footer"
 };
 
-var _hoisted_35 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_34 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-secondary",
@@ -986,7 +975,7 @@ var _hoisted_35 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_36 = {
+var _hoisted_35 = {
   "class": "modal fade",
   id: "modalActualizar",
   tabindex: "-1",
@@ -997,15 +986,15 @@ var _hoisted_36 = {
   },
   "aria-hidden": "true"
 };
-var _hoisted_37 = {
+var _hoisted_36 = {
   "class": "modal-dialog modal-warning modal-lg",
   role: "document"
 };
-var _hoisted_38 = {
+var _hoisted_37 = {
   "class": "modal-content"
 };
 
-var _hoisted_39 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "modal-header"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
@@ -1022,20 +1011,20 @@ var _hoisted_39 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_40 = {
+var _hoisted_39 = {
   "class": "modal-body"
 };
-var _hoisted_41 = {
+var _hoisted_40 = {
   action: "",
   method: "post",
   enctype: "multipart/form-data",
   "class": "form-horizontal"
 };
-var _hoisted_42 = {
+var _hoisted_41 = {
   "class": "form-group row"
 };
 
-var _hoisted_43 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_42 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "col-md-3 form-control-label",
     "for": "text-input"
@@ -1044,23 +1033,14 @@ var _hoisted_43 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_44 = {
+var _hoisted_43 = {
   "class": "col-md-9"
 };
-
-var _hoisted_45 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-    "class": "help-block"
-  }, "(*) Ingrese el nombre de la presentación", -1
-  /* HOISTED */
-  );
-});
-
-var _hoisted_46 = {
+var _hoisted_44 = {
   "class": "modal-footer"
 };
 
-var _hoisted_47 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_45 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-secondary",
@@ -1096,12 +1076,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function () {
       return $setup.btnSearch && $setup.btnSearch.apply($setup, arguments);
     })
-  }, _hoisted_13)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [$props.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, _hoisted_13)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.header, function (item, index) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", {
+      key: index
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item), 1
+    /* TEXT */
+    );
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [$props.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.data, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: item.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+      textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name)
+    }, null, 8
+    /* PROPS */
+    , _hoisted_15), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       type: "button",
       "class": "btn btn-warning btn-sm",
       "data-toggle": "modal",
@@ -1121,15 +1113,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }
     }, _hoisted_22, 8
     /* PROPS */
-    , _hoisted_20)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
-      textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name)
-    }, null, 8
-    /* PROPS */
-    , _hoisted_23)]);
+    , _hoisted_20)])]);
   }), 128
   /* KEYED_FRAGMENT */
-  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_24, _hoisted_26))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_27, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.pagination.last_page, function (page) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_23, _hoisted_25))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_26, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.pagination.last_page, function (page) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
       to: {
         name: 'presentation',
         query: {
@@ -1151,15 +1139,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["to"])]);
   }), 256
   /* UNKEYED_FRAGMENT */
-  ))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Fin ejemplo de tabla Listado "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Inicio del modal Eliminar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Estas seguro de eliminar la presentacíon " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.name) + "?", 1
+  ))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Fin ejemplo de tabla Listado "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Inicio del modal Eliminar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Estas seguro de eliminar la presentacíon " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.name) + "?", 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [_hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-danger",
     onClick: _cache[3] || (_cache[3] = function () {
       return $setup.btnDelete && $setup.btnDelete.apply($setup, arguments);
     })
-  }, "Eliminar")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-content ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-dialog ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Fin del modal Eliminar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Inicio del modal actualizar"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [_hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [_hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, "Eliminar")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-content ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-dialog ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Fin del modal Eliminar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Inicio del modal actualizar"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [_hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     id: "name",
     name: "name",
@@ -1170,7 +1158,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.name]]), _hoisted_45])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [_hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "help-block text-danger"
+  }, "(*) " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.errors.replace('name', 'nombre')), 513
+  /* TEXT, NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.errors.length]])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-primary",
     onClick: _cache[5] || (_cache[5] = function () {
@@ -1371,44 +1363,22 @@ var _hoisted_5 = {
   "class": "modal-body"
 };
 var _hoisted_6 = {
-  action: "",
-  method: "post",
-  enctype: "multipart/form-data",
-  "class": "form-horizontal"
-};
-var _hoisted_7 = {
   "class": "form-group row"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "col-md-3 form-control-label",
   "for": "text-input"
 }, "Nombre", -1
 /* HOISTED */
 );
 
-var _hoisted_9 = {
+var _hoisted_8 = {
   "class": "col-md-9"
 };
-
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "help-block"
-}, "(*) Ingrese el nombre de la presentación", -1
-/* HOISTED */
-);
-
-var _hoisted_11 = {
+var _hoisted_9 = {
   "class": "modal-footer"
 };
-
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  type: "button",
-  "class": "btn btn-secondary",
-  "data-dismiss": "modal"
-}, "Cerrar", -1
-/* HOISTED */
-);
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_breadcrumb_component = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("breadcrumb-component");
 
@@ -1426,7 +1396,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onSearch: $setup.findPresentation
   }, null, 8
   /* PROPS */
-  , ["data", "pagination", "onDelete", "onUpdate", "onSearch"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Inicio del modal agregar/actualizar"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  , ["data", "pagination", "onDelete", "onUpdate", "onSearch"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Inicio del modal agregar/actualizar"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     id: "name",
     name: "name",
@@ -1437,10 +1407,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.name]]), _hoisted_10])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "help-block text-danger"
+  }, "(*) " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.errors.replace('name', 'nombre')), 513
+  /* TEXT, NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.errors.length]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-secondary",
+    "data-dismiss": "modal",
+    onClick: _cache[1] || (_cache[1] = function () {
+      return $setup.clear && $setup.clear.apply($setup, arguments);
+    })
+  }, "Cerrar"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-primary",
-    onClick: _cache[1] || (_cache[1] = function () {
+    onClick: _cache[2] || (_cache[2] = function () {
       return $setup.save && $setup.save.apply($setup, arguments);
     })
   }, "Guardar")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-content ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-dialog ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("Fin del modal")], 64
@@ -1627,6 +1608,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 function usePresentations() {
+  var errors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('');
   var presentations = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
   var pagination = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
   var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRoute)();
@@ -1666,23 +1648,48 @@ function usePresentations() {
 
   var savePresentation = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(data) {
-      var res;
+      var res, key;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
+              _context2.prev = 0;
+              errors.value = '';
+              _context2.next = 4;
               return axios.post('/api/presentation', data);
 
-            case 2:
+            case 4:
               res = _context2.sent;
+              _context2.next = 7;
+              return Toast.fire({
+                icon: 'success',
+                title: 'Registrado Existosamente'
+              });
 
-            case 3:
+            case 7:
+              _context2.next = 13;
+              break;
+
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](0);
+              Toast.fire({
+                icon: 'error',
+                title: 'Algo salio mal, revise el formulario.'
+              });
+
+              if (_context2.t0.response.status == 422) {
+                for (key in _context2.t0.response.data.errors) {
+                  errors.value += _context2.t0.response.data.errors[key][0] + ' ';
+                }
+              }
+
+            case 13:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2);
+      }, _callee2, null, [[0, 9]]);
     }));
 
     return function savePresentation(_x) {
@@ -1690,33 +1697,56 @@ function usePresentations() {
     };
   }();
 
-  var deletePresentation = /*#__PURE__*/function () {
+  var updatePresentation = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(data) {
-      var res;
+      var res, key;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.next = 2;
-              return axios["delete"]("/api/presentation/".concat(data));
+              _context3.prev = 0;
+              errors.value = '';
+              _context3.next = 4;
+              return axios.put("/api/presentation/".concat(data.id), data);
 
-            case 2:
+            case 4:
               res = _context3.sent;
+              presentations.value = res.data.data;
+              Toast.fire({
+                icon: 'success',
+                title: 'Actualizado Exitosamente'
+              });
+              _context3.next = 13;
+              break;
 
-            case 3:
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](0);
+              Toast.fire({
+                icon: 'error',
+                title: 'Algo salio mal, revise el formulario.'
+              });
+
+              if (_context3.t0.response.status == 422) {
+                for (key in _context3.t0.response.data.errors) {
+                  errors.value += _context3.t0.response.data.errors[key][0] + ' ';
+                }
+              }
+
+            case 13:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3);
+      }, _callee3, null, [[0, 9]]);
     }));
 
-    return function deletePresentation(_x2) {
+    return function updatePresentation(_x2) {
       return _ref3.apply(this, arguments);
     };
   }();
 
-  var updatePresentation = /*#__PURE__*/function () {
+  var deletePresentation = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(data) {
       var res;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
@@ -1724,13 +1754,12 @@ function usePresentations() {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios.put("/api/presentation/".concat(data.id), data);
+              return axios["delete"]("/api/presentation/".concat(data));
 
             case 2:
               res = _context4.sent;
-              presentations.value = res.data.data;
 
-            case 4:
+            case 3:
             case "end":
               return _context4.stop();
           }
@@ -1738,7 +1767,7 @@ function usePresentations() {
       }, _callee4);
     }));
 
-    return function updatePresentation(_x3) {
+    return function deletePresentation(_x3) {
       return _ref4.apply(this, arguments);
     };
   }();
@@ -1762,7 +1791,8 @@ function usePresentations() {
     getAll: getAll,
     savePresentation: savePresentation,
     deletePresentation: deletePresentation,
-    updatePresentation: updatePresentation
+    updatePresentation: updatePresentation,
+    errors: errors
   };
 }
 

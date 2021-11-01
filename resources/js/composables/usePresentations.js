@@ -17,10 +17,18 @@ export function usePresentations() {
     };
 
     const savePresentation = async (data) => {
-        errors.value = '';
         try {
+            errors.value = '';
             let res = await axios.post('/api/presentation', data);
+            await Toast.fire({
+                icon : 'success',
+                title : 'Registrado Existosamente',
+            })
         }catch (e) {
+            Toast.fire({
+                icon : 'error',
+                title : 'Algo salio mal, revise el formulario.'
+            })
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
                     errors.value += e.response.data.errors[key][0] + ' ';
@@ -30,11 +38,19 @@ export function usePresentations() {
     }
 
     const updatePresentation = async (data) => {
-        errors.value = '';
         try{
+            errors.value = '';
             let res = await axios.put(`/api/presentation/${data.id}`,data);
             presentations.value = res.data.data;
+            Toast.fire({
+                icon: 'success',
+                title: 'Actualizado Exitosamente'
+            })
         }catch (e) {
+            Toast.fire({
+                icon: 'error',
+                title: 'Algo salio mal, revise el formulario.'
+            })
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
                     errors.value += e.response.data.errors[key][0] + ' ';
@@ -60,5 +76,5 @@ export function usePresentations() {
     })
 
 
-    return { presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation, updatePresentation };
+    return { presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation, updatePresentation, errors };
 }
