@@ -1,6 +1,21 @@
 <template>
     <breadcrumb-component folder="Almacén" subfolder="Presentación"/>
-    <table-component title="Presentación" :data="presentations" :pagination="pagination" @delete="destroyPresentation" @update="updatingPresentation" @search="findPresentation"/>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Presentación
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
+                    <i class="icon-plus"></i>&nbsp;Nuevo
+                </button>
+            </div>
+            <div class="card-body">
+                <search-component @search="findPresentation"/>
+                <table-component :data="presentations"  @update="updatingPresentation" @load="loadPresentation" />
+                <pagination-component :pagination="pagination"/>
+            </div>
+        </div>
+    </div>
+    <delete-component title="presentación" :data="form" @delete="destroyPresentation"  />
     <!--Inicio del modal agregar/actualizar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
@@ -36,13 +51,19 @@
 <script>
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/TableComponent";
+import SearchComponent from "../components/SearchComponent";
+import PaginationComponent from "../components/PaginationComponent";
+import DeleteComponent from "../components/DeleteComponent";
 import { usePresentations } from '../composables/usePresentations';
+import {useToast} from "../composables/useToast";
 import {reactive, watch, onMounted, ref, provide} from "vue";
-import Swal from 'sweetalert2';
 export default {
     components: {
         BreadcrumbComponent,
-        TableComponent
+        TableComponent,
+        SearchComponent,
+        PaginationComponent,
+        DeleteComponent
     },
     setup(){
         const search = ref('');
@@ -51,7 +72,8 @@ export default {
             name : '',
         })
 
-        const {presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation, updatePresentation, errors} = usePresentations();
+        const {presentations, pagination, route, getAll, savePresentation, deletePresentation, updatePresentation, errors} = usePresentations();
+        const {successToast} = useToast();
 
         provide('errors', errors);
 
@@ -64,20 +86,21 @@ export default {
         const destroyPresentation = async(id) =>{
             await deletePresentation(id);
             await getAll();
-            Toast.fire({
-                icon: 'success',
-                title: 'Eliminado Exitosamente'
-            })
+            successToast('Eliminado')
         };
 
         const updatingPresentation = async (data) => {
             await updatePresentation(data);
-
             await getAll();
         };
 
         const findPresentation = async(data) => {
             await getAll(data);
+        }
+
+        const loadPresentation = (data) => {
+            form.name = data.name;
+            form.id = data.id;
         }
 
         const clear = () => {
@@ -89,7 +112,7 @@ export default {
         watch(() => route.query.page , () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation, findPresentation, errors, clear };
+        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation, findPresentation, errors, clear, loadPresentation };
     }
 }
 </script>

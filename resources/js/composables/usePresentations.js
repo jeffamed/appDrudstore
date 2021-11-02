@@ -1,11 +1,13 @@
-import {ref} from 'vue';
+import {useToast} from "./useToast";
 import { useRoute } from 'vue-router';
-import Swal from "sweetalert2";
+import {ref} from 'vue';
+
 export function usePresentations() {
     const errors = ref('');
     const presentations = ref([]);
     const pagination = ref([]);
     const route = useRoute();
+    const {successToast, errorToast} = useToast();
 
     const getAll = async (search = '') => {
         console.log(search);
@@ -13,22 +15,15 @@ export function usePresentations() {
         presentations.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;
-
     };
 
     const savePresentation = async (data) => {
         try {
             errors.value = '';
-            let res = await axios.post('/api/presentation', data);
-            await Toast.fire({
-                icon : 'success',
-                title : 'Registrado Existosamente',
-            })
+            await axios.post('/api/presentation', data);
+            await successToast('Registrado')
         }catch (e) {
-            Toast.fire({
-                icon : 'error',
-                title : 'Algo salio mal, revise el formulario.'
-            })
+            errorToast;
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
                     errors.value += e.response.data.errors[key][0] + ' ';
@@ -42,15 +37,9 @@ export function usePresentations() {
             errors.value = '';
             let res = await axios.put(`/api/presentation/${data.id}`,data);
             presentations.value = res.data.data;
-            Toast.fire({
-                icon: 'success',
-                title: 'Actualizado Exitosamente'
-            })
+            await successToast('Actualizado');
         }catch (e) {
-            Toast.fire({
-                icon: 'error',
-                title: 'Algo salio mal, revise el formulario.'
-            })
+            errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
                     errors.value += e.response.data.errors[key][0] + ' ';
@@ -60,21 +49,8 @@ export function usePresentations() {
     }
 
     const deletePresentation = async (data) => {
-        let res = await axios.delete(`/api/presentation/${data}`);
+        await axios.delete(`/api/presentation/${data}`);
     }
 
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-    })
-
-
-    return { presentations, pagination, route, Toast, getAll, savePresentation, deletePresentation, updatePresentation, errors };
+    return { presentations, pagination, route, getAll, savePresentation, deletePresentation, updatePresentation, errors };
 }
