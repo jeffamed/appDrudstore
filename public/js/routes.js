@@ -495,6 +495,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       form.name = '';
     };
 
+    var findPresentation = /*#__PURE__*/function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(data) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return getAll(data);
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      return function findPresentation(_x3) {
+        return _ref5.apply(this, arguments);
+      };
+    }();
+
     (0,vue__WEBPACK_IMPORTED_MODULE_8__.onMounted)(getAll);
     (0,vue__WEBPACK_IMPORTED_MODULE_8__.watch)(function () {
       return route.query.page;
@@ -513,6 +535,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: errors,
       clear: clear,
       loadPresentation: loadPresentation,
+      findPresentation: findPresentation,
       presentation: presentation
     };
   }
@@ -1483,7 +1506,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     folder: "Almacén",
     subfolder: "Presentación"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_search_component, {
-    onSearch: _ctx.findPresentation
+    onSearch: $setup.findPresentation
   }, null, 8
   /* PROPS */
   , ["onSearch"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_table_component, {

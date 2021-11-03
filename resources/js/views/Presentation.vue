@@ -131,12 +131,16 @@ export default {
             form.name = '';
         }
 
+        const findPresentation = async(data) => {
+            await getAll(data);
+        }
+
         onMounted(getAll);
 
         watch(() => route.query.page , () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation,  errors, clear, loadPresentation, presentation };
+        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation,  errors, clear, loadPresentation, findPresentation, presentation };
     }
 }
 </script>
