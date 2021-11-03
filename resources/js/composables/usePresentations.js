@@ -5,12 +5,12 @@ import {ref} from 'vue';
 export function usePresentations() {
     const errors = ref('');
     const presentations = ref([]);
+    const presentation = ref([]);
     const pagination = ref([]);
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
     const getAll = async (search = '') => {
-        console.log(search);
         let res = await axios.get(`/api/presentation?page=${ route.query.page || 1}&search=${ search }`);
         presentations.value = res.data.data;
         pagination.value = res.data;
@@ -35,7 +35,7 @@ export function usePresentations() {
     const updatePresentation = async (data) => {
         try{
             errors.value = '';
-            let res = await axios.put(`/api/presentation/${data.id}`,data);
+            let res = await axios.put(`/api/presentation/${ data.id }`, data);
             presentations.value = res.data.data;
             await successToast('Actualizado');
         }catch (e) {

@@ -17,7 +17,7 @@ class PresentationController extends Controller
     public function index(Request $request)
     {
         Log::info("variable search: ".$request->search);
-        $presentations = Presentation::where('name','like','%'.$request->search.'%')->latest()->paginate(5);
+        $presentations = Presentation::where('name','like','%'.$request->search.'%')->latest('id')->paginate(5);
         return response()->json($presentations);
     }
 
@@ -29,7 +29,7 @@ class PresentationController extends Controller
      */
     public function store(PresentationRequest $request)
     {
-        Presentation::create($request->toArray());
+        Presentation::create($request->validated());
 
         return response()->json("Registrado Exitosamente", 200);
 
@@ -55,7 +55,7 @@ class PresentationController extends Controller
      */
     public function update(PresentationRequest $request, Presentation $presentation)
     {
-        $presentation->update($request->toArray());
+        $presentation->update($request->validated());
 
         return response()->json($presentation);
     }
