@@ -15,3 +15,4 @@ yarn-error.log
 /.vscode
 /public/js/home.js
 /public/mix-manifest.json
+/public/js/routes.js

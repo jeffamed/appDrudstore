@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PresentationRequest;
 use App\Models\Presentation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PresentationController extends Controller
 {
@@ -12,19 +14,20 @@ class PresentationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $presentations = Presentation::all();
+        Log::info("variable search: ".$request->search);
+        $presentations = Presentation::where('name','like','%'.$request->search.'%')->latest()->paginate(5);
         return response()->json($presentations);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PresentationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PresentationRequest $request)
     {
         Presentation::create($request->toArray());
 
@@ -46,11 +49,11 @@ class PresentationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PresentationRequest  $request
      * @param  \App\Models\Presentation  $presentation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Presentation $presentation)
+    public function update(PresentationRequest $request, Presentation $presentation)
     {
         $presentation->update($request->toArray());
 

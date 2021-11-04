@@ -14,6 +14,8 @@
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 <div id="app"></div>
 <!-- Bootstrap and necessary plugins -->
+<script type="text/javascript">
+</script>
 <script src="js/app.js"></script>
 <script src="js/coreui.js"></script>
 </body>
