@@ -16,6 +16,7 @@ class CreateUsagesTable extends Migration
         Schema::create('usages', function (Blueprint $table) {
             $table->id();
             $table->text('description');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ class CreateLaboratoriesTable extends Migration
             $table->id();
             $table->text('name', 250);
             $table->text('address')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

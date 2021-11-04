@@ -31,6 +31,7 @@ class CreateProductsTable extends Migration
             $table->foreign('location_id')->references('id')->on('locations');
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
