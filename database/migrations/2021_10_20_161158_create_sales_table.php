@@ -23,6 +23,7 @@ class CreateSalesTable extends Migration
             $table->float('subtotal', 8, 2);
             $table->float('total', 8, 2);
             $table->float('discount', 8, 2)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -32,7 +32,7 @@
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
                             <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors.replace('name', 'nombre') }}</span>
+                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
                             <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="presentation.name">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors.replace('name', 'nombre') }}</span>
+                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
                 </div>

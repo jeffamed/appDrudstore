@@ -19,6 +19,7 @@ class CreateProductUsageTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedBigInteger('usage_id');
             $table->foreign('usage_id')->references('id')->on('usages');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
