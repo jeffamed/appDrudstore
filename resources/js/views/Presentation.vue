@@ -11,7 +11,7 @@
             <div class="card-body">
                 <search-component @search="findPresentation"/>
                 <table-component :data="presentations"  @load="loadPresentation" />
-                <pagination-component :pagination="pagination"/>
+                <pagination-component name="presentation" :pagination="pagination"/>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model.trim="form.name">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
@@ -120,7 +120,6 @@ export default {
 
         const updatingPresentation = async () => {
             await updatePresentation(presentation.value);
-            await getAll();
         };
 
         const loadPresentation = async (data) => {
@@ -140,7 +139,7 @@ export default {
         watch(() => route.query.page , () => {
             getAll()
         })
-        return { presentations, pagination, route, getAll, save, form, destroyPresentation, updatingPresentation,  errors, clear, loadPresentation, findPresentation, presentation };
+        return { presentations, pagination, save, form, destroyPresentation, updatingPresentation, errors, clear, loadPresentation, findPresentation, presentation };
     }
 }
 </script>

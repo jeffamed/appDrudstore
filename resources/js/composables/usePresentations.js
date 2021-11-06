@@ -5,7 +5,6 @@ import {ref} from 'vue';
 export function usePresentations() {
     const errors = ref('');
     const presentations = ref([]);
-    const presentation = ref([]);
     const pagination = ref([]);
     const route = useRoute();
     const {successToast, errorToast} = useToast();
@@ -23,7 +22,7 @@ export function usePresentations() {
             await axios.post('/api/presentation', data);
             await successToast('Registrado')
         }catch (e) {
-            errorToast;
+            errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
                     errors.value += e.response.data.errors[key][0] + ' ';

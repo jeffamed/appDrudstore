@@ -107,7 +107,7 @@ return [
 
     'attributes' => [
         'name'=> 'nombre',
-        'description' => 'description'
+        'description' => 'descripción'
     ],
 
 ];
