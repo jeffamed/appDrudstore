@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LaboratoryRequest;
 use App\Models\Laboratory;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class LaboratoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LaboratoryRequest $request)
     {
         Laboratory::create($request->toArray());
 
@@ -49,7 +50,7 @@ class LaboratoryController extends Controller
      * @param  \App\Models\Laboratory  $laboratory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Laboratory $laboratory)
+    public function update(LaboratoryRequest $request, Laboratory $laboratory)
     {
         $laboratory->update($request->toArray());
 

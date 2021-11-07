@@ -107,7 +107,8 @@ return [
 
     'attributes' => [
         'name'=> 'nombre',
-        'description' => 'descripción'
+        'description' => 'descripción',
+        'address' => 'dirección',
     ],
 
 ];
