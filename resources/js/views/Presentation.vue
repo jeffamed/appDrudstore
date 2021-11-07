@@ -120,6 +120,7 @@ export default {
 
         const updatingPresentation = async () => {
             await updatePresentation(presentation.value);
+            await getAll();
         };
 
         const loadPresentation = async (data) => {

@@ -82,6 +82,7 @@ import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/Usage/TableComponent";
 import SearchComponent from "../components/SearchComponent";
 import {useUsages} from "../composables/useUsages";
+import {useToast} from "../composables/useToast";
 import {watch, onMounted, reactive, ref} from "vue";
 import DeleteComponent from "../components/DeleteComponent";
 import PaginationComponent from "../components/PaginationComponent";
@@ -100,6 +101,7 @@ export default {
         })
         const usage = ref([]);
         const { usages, pagination, route, getAll, saveUsage, errors, deleteUsage, updateUsage } = useUsages();
+        const {successToast} = useToast();
 
         const save = async () => {
             await saveUsage(form);
@@ -117,6 +119,7 @@ export default {
 
         const updatingUsage = async () => {
             await updateUsage(usage.value);
+            getAll();
         }
 
         const destroyUsage = async (id) => {
@@ -135,7 +138,7 @@ export default {
             getAll()
         })
 
-        return { form, usages, pagination, save, findUsage, errors, loadUsage, usage, destroyUsage, updatingUsage, clear };
+        return { form, usages, pagination, errors, save, findUsage, loadUsage, usage, destroyUsage, updatingUsage, clear };
     }
 }
 </script>
