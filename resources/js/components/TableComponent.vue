@@ -2,7 +2,7 @@
     <table class="table table-bordered table-striped table-sm">
         <thead>
             <tr>
-                <th  v-for="(item,index) in header" :key="index">{{ item }}</th>
+                <th  v-for="(item, key, index) in header" :key="index">{{ item }}</th>
             </tr>
         </thead>
         <tbody>
@@ -48,11 +48,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-    .pagination > a.router-link-exact-active{
-        color: #fff;
-        background-color: #20a8d8;
-        border-color: #20a8d8;
-    }
-</style>

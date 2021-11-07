@@ -20137,10 +20137,11 @@ var routes = [{
   path: '/:pathMatch(.*)*',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/404 */ "./resources/js/views/404.vue"))
 }];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createWebHistory)(),
   routes: routes
-}));
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
 /***/ }),
 
