@@ -109,6 +109,10 @@ return [
         'name'=> 'nombre',
         'description' => 'descripción',
         'address' => 'dirección',
+        'last_name' => 'apellido',
+        'phone' => 'teléfono',
+        'document' => 'cedula',
+        'email' => 'correo electronico'
     ],
 
 ];
