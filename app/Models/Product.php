@@ -42,8 +42,13 @@ class Product extends Model
         return $this->belongsTo(Presentation::class);
     }
 
-    public function detailsSale()
+    public function detailSale()
     {
         return $this->hasMany(SaleDetails::class);
+    }
+
+    public function detailOrder()
+    {
+        return $this->hasMany(OrderDetails::class);
     }
 }

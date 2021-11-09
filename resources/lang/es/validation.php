@@ -112,7 +112,18 @@ return [
         'last_name' => 'apellido',
         'phone' => 'teléfono',
         'document' => 'cedula',
-        'email' => 'correo electronico'
+        'email' => 'correo electrónico',
+        'code' => 'código',
+        'price' => 'precio',
+        'cost' => 'costo',
+        'discount' => 'descuento',
+        'stock' => 'unidades existente',
+        'box_stock' => 'cajas existente',
+        'expire_at' => 'fecha de vencimiento',
+        'laboratory_id' => 'laboratorio',
+        'type_id' => 'tipo de producto',
+        'location_id' => 'ubicación',
+        'supplier_id' => 'proveedor'
     ],
 
 ];

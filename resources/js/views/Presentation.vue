@@ -79,21 +79,15 @@
 </template>
 
 <script>
-import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/TableComponent";
 import SearchComponent from "../components/SearchComponent";
-import PaginationComponent from "../components/PaginationComponent";
-import DeleteComponent from "../components/DeleteComponent";
 import { usePresentations } from '../composables/usePresentations';
 import {useToast} from "../composables/useToast";
 import {reactive, watch, onMounted, ref } from "vue";
 export default {
     components: {
-        BreadcrumbComponent,
         TableComponent,
         SearchComponent,
-        PaginationComponent,
-        DeleteComponent
     },
     setup(){
         const search = ref('');
