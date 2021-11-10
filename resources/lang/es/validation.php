@@ -105,9 +105,26 @@ return [
     |
     */
 
+    /*traducciones personalizadas de los campos o columnas de la bd*/
     'attributes' => [
         'name'=> 'nombre',
-        'description' => 'description'
+        'description' => 'descripción',
+        'address' => 'dirección',
+        'last_name' => 'apellido',
+        'phone' => 'teléfono',
+        'document' => 'cedula',
+        'email' => 'correo electrónico',
+        'code' => 'código',
+        'price' => 'precio',
+        'cost' => 'costo',
+        'discount' => 'descuento',
+        'stock' => 'unidades existente',
+        'box_stock' => 'cajas existente',
+        'expire_at' => 'fecha de vencimiento',
+        'laboratory_id' => 'laboratorio',
+        'type_id' => 'tipo de producto',
+        'location_id' => 'ubicación',
+        'supplier_id' => 'proveedor'
     ],
 
 ];

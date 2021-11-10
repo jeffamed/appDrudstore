@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsageRequest;
 use App\Models\Usage;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class UsageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $usages = Usage::all();
+        $usages = Usage::where('description','like','%'.$request->search.'%')->latest('id')->paginate(6);
         return response()->json($usages);
     }
 
@@ -25,9 +26,9 @@ class UsageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsageRequest $request)
     {
-        Usage::create($request->toArray());
+        Usage::create($request->validated());
 
         return response()->json('Registrado Exitosamente');
     }
@@ -51,9 +52,9 @@ class UsageController extends Controller
      * @param  \App\Models\Usage  $usage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usage $usage)
+    public function update(UsageRequest $request, Usage $usage)
     {
-        $usage->update($request->toArray());
+        $usage->update($request->validated());
         return response()->json("Actualizada correctamente");
     }
 

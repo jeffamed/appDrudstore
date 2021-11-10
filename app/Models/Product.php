@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
@@ -41,8 +42,13 @@ class Product extends Model
         return $this->belongsTo(Presentation::class);
     }
 
-    public function detailsSale()
+    public function detailSale()
     {
         return $this->hasMany(SaleDetails::class);
+    }
+
+    public function detailOrder()
+    {
+        return $this->hasMany(OrderDetails::class);
     }
 }

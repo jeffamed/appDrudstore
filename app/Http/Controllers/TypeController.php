@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TypeRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,10 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $typies = Type::all();
-        return response()->json($typies);
+        $types = Type::where('name','like','%'.$request->search.'%')->latest('id')->paginate(5);
+        return response()->json($types);
     }
 
 
@@ -25,9 +26,9 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TypeRequest $request)
     {
-        Type::create($request->toArray());
+        Type::create($request->validated());
 
         return response()->json('Registrado Correctamente', 200);
     }
@@ -50,7 +51,7 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(TypeRequest $request, Type $type)
     {
         $type->update($request->toArray());
 
