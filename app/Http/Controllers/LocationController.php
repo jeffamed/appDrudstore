@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Requests\LocationRequest;
 
 class LocationController extends Controller
 {
@@ -12,9 +14,10 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $locations = Location::all();
+        Log::info("variable search: ".$request->search);
+        $locations = Location::where('name','like','%'.$request->search.'%')->latest('id')->paginate(5);
         return response()->json($locations);
     }
 
@@ -24,9 +27,9 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LocationRequest $request)
     {
-        Location::create($request->toArray());
+        Location::create($request->validated());
 
         return response()->json("Registrado Exitosamente", 200);
 
@@ -50,11 +53,11 @@ class LocationController extends Controller
      * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Location $location)
+    public function update(LocationRequest $request, Location $location)
     {
-        $location->update($request->toArray());
+        $location->update($request->validated());
 
-        return response()->json("Actualizado Correctamente");
+        return response()->json($location);
     }
 
     /**
