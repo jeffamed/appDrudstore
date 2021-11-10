@@ -20326,6 +20326,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+/*componente importados de manera global*/
+
 app.component('DeleteComponent', _components_DeleteComponent__WEBPACK_IMPORTED_MODULE_3__["default"]);
 app.component('BreadcrumbComponent', _components_BreadcrumbComponent__WEBPACK_IMPORTED_MODULE_4__["default"]);
 app.component('PaginationComponent', _components_PaginationComponent__WEBPACK_IMPORTED_MODULE_5__["default"]);
