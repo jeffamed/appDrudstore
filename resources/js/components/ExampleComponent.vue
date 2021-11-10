@@ -5,6 +5,8 @@
         <li class="breadcrumb-item"><a href="#">Admin</a></li>
         <li class="breadcrumb-item active">Dashboard</li>
     </ol>
+
+    /*cualquier cosas*/
     <div class="container-fluid">
         <!-- Ejemplo de tabla Listado -->
         <div class="card">
