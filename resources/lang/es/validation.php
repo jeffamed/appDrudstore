@@ -105,6 +105,7 @@ return [
     |
     */
 
+    /*traducciones personalizadas de los campos o columnas de la bd*/
     'attributes' => [
         'name'=> 'nombre',
         'description' => 'descripción',

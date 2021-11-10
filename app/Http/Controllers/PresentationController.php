@@ -17,6 +17,7 @@ class PresentationController extends Controller
     public function index(Request $request)
     {
         $presentations = Presentation::where('name','like','%'.$request->search.'%')->latest('id')->paginate(5);
+
         return response()->json($presentations);
     }
 

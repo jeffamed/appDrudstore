@@ -12,6 +12,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 const app = createApp(App);
 
+/*componente importados de manera global*/
 app.component('DeleteComponent', DeleteComponent);
 app.component('BreadcrumbComponent', BreadcrumbComponent);
 app.component('PaginationComponent', PaginationComponent);
