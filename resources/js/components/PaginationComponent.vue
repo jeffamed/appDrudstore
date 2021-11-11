@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-    .pagination a.router-link-exact-active{
+    .pagination > a.router-link-exact-active{
         color: #fff;
         background-color: #20a8d8;
         border-color: #20a8d8;

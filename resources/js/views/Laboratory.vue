@@ -33,14 +33,14 @@
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
                             <input type="text" name="name" class="form-control" placeholder="Nombre del Laboratorio" v-model="form.name">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            <span class="help-block text-danger" v-show="errors.name.length">(*) {{ errors.name }}</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
                         <div class="col-md-9">
                             <input type="text" name="direccion" class="form-control" placeholder="Direccion del Laboratorio" v-model="form.address">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            <span class="help-block text-danger" v-show="errors.address.length">(*) {{ errors.address }}</span>
                         </div>
                     </div>
                 </div>
@@ -120,8 +120,8 @@ export default {
 
         const save = async () => {
             await saveLaboratory(form);
-                await clear();
             await getAll();
+            await clear();
         }
 
         const updatingLaboratory = async () => {

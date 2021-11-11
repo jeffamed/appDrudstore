@@ -1,9 +1,12 @@
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import {useRoute} from "vue-router";
 import {useToast} from "./useToast";
 
 export function useLaboratories(){
-    const errors = ref('');
+    const errors = reactive({
+        name: '',
+        address: ''
+    });
     const laboratories = ref([]);
     const pagination = ref([]);
     const route = useRoute();
@@ -17,15 +20,22 @@ export function useLaboratories(){
     };
 
     const saveLaboratory = async (data) => {
+        errors.name = '';
+        errors.address = '';
         try {
-            errors.value = '';
             await axios.post('/api/laboratory', data);
-            await successToast('Registrado')
+            await successToast('Registrado');
         }catch (e) {
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
-                    errors.value += e.response.data.errors[key][0] + ' ';
+                    if (_.has(e.response.data.errors, 'name')){
+                        errors.name = e.response.data.errors['name'][0];
+                    }
+
+                    if(_.has(e.response.data.errors, 'address')) {
+                        errors.address = e.response.data.errors['address'][0];
+                    }
                 }
             }
         }
@@ -33,7 +43,8 @@ export function useLaboratories(){
 
     const updateLaboratory = async (data) => {
         try{
-            errors.value = '';
+            errors.name = '';
+            errors.address = '';
             let res = await axios.put(`/api/laboratory/${ data.id }`, data);
             laboratories.value = res.data.data;
             await successToast('Actualizado');
