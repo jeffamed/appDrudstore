@@ -119,7 +119,7 @@ export default {
         }
 
         const loadType = async (data) => {
-            type.value = data;
+            type.value = { ...data };
         }
 
         const findType = async(data) => {

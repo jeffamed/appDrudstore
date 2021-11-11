@@ -125,7 +125,7 @@ export default {
         };
 
         const loadLocation = async (data) => {
-            location.value = data;
+            location.value = { ...data };
         }
 
         const clear = () => {

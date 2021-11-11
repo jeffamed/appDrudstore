@@ -108,7 +108,7 @@ export default {
         }
 
         const loadUsage = async (data) => {
-            usage.value = data;
+            usage.value = { ...data };
         }
 
         const updatingUsage = async () => {

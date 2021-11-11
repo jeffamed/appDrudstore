@@ -118,7 +118,7 @@ export default {
         };
 
         const loadPresentation = async (data) => {
-            presentation.value = data;
+            presentation.value = { ...data };
         }
 
         const clear = () => {
