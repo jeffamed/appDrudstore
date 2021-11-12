@@ -11,7 +11,7 @@
             <div class="card-body">
                 <search-component @search="findLocation"/>
                 <table-component :data="locations"  @load="loadLocation" />
-                <pagination-component :pagination="pagination"/>
+                <pagination-component name="location" :pagination="pagination"/>
             </div>
         </div>
     </div>
