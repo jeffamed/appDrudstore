@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SupplierRequest;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $supplier = Supplier::all();
+        $supplier = Supplier::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
         return response()->json($supplier);
     }
 
@@ -25,7 +26,7 @@ class SupplierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SupplierRequest $request)
     {
         Supplier::create($request->toArray());
 
@@ -51,7 +52,7 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(SupplierRequest $request, Supplier $supplier)
     {
         $supplier->update($request->toArray());
         return response()->json("Actualizada correctamente");

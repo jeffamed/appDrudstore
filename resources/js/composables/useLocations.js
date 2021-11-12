@@ -5,7 +5,6 @@ import {ref} from 'vue';
 export function useLocations() {
     const errors = ref('');
     const locations = ref([]);
-    const location = ref([]);
     const pagination = ref([]);
     const route = useRoute();
     const {successToast, errorToast} = useToast();
