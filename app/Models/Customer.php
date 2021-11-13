@@ -12,8 +12,17 @@ class Customer extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['full_name'];
+
     public function sales()
     {
         return $this->hasMany(Sale::class);
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->name." ".$this->last_name;
+    }
+
+
 }

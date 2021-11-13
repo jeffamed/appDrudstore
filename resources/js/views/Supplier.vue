@@ -161,7 +161,6 @@ export default {
             supplier.value = { ...data };
         }
 
-
         const clear = () => {
           form.ruc = '';
           form.name = '';
