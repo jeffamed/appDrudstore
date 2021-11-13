@@ -23,6 +23,7 @@ export function useUsages()
             await axios.post('/api/usage', data);
             await successToast('Registrado')
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
@@ -40,6 +41,7 @@ export function useUsages()
             await successToast('Actualizado');
             $('#btnCloseUpdate').click();
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {

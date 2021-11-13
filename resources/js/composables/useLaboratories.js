@@ -49,6 +49,7 @@ export function useLaboratories(){
             laboratories.value = res.data.data;
             await successToast('Actualizado');
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {

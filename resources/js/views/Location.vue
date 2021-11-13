@@ -109,8 +109,11 @@ export default {
 
         const save = async() => {
             await saveLocation(form);
-            await clear();
-            await getAll();
+            await errors;
+            if (errors.value.length === 0){
+                await clear();
+                await getAll();
+            }
         };
 
         const destroyLocation = async(id) =>{

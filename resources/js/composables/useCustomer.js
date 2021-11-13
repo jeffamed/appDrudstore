@@ -18,9 +18,11 @@ export function useCustomer(){
 
     const saveCustomer = async (data) => {
         try {
+            errors.value = '';
             await axios.post('/api/customer', data);
             await successToast('Registrado');
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
@@ -32,10 +34,12 @@ export function useCustomer(){
 
     const updateCustomer = async (data) => {
         try{
+            errors.value = '';
             let res = await axios.put(`/api/customer/${ data.id }`, data);
             customers.value = res.data.data;
             await successToast('Actualizado');
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {

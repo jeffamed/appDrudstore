@@ -138,8 +138,11 @@ export default {
 
         const save = async () => {
             await saveSupplier(form);
-            await getAll();
-            await clear()
+            await errors;
+            if (errors.value.length === 0){
+                await clear()
+                await getAll();
+            }
         }
 
         const updatingSupplier = async () => {

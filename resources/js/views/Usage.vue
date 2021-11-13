@@ -99,8 +99,11 @@ export default {
 
         const save = async () => {
             await saveUsage(form);
-            await getAll();
-            await clear();
+            await errors;
+            if (errors.value.length === 0){
+                await clear();
+                await getAll();
+            }
         }
 
         const findUsage = async(data) => {

@@ -103,8 +103,11 @@ export default {
 
         const save = async() => {
             await saveType(form);
-            await clear();
-            await getAll();
+            await errors;
+            if (errors.value.length === 0){
+                await clear();
+                await getAll();
+            }
         };
 
         const updatingType = async () => {

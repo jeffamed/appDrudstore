@@ -22,6 +22,7 @@ export function useLocations() {
             await axios.post('/api/location', data);
             await successToast('Registrado')
         }catch (e) {
+            errors.value = '';
             errorToast;
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
@@ -38,6 +39,7 @@ export function useLocations() {
             locations.value = res.data.data;
             await successToast('Actualizado');
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {

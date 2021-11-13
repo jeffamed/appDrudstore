@@ -18,9 +18,11 @@ export function useSuppliers(){
 
     const saveSupplier = async (data) => {
         try {
+            errors.value = '';
             await axios.post('/api/supplier', data);
             await successToast('Registrado');
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
@@ -32,10 +34,12 @@ export function useSuppliers(){
 
     const updateSupplier = async (data) => {
         try{
+            errors.value = '';
             let res = await axios.put(`/api/supplier/${ data.id }`, data);
             suppliers.value = res.data.data;
             await successToast('Actualizado');
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
