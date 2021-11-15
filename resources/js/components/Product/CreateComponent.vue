@@ -31,7 +31,7 @@
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="supplier">Proveedor</label>
-                <input type="text" name="supplier" class="form-control" placeholder="Proveedor del Producto">
+                <vue-select v-model="form.supplier_id" :options="options" label-by="title"  clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Laboratorio</label>
@@ -72,17 +72,21 @@
         <div class="row form-group">
             <div class="col-md-12">
                 <router-link :to="{ name: 'product' }" class="btn btn-danger float-right"> Cancelar</router-link>
-                <button class="btn btn-success mr-2 float-right">Guardar</button>
+                <button class="btn btn-success mr-2 float-right" @click="save">Guardar</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import {reactive} from "vue";
-
+import {reactive, ref} from "vue";
+import VueSelect from 'vue-next-select'
+import 'vue-next-select/dist/index.min.css'
 export default {
     name: "CreateComponent",
+    components:{
+      VueSelect
+    },
     setup(){
         const form = reactive({
             code: '',
@@ -99,8 +103,11 @@ export default {
             location_id: 0,
             presentation_id: 0,
         })
-
-        return {form};
+        const options = ref([{id: 1, title: 'I'}, {id: 2, title: 'love'}, {id: 3, title: 'vue'}]);
+        const save = () => {
+            console.log(form.supplier_id.id)
+        }
+        return {form, options, save};
     }
 }
 </script>
