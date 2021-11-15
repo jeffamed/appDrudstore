@@ -20415,6 +20415,10 @@ var routes = [{
   name: 'product',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Product */ "./resources/js/views/Product.vue"))
 }, {
+  path: '/crear-productos',
+  name: 'product.create',
+  component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Product/CreateComponent */ "./resources/js/components/Product/CreateComponent.vue"))
+}, {
   path: '/ventas',
   name: 'sale',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Sale */ "./resources/js/views/Sale.vue"))
