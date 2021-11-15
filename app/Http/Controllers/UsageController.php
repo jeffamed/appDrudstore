@@ -70,4 +70,10 @@ class UsageController extends Controller
 
         return response()->json("Eliminado correctamente");
     }
+
+    public function getAll()
+    {
+        $usages = Usage::latest('id')->get();
+        return response()->json($usages);
+    }
 }

@@ -98,7 +98,7 @@ export default {
             name : '',
         })
 
-        const { types, pagination, route, errors, getAll, saveType, updateType, deleteType } = useTypes();
+        const { types, pagination, route, errors, getTypes, saveType, updateType, deleteType } = useTypes();
         const {successToast} = useToast();
 
         const save = async() => {
@@ -106,18 +106,18 @@ export default {
             await errors;
             if (errors.value.length === 0){
                 await clear();
-                await getAll();
+                await getTypes();
             }
         };
 
         const updatingType = async () => {
             await updateType(type.value);
-            getAll();
+            getTypes();
         };
 
         const destroyType = async (id) => {
             await deleteType(id);
-            getAll();
+            getTypes();
             successToast('Eliminado');
         }
 
@@ -126,7 +126,7 @@ export default {
         }
 
         const findType = async(data) => {
-            await getAll(data);
+            await getTypes(data);
         }
 
         const clear = () => {
@@ -134,10 +134,10 @@ export default {
         }
 
         watch(() => route.query.page , () => {
-            getAll()
+            getTypes()
         })
 
-        onMounted(getAll);
+        onMounted(getTypes);
 
         return {form, types, type, pagination, errors, save, loadType, updatingType, destroyType, findType, clear};
     }

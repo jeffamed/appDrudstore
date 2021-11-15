@@ -12,7 +12,7 @@ export function useLaboratories(){
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getAll = async (conditon = 'name',search = '') => {
+    const getLaboratories = async (conditon = 'name',search = '') => {
         let res = await axios.get(`/api/laboratory?page=${ route.query.page || 1}&condition=${conditon}&search=${ search }`);
         laboratories.value = res.data.data;
         pagination.value = res.data;
@@ -63,5 +63,5 @@ export function useLaboratories(){
         await axios.delete(`/api/laboratory/${data}`);
     }
 
-    return { laboratories, pagination, errors, route, getAll, saveLaboratory, updateLaboratory, deleteLaboratory };
+    return { laboratories, pagination, errors, route, getLaboratories, saveLaboratory, updateLaboratory, deleteLaboratory };
 }

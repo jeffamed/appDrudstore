@@ -94,7 +94,7 @@ export default {
             description: ''
         })
         const usage = ref([]);
-        const { usages, pagination, route, getAll, saveUsage, errors, deleteUsage, updateUsage } = useUsages();
+        const { usages, pagination, route, getUsages, saveUsage, errors, deleteUsage, updateUsage } = useUsages();
         const {successToast} = useToast();
 
         const save = async () => {
@@ -102,12 +102,12 @@ export default {
             await errors;
             if (errors.value.length === 0){
                 await clear();
-                await getAll();
+                await getUsages();
             }
         }
 
         const findUsage = async(data) => {
-            await getAll(data);
+            await getUsages(data);
         }
 
         const loadUsage = async (data) => {
@@ -116,12 +116,12 @@ export default {
 
         const updatingUsage = async () => {
             await updateUsage(usage.value);
-            getAll();
+            getUsages();
         }
 
         const destroyUsage = async (id) => {
             await deleteUsage(id);
-            await getAll();
+            await getUsages();
             successToast('Eliminado')
         }
 
@@ -129,10 +129,10 @@ export default {
             form.description = ''
         }
 
-        onMounted(getAll);
+        onMounted(getUsages);
 
         watch(() => route.query.page , () => {
-            getAll()
+            getUsages()
         })
 
         return { form, usages, pagination, errors, save, findUsage, loadUsage, usage, destroyUsage, updatingUsage, clear };

@@ -115,7 +115,7 @@ export default {
             address : 'Dirección'
         });
         const laboratory = ref([]);
-        const {laboratories,errors, route, pagination, getAll, saveLaboratory, updateLaboratory, deleteLaboratory} = useLaboratories();
+        const {laboratories,errors, route, pagination, getLaboratories, saveLaboratory, updateLaboratory, deleteLaboratory} = useLaboratories();
         const {successToast} =useToast();
 
         const save = async () => {
@@ -123,23 +123,23 @@ export default {
             await errors;
             if (errors.value.length === 0){
                 await clear();
-                await getAll();
+                await getLaboratories();
             }
         }
 
         const updatingLaboratory = async () => {
             await updateLaboratory(laboratory.value);
-            await getAll();
+            await getLaboratories();
         }
 
         const destroyLaboratory = async (id) => {
             await deleteLaboratory(id);
-            await getAll();
+            await getLaboratories();
             await successToast('Eliminado');
         }
 
         const findLaboratory = async(condition, search) => {
-            await getAll(condition, search);
+            await getLaboratories(condition, search);
         }
 
         const loadLaboratory = async (data) => {
@@ -152,10 +152,10 @@ export default {
         }
 
         watch( () => route.query.page, ()=>{
-            getAll();
+            getLaboratories();
         });
 
-        onMounted(getAll);
+        onMounted(getLaboratories);
 
         return {form, laboratories, laboratory, pagination, errors, save, clear, loadLaboratory,  updatingLaboratory, destroyLaboratory, findLaboratory, search}
     }

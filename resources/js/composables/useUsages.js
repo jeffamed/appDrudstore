@@ -10,11 +10,16 @@ export function useUsages()
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getAll = async (search = '') => {
+    const getUsages = async (search = '') => {
         let res = await axios.get(`/api/usage?page=${ route.query.page || 1}&search=${ search }`);
         usages.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;
+    };
+
+    const allUsages = async (search = '') => {
+        let res = await axios.get('/api/usage-all');
+        usages.value = res.data;
     };
 
     const saveUsage = async (data) => {
@@ -55,5 +60,5 @@ export function useUsages()
         await axios.delete(`/api/usage/${data}`);
     }
 
-    return { usages, pagination, route, getAll, saveUsage, deleteUsage, updateUsage, errors };
+    return { usages, pagination, route, getUsages, allUsages, saveUsage, deleteUsage, updateUsage, errors };
 }

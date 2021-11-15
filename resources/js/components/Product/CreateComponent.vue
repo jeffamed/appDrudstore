@@ -31,25 +31,25 @@
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="supplier">Proveedor</label>
-                <vue-select v-model="form.supplier_id" :options="options" label-by="title"  clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="form.supplier_id" :options="suppliers" label-by="name" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Laboratorio</label>
-                <input type="text" name="laboratory" class="form-control" placeholder="Laboratorio del Producto">
+                <vue-select v-model="form.laboratory_id" :options="laboratories" label-by="name" placeholder="Seleccione el Laboratorio" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="presentation">Presentación</label>
-                <input type="text" name="presentation" class="form-control" placeholder="Presentacion del Producto">
+                <vue-select v-model="form.presentation_id" :options="presentations" label-by="name" placeholder="Seleccione la Presentación" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Ubicación</label>
-                <input type="text" name="laboratory" class="form-control" placeholder="Ubicación del Producto">
+                <vue-select v-model="form.location_id" :options="locations" label-by="name" placeholder="Seleccione la Ubicacion" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="type">Tipo</label>
-                <input type="text" name="type" class="form-control" placeholder="Tipo del Producto">
+                <vue-select v-model="form.type_id" :options="types" label-by="name" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
@@ -62,10 +62,26 @@
                 Seleccione los usos
             </a>
             <hr>
-            <div class="collapse show mx-3" id="collapseExample">
-                <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                </div>
+            <div class="collapse show col-md-12" id="collapseExample" style="max-height: 250px; overflow: auto">
+                <table class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Seleccione</th>
+                            <th>Usos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in usages" :key="item.id" v-if="usages.length">
+                            <td>
+                                <input type="checkbox" name="cbUsos" id="cbUsos" v-model="form.usage_id" :value="item.id">
+                            </td>
+                            <td v-text="item.description"></td>
+                        </tr>
+                        <tr v-else>
+                            <td colspan="2" class="text-center">No hay datos Registrados</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -79,9 +95,15 @@
 </template>
 
 <script>
-import {reactive, ref} from "vue";
-import VueSelect from 'vue-next-select'
-import 'vue-next-select/dist/index.min.css'
+import {onMounted, reactive, ref} from "vue";
+import VueSelect from 'vue-next-select';
+import 'vue-next-select/dist/index.min.css';
+import {useSuppliers} from "../../composables/useSuppliers";
+import {useLaboratories} from "../../composables/useLaboratories";
+import {usePresentations} from "../../composables/usePresentations";
+import {useLocations} from "../../composables/useLocations";
+import {useTypes} from "../../composables/useTypes";
+import {useUsages} from "../../composables/useUsages";
 export default {
     name: "CreateComponent",
     components:{
@@ -102,12 +124,30 @@ export default {
             type_id: 0,
             location_id: 0,
             presentation_id: 0,
+            usage_id: [],
         })
-        const options = ref([{id: 1, title: 'I'}, {id: 2, title: 'love'}, {id: 3, title: 'vue'}]);
+        const {getSuppliers, suppliers} = useSuppliers();
+        const {getLaboratories, laboratories} = useLaboratories();
+        const {getPresentations, presentations} = usePresentations();
+        const {getLocations, locations} = useLocations();
+        const {getTypes, types} = useTypes();
+        const {allUsages, usages} = useUsages();
         const save = () => {
-            console.log(form.supplier_id.id)
+            form.supplier_id = form.supplier_id.id;
+            form.laboratory_id = form.laboratory_id.id;
+            form.presentation_id = form.presentation_id.id;
+            form.location_id = form.location_id.id;
+            console.log(form.usage_id)
         }
-        return {form, options, save};
+
+        getSuppliers();
+        getLaboratories();
+        getPresentations();
+        getLocations();
+        getTypes();
+        allUsages();
+
+        return {form, suppliers, laboratories, presentations, locations, types, usages, save};
     }
 }
 </script>

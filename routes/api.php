@@ -24,3 +24,4 @@ Route::resource('sale', 'SaleController')->except(['create, edit']);
 Route::resource('supplier', 'SupplierController')->except(['create, edit']);
 Route::resource('type', 'TypeController')->except(['create, edit']);
 Route::resource('usage', 'UsageController')->except(['create, edit']);
+Route::get('usage-all', 'UsageController@getAll');

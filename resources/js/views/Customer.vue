@@ -163,7 +163,7 @@ export default {
             email: '',
         })
         const customer = ref([]);
-        const {customers, pagination, errors, route, getAll, saveCustomer, updateCustomer, deleteCustomer} = useCustomer();
+        const {customers, pagination, errors, route, getCustomers, saveCustomer, updateCustomer, deleteCustomer} = useCustomer();
         const {successToast}= useToast();
 
         const save = async () => {
@@ -171,23 +171,23 @@ export default {
             await errors;
             if(errors.value.length === 0 ){
                 await clear()
-                await getAll();
+                await getCustomers();
             }
         }
 
         const updatingCustomer = async () => {
             await updateCustomer(customer.value);
-            await getAll();
+            await getCustomers();
         }
 
         const destroyCustomer = async (id) => {
             await deleteCustomer(id);
-            await getAll();
+            await getCustomers();
             await successToast('Eliminado');
         }
 
         const findCustomer = async(condition, search) => {
-            await getAll(condition, search);
+            await getCustomers(condition, search);
         }
 
         const loadCustomer = async (data) => {
@@ -204,10 +204,10 @@ export default {
         }
 
         watch( () => route.query.page, ()=>{
-            getAll();
+            getCustomers();
         });
 
-        onMounted(getAll);
+        onMounted(getCustomers);
 
         return {form, customers, pagination, errors, customer, clear,findCustomer, loadCustomer, save, updatingCustomer, destroyCustomer};
     }

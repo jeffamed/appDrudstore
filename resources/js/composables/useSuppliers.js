@@ -9,7 +9,7 @@ export function useSuppliers(){
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getAll = async (conditon = 'name',search = '') => {
+    const getSuppliers = async (conditon = 'name',search = '') => {
         let res = await axios.get(`/api/supplier?page=${ route.query.page || 1}&condition=${conditon}&search=${ search }`);
         suppliers.value = res.data.data;
         pagination.value = res.data;
@@ -53,5 +53,5 @@ export function useSuppliers(){
         await axios.delete(`/api/supplier/${data}`);
     }
 
-    return {suppliers, pagination, getAll, errors, route, saveSupplier, updateSupplier, deleteSupplier};
+    return {suppliers, pagination, getSuppliers, errors, route, saveSupplier, updateSupplier, deleteSupplier};
 }
