@@ -13,9 +13,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $products = Product::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
 
         return response()->json($products);
     }
@@ -28,7 +28,10 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->toArray());
+       $product =  Product::create($request->except('usage_id'));
+
+        //$product->usages()->getRelatedIds();
+        $product->usages()->sync($request->usage_id);
 
         return response()->json("Registrado Correctamente");
     }

@@ -7,30 +7,42 @@
                 <router-link :to="{ name: 'product.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
-                <table-component title="Productos" />
+                <table-component :data="products" @load="loadProduct"/>
             </div>
         </div>
     </div>
+
+    <delete-component  title="Productos" :data="product" @delete="destroyProduct" />
 
 </template>
 
 <script>
 import TableComponent from "../components/Product/TableComponent";
-import {reactive} from "vue";
+import {onMounted, ref} from "vue";
+import {useProducts} from "../composables/useProducts";
+import {useToast} from "../composables/useToast";
 export default {
     name: "Product",
     components: {
         TableComponent
     },
     setup(){
-        const form = reactive({
+        const product = ref([]);
+        const {getProducts, products, pagination, deleteProduct} = useProducts();
 
-        })
-
-        const save = async () => {
+        const loadProduct = async (data) => {
+            product.value = { ...data };
         }
 
-        return {form, save}
+        const destroyProduct = async (id) => {
+            await deleteProduct(id);
+            await getProducts();
+            await successToast('Eliminado');
+        }
+
+        onMounted(getProducts);
+
+        return {products, pagination, product, loadProduct, destroyProduct}
     }
 }
 </script>

@@ -7,8 +7,12 @@
         </thead>
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
-            <td v-text="item.address"></td>
+            <td v-text="item.code"></td>
             <td v-text="item.name"></td>
+            <td v-text="item.price"></td>
+            <td v-text="item.cost"></td>
+            <td v-text="item.stock"></td>
+            <td v-text="item.box_stock"></td>
             <td>
                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
                     <i class="icon-pencil"></i>

@@ -7,7 +7,7 @@
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="code">Codigo</label>
-                <input type="text" name="code" class="form-control" placeholder="Codigo del Producto" v-model="form.code">
+                <input type="text" name="code" class="form-control" placeholder="00000X" v-model="form.code">
             </div>
             <div class="col-md-8">
                 <label class="ml-3 form-control-label" for="name">Nombre</label>
@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
-                <input type="date" name="expire_at" class="form-control">
+                <input type="date" name="expire_at" class="form-control" v-model="form.expire_at">
             </div>
         </div>
         <div class="row form-group">
@@ -62,7 +62,7 @@
                 Seleccione los usos
             </a>
             <hr>
-            <div class="collapse show col-md-12" id="collapseExample" style="max-height: 250px; overflow: auto">
+            <div class="collapse col-md-12" id="collapseExample" style="max-height: 250px; overflow: auto">
                 <table class="table table-bordered table-striped table-responsive">
                     <thead>
                         <tr>
@@ -85,6 +85,8 @@
             </div>
         </div>
 
+        <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+
         <div class="row form-group">
             <div class="col-md-12">
                 <router-link :to="{ name: 'product' }" class="btn btn-danger float-right"> Cancelar</router-link>
@@ -104,6 +106,7 @@ import {usePresentations} from "../../composables/usePresentations";
 import {useLocations} from "../../composables/useLocations";
 import {useTypes} from "../../composables/useTypes";
 import {useUsages} from "../../composables/useUsages";
+import {useProducts} from "../../composables/useProducts";
 export default {
     name: "CreateComponent",
     components:{
@@ -118,7 +121,7 @@ export default {
             discount: 0,
             stock: 0,
             box_stock: 0,
-            expire_at: new Date(),
+            expire_at: '',
             supplier_id: 0,
             laboratory_id: 0,
             type_id: 0,
@@ -132,12 +135,34 @@ export default {
         const {getLocations, locations} = useLocations();
         const {getTypes, types} = useTypes();
         const {allUsages, usages} = useUsages();
-        const save = () => {
+        const {saveProduct, errors} = useProducts();
+
+        const save = async () => {
             form.supplier_id = form.supplier_id.id;
             form.laboratory_id = form.laboratory_id.id;
             form.presentation_id = form.presentation_id.id;
             form.location_id = form.location_id.id;
-            console.log(form.usage_id)
+            form.type_id = form.type_id.id;
+            await errors;
+            await saveProduct(form);
+            await clear;
+        }
+
+        const clear = () => {
+            form.code = '',
+            form.name = '',
+            form.price = 0,
+            form.cost = 0,
+            form.discount = 0,
+            form.stock = 0,
+            form.box_stock = 0,
+            form.expire_at = '',
+            form.supplier_id = 0,
+            form.laboratory_id = 0,
+            form.type_id = 0,
+            form.location_id = 0,
+            form.presentation_id = 0,
+            form.usage_id = []
         }
 
         getSuppliers();
@@ -147,7 +172,7 @@ export default {
         getTypes();
         allUsages();
 
-        return {form, suppliers, laboratories, presentations, locations, types, usages, save};
+        return {form, suppliers, laboratories, presentations, locations, types, usages, save, errors};
     }
 }
 </script>
