@@ -62,7 +62,7 @@
                 Seleccione los usos
             </a>
             <hr>
-            <div class="collapse col-md-12" id="collapseExample" style="max-height: 250px; overflow: auto">
+            <div class="collapse show col-md-12" id="collapseExample" style="max-height: 250px; overflow: auto">
                 <table class="table table-bordered table-striped table-responsive">
                     <thead>
                     <tr>
@@ -73,7 +73,7 @@
                     <tbody>
                     <tr v-for="item in usages" :key="item.id" v-if="usages.length">
                         <td>
-                            <input type="checkbox" name="cbUsos" id="cbUsos" v-model="product.usage_id" :value="item.id">
+                            <input type="checkbox" name="cbUsos" id="cbUsos" v-model="product.usage_id" :value="item.id" >
                         </td>
                         <td v-text="item.description"></td>
                     </tr>
