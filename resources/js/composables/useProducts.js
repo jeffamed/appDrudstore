@@ -1,5 +1,6 @@
 import {ref} from "vue";
 import {useRoute} from "vue-router";
+import {useRouter} from "vue-router";
 import {useToast} from "./useToast";
 
 export function useProducts()
@@ -9,6 +10,7 @@ export function useProducts()
     const product = ref([]);
     const pagination = ref([]);
     const route = useRoute();
+    const router = useRouter();
     const {successToast, errorToast} = useToast();
 
     const getProducts = async (conditon = 'name',search = '') => {
@@ -34,6 +36,7 @@ export function useProducts()
             errors.value = '';
             await axios.post('/api/product', data);
             await successToast('Registrado');
+            await router.push({name: 'product'});
         }catch (e) {
             errors.value = '';
             errorToast();
@@ -51,6 +54,7 @@ export function useProducts()
             let res = await axios.put(`/api/product/${ id }`, product.value);
             products.value = res.data.data;
             await successToast('Actualizado');
+            await router.push({name: 'product'});
         }catch (e) {
             errors.value = '';
             errorToast();

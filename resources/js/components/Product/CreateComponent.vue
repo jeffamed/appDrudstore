@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import VueSelect from 'vue-next-select';
 import 'vue-next-select/dist/index.min.css';
 import {useSuppliers} from "../../composables/useSuppliers";
@@ -140,24 +140,23 @@ export default {
         const save = async () => {
             await errors;
             await saveProduct(form);
-            await clear;
         }
 
         const clear = () => {
-            form.code = '',
-            form.name = '',
-            form.price = 0,
-            form.cost = 0,
-            form.discount = 0,
-            form.stock = 0,
-            form.box_stock = 0,
-            form.expire_at = '',
-            form.supplier_id = 0,
-            form.laboratory_id = 0,
-            form.type_id = 0,
-            form.location_id = 0,
-            form.presentation_id = 0,
-            form.usage_id = []
+            form.code = '';
+            form.name = '';
+            form.price = 0;
+            form.cost = 0;
+            form.discount = 0;
+            form.stock = 0;
+            form.box_stock = 0;
+            form.expire_at = '';
+            form.supplier_id = 0;
+            form.laboratory_id = 0;
+            form.type_id = 0;
+            form.location_id = 0;
+            form.presentation_id = 0;
+            form.usage_id = [];
         }
 
         getSuppliers();
