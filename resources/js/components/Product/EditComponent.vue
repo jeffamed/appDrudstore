@@ -31,25 +31,25 @@
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="supplier">Proveedor</label>
-                <vue-select v-model="product.supplier_id" :options="suppliers" label-by="name" :value="product.supplier_id" placeholder="" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="product.supplier_id" :options="suppliers" label-by="name" :value="product.supplier_id" :placeholder="product.supplier.name" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Laboratorio</label>
-                <vue-select v-model="product.laboratory_id" :options="laboratories" label-by="name" placeholder="Seleccione el Laboratorio" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="product.laboratory_id" :options="laboratories" label-by="name" :placeholder="product.laboratory.name" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="presentation">Presentación</label>
-                <vue-select v-model="product.presentation_id" :options="presentations" label-by="name" placeholder="Seleccione la Presentación" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="product.presentation_id" :options="presentations" label-by="name" :placeholder="product.presentation.name" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Ubicación</label>
-                <vue-select v-model="product.location_id" :options="locations" label-by="name" placeholder="Seleccione la Ubicacion" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="product.location_id" :options="locations" label-by="name" :placeholder="product.location.name" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="type">Tipo</label>
-                <vue-select v-model="product.type_id" :options="types" label-by="name" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="product.type_id" :options="types" label-by="name" :placeholder="product.type.name" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
@@ -122,7 +122,7 @@ export default {
     setup(props){
 
         const {getProduct, product, errors} = useProducts();
-        const {getSuppliers, suppliers, getSupplier, supplier} = useSuppliers();
+        const {getSuppliers, suppliers} = useSuppliers();
         const {getLaboratories, laboratories} = useLaboratories();
         const {getPresentations, presentations} = usePresentations();
         const {getLocations, locations} = useLocations();
@@ -136,8 +136,9 @@ export default {
         getLocations();
         getTypes();
         allUsages();
+        console.log(product);
 
-        return {suppliers, laboratories, presentations, locations, types, usages, product, errors, supplier}
+        return {suppliers, laboratories, presentations, locations, types, usages, product, errors}
     }
 }
 </script>

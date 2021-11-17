@@ -7,7 +7,9 @@
                 <router-link :to="{ name: 'product.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
+                <search-component @search="findProduct" />
                 <table-component :data="products" @load="loadProduct"/>
+                <pagination-component name="product" :pagination="pagination"/>
             </div>
         </div>
     </div>
@@ -18,20 +20,27 @@
 
 <script>
 import TableComponent from "../components/Product/TableComponent";
+import SearchComponent from "../components/Product/SearchComponent";
 import {onMounted, ref} from "vue";
 import {useProducts} from "../composables/useProducts";
 import {useToast} from "../composables/useToast";
 export default {
     name: "Product",
     components: {
+        SearchComponent,
         TableComponent
     },
     setup(){
         const product = ref([]);
         const {getProducts, products, pagination, deleteProduct} = useProducts();
+        const {successToast} = useToast();
 
         const loadProduct = async (data) => {
             product.value = { ...data };
+        }
+
+        const findProduct = async(condition, search) => {
+            await getProducts(condition, search);
         }
 
         const destroyProduct = async (id) => {
@@ -42,7 +51,7 @@ export default {
 
         onMounted(getProducts);
 
-        return {products, pagination, product, loadProduct, destroyProduct}
+        return {products, pagination, product, loadProduct, destroyProduct, findProduct}
     }
 }
 </script>

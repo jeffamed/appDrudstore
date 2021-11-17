@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,6 @@ class ProductController extends Controller
     {
        $product =  Product::create($request->except('usage_id'));
 
-        //$product->usages()->getRelatedIds();
         $product->usages()->sync($request->usage_id);
 
         return response()->json("Registrado Correctamente");
@@ -44,6 +44,13 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        Log::info($product->usages);
+        $product['supplier'] = $product->supplier->name;
+        $product['laboratory'] = $product->laboratory->name;
+        $product['presentation'] = $product->presentation->name;
+        $product['location'] = $product->location->name;
+        $product['type'] = $product->type->name;
+        $product['usage'] = $product->usages;
         return response()->json($product);
     }
 
