@@ -39,10 +39,10 @@ export function useProducts()
         }
     }
 
-    const updateProduct = async (data) => {
+    const updateProduct = async (id) => {
         try{
             errors.value = '';
-            let res = await axios.put(`/api/product/${ data.id }`, product);
+            let res = await axios.put(`/api/product/${ id }`, product.value);
             products.value = res.data.data;
             await successToast('Actualizado');
         }catch (e) {

@@ -120,14 +120,22 @@ export default {
         }
     },
     setup(props){
-
-        const {getProduct, product, errors} = useProducts();
+        const {getProduct, updateProduct, product, errors} = useProducts();
         const {getSuppliers, suppliers} = useSuppliers();
         const {getLaboratories, laboratories} = useLaboratories();
         const {getPresentations, presentations} = usePresentations();
         const {getLocations, locations} = useLocations();
         const {getTypes, types} = useTypes();
         const {allUsages, usages} = useUsages();
+
+        const save = async() => {
+            /*product.laboratory_id = product.laboratory_id.id;
+            product.supplier_id =  product.supplier_id.id;
+            product.presentation_id =  product.presentation_id.id;
+            product.location_id =  product.location_id.id;
+            product.type_id =  product.type_id.id;*/
+            await updateProduct(props.id);
+        }
 
         getProduct(props.id);
         getSuppliers();
@@ -136,9 +144,8 @@ export default {
         getLocations();
         getTypes();
         allUsages();
-        console.log(product);
 
-        return {suppliers, laboratories, presentations, locations, types, usages, product, errors}
+        return {suppliers, laboratories, presentations, locations, types, usages, product, errors, save}
     }
 }
 </script>

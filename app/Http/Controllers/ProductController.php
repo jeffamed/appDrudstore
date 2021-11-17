@@ -44,13 +44,13 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        Log::info($product->usages);
         $product['supplier'] = $product->supplier->name;
         $product['laboratory'] = $product->laboratory->name;
         $product['presentation'] = $product->presentation->name;
         $product['location'] = $product->location->name;
         $product['type'] = $product->type->name;
-        $product['usage'] = $product->usages;
+        $product['usages'] = $product->usages;
+
         return response()->json($product);
     }
 
@@ -63,7 +63,11 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->toArray());
+        Log::info($request);
+
+        $product->update($request->except('usage_id','supplier','laboratory','location','type','usages','presentation'));
+
+        $product->usages()->sync($request->usage_id);
 
         return response()->json("Actualizado Correctamente");
     }
