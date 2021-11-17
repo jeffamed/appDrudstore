@@ -5,6 +5,7 @@ import {useToast} from "./useToast";
 export function useSuppliers(){
     const errors = ref('');
     const suppliers = ref([]);
+    const supplier = ref([]);
     const pagination = ref([]);
     const route = useRoute();
     const {successToast, errorToast} = useToast();
@@ -15,6 +16,11 @@ export function useSuppliers(){
         pagination.value = res.data;
         delete pagination.value.data;
     };
+
+    const getSupplier = async(data) => {
+        let res = await axios.get(`/api/supplier/${data}`);
+        supplier.value = res.data;
+    }
 
     const saveSupplier = async (data) => {
         try {
@@ -53,5 +59,5 @@ export function useSuppliers(){
         await axios.delete(`/api/supplier/${data}`);
     }
 
-    return {suppliers, pagination, getSuppliers, errors, route, saveSupplier, updateSupplier, deleteSupplier};
+    return {suppliers, pagination, supplier, getSupplier, getSuppliers, errors, route, saveSupplier, updateSupplier, deleteSupplier};
 }

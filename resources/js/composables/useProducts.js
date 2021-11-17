@@ -6,6 +6,7 @@ export function useProducts()
 {
     const errors = ref('');
     const products = ref([]);
+    const product = ref([]);
     const pagination = ref([]);
     const route = useRoute();
     const {successToast, errorToast} = useToast();
@@ -16,6 +17,11 @@ export function useProducts()
         pagination.value = res.data;
         delete pagination.value.data;
     };
+
+    const getProduct = async(data) => {
+        let res = await axios.get(`/api/product/${data}`);
+        product.value = res.data;
+    }
 
     const saveProduct = async (data) => {
         try {
@@ -36,7 +42,7 @@ export function useProducts()
     const updateProduct = async (data) => {
         try{
             errors.value = '';
-            let res = await axios.put(`/api/product/${ data.id }`, data);
+            let res = await axios.put(`/api/product/${ data.id }`, product);
             products.value = res.data.data;
             await successToast('Actualizado');
         }catch (e) {
@@ -54,5 +60,5 @@ export function useProducts()
         await axios.delete(`/api/product/${data}`);
     }
 
-    return {products, errors, pagination, route, getProducts, saveProduct, updateProduct, deleteProduct};
+    return {products, errors, pagination, route, product, getProduct, getProducts, saveProduct, updateProduct, deleteProduct};
 }

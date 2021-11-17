@@ -14,9 +14,7 @@
             <td v-text="item.stock"></td>
             <td v-text="item.box_stock"></td>
             <td>
-                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
-                    <i class="icon-pencil"></i>
-                </button> &nbsp;
+                <router-link class="btn btn-warning btn-sm" :to="{ name: 'product.edit', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
