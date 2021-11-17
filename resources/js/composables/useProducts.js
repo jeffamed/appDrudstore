@@ -21,6 +21,12 @@ export function useProducts()
     const getProduct = async(data) => {
         let res = await axios.get(`/api/product/${data}`);
         product.value = res.data;
+        delete product.value.supplier;
+        delete product.value.presentation;
+        delete product.value.laboratory;
+        delete product.value.location;
+        delete product.value.usage;
+        delete product.value.type;
     }
 
     const saveProduct = async (data) => {

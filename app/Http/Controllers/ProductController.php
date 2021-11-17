@@ -44,12 +44,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $product['supplier'] = $product->supplier->name;
-        $product['laboratory'] = $product->laboratory->name;
-        $product['presentation'] = $product->presentation->name;
-        $product['location'] = $product->location->name;
-        $product['type'] = $product->type->name;
-        $product['usages'] = $product->usages;
+        $product->laboratorio = $product->laboratory->name;
+        $product->presentacion = $product->presentation->name;
+        $product->ubicacion = $product->location->name;
+        $product->tipo = $product->type->name;
+        $product->proveedor = $product->supplier->name;
+        $product->usage_id = [];
+        $product->usos = $product->usages->map(function ($item, $key){
+            return $item->id;
+        });;
 
         return response()->json($product);
     }
@@ -63,9 +66,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        Log::info($request);
-
-        $product->update($request->except('usage_id','supplier','laboratory','location','type','usages','presentation'));
+        $product->update($request->except('usage_id','usos','laboratorio','ubicacion','tipo','presentacion','proveedor', 'usages'));
 
         $product->usages()->sync($request->usage_id);
 

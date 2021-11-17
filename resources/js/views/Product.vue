@@ -21,7 +21,7 @@
 <script>
 import TableComponent from "../components/Product/TableComponent";
 import SearchComponent from "../components/Product/SearchComponent";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {useProducts} from "../composables/useProducts";
 import {useToast} from "../composables/useToast";
 export default {
@@ -32,7 +32,7 @@ export default {
     },
     setup(){
         const product = ref([]);
-        const {getProducts, products, pagination, deleteProduct} = useProducts();
+        const {getProducts, products, pagination, deleteProduct, route} = useProducts();
         const {successToast} = useToast();
 
         const loadProduct = async (data) => {
@@ -48,6 +48,10 @@ export default {
             await getProducts();
             await successToast('Eliminado');
         }
+
+        watch( () => route.query.page, ()=>{
+            getProducts();
+        });
 
         onMounted(getProducts);
 

@@ -31,25 +31,25 @@
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="supplier">Proveedor</label>
-                <vue-select v-model="form.supplier_id" :options="suppliers" label-by="name" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="form.supplier_id" :options="suppliers" label-by="name" value-by="id" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Laboratorio</label>
-                <vue-select v-model="form.laboratory_id" :options="laboratories" label-by="name" placeholder="Seleccione el Laboratorio" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="form.laboratory_id" :options="laboratories" label-by="name" value-by="id" placeholder="Seleccione el Laboratorio" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="presentation">Presentación</label>
-                <vue-select v-model="form.presentation_id" :options="presentations" label-by="name" placeholder="Seleccione la Presentación" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="form.presentation_id" :options="presentations" label-by="name" value-by="id" placeholder="Seleccione la Presentación" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Ubicación</label>
-                <vue-select v-model="form.location_id" :options="locations" label-by="name" placeholder="Seleccione la Ubicacion" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="form.location_id" :options="locations" label-by="name" value-by="id" placeholder="Seleccione la Ubicacion" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="type">Tipo</label>
-                <vue-select v-model="form.type_id" :options="types" label-by="name" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="form.type_id" :options="types" label-by="name" value-by="id" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
@@ -138,11 +138,6 @@ export default {
         const {saveProduct, errors} = useProducts();
 
         const save = async () => {
-            form.supplier_id = form.supplier_id.id;
-            form.laboratory_id = form.laboratory_id.id;
-            form.presentation_id = form.presentation_id.id;
-            form.location_id = form.location_id.id;
-            form.type_id = form.type_id.id;
             await errors;
             await saveProduct(form);
             await clear;
