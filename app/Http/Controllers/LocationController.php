@@ -16,7 +16,6 @@ class LocationController extends Controller
      */
     public function index(Request $request)
     {
-        Log::info("variable search: ".$request->search);
         $locations = Location::where('name','like','%'.$request->search.'%')->latest('id')->paginate(5);
         return response()->json($locations);
     }

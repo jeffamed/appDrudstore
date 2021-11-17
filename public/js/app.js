@@ -19781,7 +19781,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_5, "Eliminar " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
   /* TEXT */
-  ), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Estas seguro de eliminar la " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title.toLowerCase()) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$data$name = $props.data.name) !== null && _$props$data$name !== void 0 ? _$props$data$name : $props.data.description) + "?", 1
+  ), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Estas seguro de eliminar " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title.toLowerCase()) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$props$data$name = $props.data.name) !== null && _$props$data$name !== void 0 ? _$props$data$name : $props.data.description) + "?", 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
@@ -20415,6 +20415,10 @@ var routes = [{
   name: 'product',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Product */ "./resources/js/views/Product.vue"))
 }, {
+  path: '/crear-productos',
+  name: 'product.create',
+  component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Product/CreateComponent */ "./resources/js/components/Product/CreateComponent.vue"))
+}, {
   path: '/ventas',
   name: 'sale',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Sale */ "./resources/js/views/Sale.vue"))
@@ -20483,7 +20487,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.pagination a.router-link-exact-active[data-v-5cc156e8]{\n        color: #fff;\n        background-color: #20a8d8;\n        border-color: #20a8d8;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.pagination > a.router-link-exact-active[data-v-5cc156e8]{\n        color: #fff;\n        background-color: #20a8d8;\n        border-color: #20a8d8;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

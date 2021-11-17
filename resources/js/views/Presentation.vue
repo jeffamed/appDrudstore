@@ -102,8 +102,11 @@ export default {
 
         const save = async() => {
             await savePresentation(form);
-            await clear();
-            await getAll();
+            await errors;
+            if(errors.value.length === 0){
+                await clear();
+                await getAll();
+            }
         };
 
         const destroyPresentation = async(id) =>{
@@ -118,7 +121,7 @@ export default {
         };
 
         const loadPresentation = async (data) => {
-            presentation.value = data;
+            presentation.value = { ...data };
         }
 
         const clear = () => {

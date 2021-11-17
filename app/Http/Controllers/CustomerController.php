@@ -13,9 +13,9 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
+        $customers = Customer::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
         return response()->json($customers);
     }
 
@@ -52,7 +52,7 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-        $customer->update($request->toArray());
+        $customer->update($request->except('full_name'));
         return response()->json('Actualizado Correctamente', 200);
     }
 

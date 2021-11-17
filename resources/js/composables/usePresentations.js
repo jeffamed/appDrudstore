@@ -22,6 +22,7 @@ export function usePresentations() {
             await axios.post('/api/presentation', data);
             await successToast('Registrado')
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {
@@ -38,6 +39,7 @@ export function usePresentations() {
             presentations.value = res.data.data;
             await successToast('Actualizado');
         }catch (e) {
+            errors.value = '';
             errorToast();
             if (e.response.status == 422){
                 for (const key in e.response.data.errors) {

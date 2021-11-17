@@ -11,7 +11,7 @@
             <div class="card-body">
                 <search-component @search="findLocation"/>
                 <table-component :data="locations"  @load="loadLocation" />
-                <pagination-component :pagination="pagination"/>
+                <pagination-component name="location" :pagination="pagination"/>
             </div>
         </div>
     </div>
@@ -109,8 +109,11 @@ export default {
 
         const save = async() => {
             await saveLocation(form);
-            await clear();
-            await getAll();
+            await errors;
+            if (errors.value.length === 0){
+                await clear();
+                await getAll();
+            }
         };
 
         const destroyLocation = async(id) =>{
@@ -125,7 +128,7 @@ export default {
         };
 
         const loadLocation = async (data) => {
-            location.value = data;
+            location.value = { ...data };
         }
 
         const clear = () => {

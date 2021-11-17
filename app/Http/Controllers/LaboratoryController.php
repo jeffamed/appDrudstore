@@ -13,9 +13,9 @@ class LaboratoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $laboratories = Laboratory::all();
+        $laboratories = Laboratory::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
         return response()->json($laboratories);
     }
 
