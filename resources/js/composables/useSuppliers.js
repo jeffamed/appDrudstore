@@ -22,6 +22,11 @@ export function useSuppliers(){
         supplier.value = res.data;
     }
 
+    const allSuppliers = async() => {
+        let res = await axios.get('/api/supplier-all');
+        suppliers.value = res.data;
+    }
+
     const saveSupplier = async (data) => {
         try {
             errors.value = '';
@@ -59,5 +64,5 @@ export function useSuppliers(){
         await axios.delete(`/api/supplier/${data}`);
     }
 
-    return {suppliers, pagination, supplier, getSupplier, getSuppliers, errors, route, saveSupplier, updateSupplier, deleteSupplier};
+    return {suppliers, pagination, supplier, getSupplier, getSuppliers, errors, route, saveSupplier, updateSupplier, deleteSupplier, allSuppliers};
 }

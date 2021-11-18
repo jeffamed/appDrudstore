@@ -16,6 +16,11 @@ export function useCustomer(){
         delete pagination.value.data;
     };
 
+    const allCustomers = async() => {
+        let res = await axios.get('/api/customer-all');
+        customers.value = res.data;
+    }
+
     const saveCustomer = async (data) => {
         try {
             errors.value = '';
@@ -53,5 +58,5 @@ export function useCustomer(){
         await axios.delete(`/api/customer/${data}`);
     }
 
-    return {customers, errors, pagination, route, getCustomers, saveCustomer, updateCustomer, deleteCustomer};
+    return {customers, errors, pagination, route, getCustomers, saveCustomer, updateCustomer, deleteCustomer, allCustomers};
 }

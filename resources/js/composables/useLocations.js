@@ -16,6 +16,12 @@ export function useLocations() {
         delete pagination.value.data;
     };
 
+    const allLocations = async() => {
+        let res = await axios.get('/api/location-all');
+        locations.value = res.data;
+    }
+
+
     const saveLocation = async (data) => {
         try {
             errors.value = '';
@@ -53,5 +59,5 @@ export function useLocations() {
         await axios.delete(`/api/location/${data}`);
     }
 
-    return { locations, pagination, route, getLocations, saveLocation, deleteLocation, updateLocation, errors };
+    return { locations, pagination, route, getLocations, saveLocation, deleteLocation, updateLocation, errors, allLocations };
 }

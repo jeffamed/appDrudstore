@@ -17,6 +17,11 @@ export function useTypes() {
         delete pagination.value.data;
     };
 
+    const allTypes = async() => {
+        let res = await axios.get('/api/type-all');
+        types.value = res.data;
+    }
+
     const saveType = async (data) => {
         try {
             errors.value = '';
@@ -54,5 +59,5 @@ export function useTypes() {
         await axios.delete(`/api/type/${data}`);
     }
 
-    return {types, pagination, route, errors, getTypes, saveType, updateType, deleteType};
+    return {types, pagination, route, errors, getTypes, saveType, updateType, deleteType, allTypes};
 }

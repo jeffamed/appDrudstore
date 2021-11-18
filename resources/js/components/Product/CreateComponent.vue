@@ -129,11 +129,11 @@ export default {
             presentation_id: 0,
             usage_id: [],
         })
-        const {getSuppliers, suppliers} = useSuppliers();
-        const {getLaboratories, laboratories} = useLaboratories();
-        const {getPresentations, presentations} = usePresentations();
-        const {getLocations, locations} = useLocations();
-        const {getTypes, types} = useTypes();
+        const {allSuppliers, suppliers} = useSuppliers();
+        const {allLaboratories, laboratories} = useLaboratories();
+        const {allPresentations, presentations} = usePresentations();
+        const {allLocations, locations} = useLocations();
+        const {allTypes, types} = useTypes();
         const {allUsages, usages} = useUsages();
         const {saveProduct, errors} = useProducts();
 
@@ -159,11 +159,11 @@ export default {
             form.usage_id = [];
         }
 
-        getSuppliers();
-        getLaboratories();
-        getPresentations();
-        getLocations();
-        getTypes();
+        allSuppliers();
+        allLaboratories();
+        allPresentations();
+        allLocations();
+        allTypes();
         allUsages();
 
         return {form, suppliers, laboratories, presentations, locations, types, usages, save, errors};

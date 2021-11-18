@@ -16,6 +16,11 @@ export function usePresentations() {
         delete pagination.value.data;
     };
 
+    const allPresentations = async() => {
+        let res = await axios.get('/api/presentation-all');
+        presentations.value = res.data;
+    }
+
     const savePresentation = async (data) => {
         try {
             errors.value = '';
@@ -53,5 +58,5 @@ export function usePresentations() {
         await axios.delete(`/api/presentation/${data}`);
     }
 
-    return { presentations, pagination, route, getPresentations, savePresentation, deletePresentation, updatePresentation, errors };
+    return { presentations, pagination, route, getPresentations, savePresentation, deletePresentation, updatePresentation, errors, allPresentations };
 }

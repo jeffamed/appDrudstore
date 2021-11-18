@@ -67,4 +67,10 @@ class CustomerController extends Controller
         $customer->delete();
         return response()->json('Eliminado Existosamente');
     }
+
+    public function getAll()
+    {
+        $customers = Customer::latest('id')->get();
+        return response()->json($customers);
+    }
 }

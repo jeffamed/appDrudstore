@@ -71,4 +71,10 @@ class LocationController extends Controller
 
         return response()->json('Eliminado existosamente', 200);
     }
+
+    public function getAll()
+    {
+        $locations = Location::latest('id')->get();
+        return response()->json($locations);
+    }
 }

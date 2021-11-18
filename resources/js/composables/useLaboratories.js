@@ -19,6 +19,11 @@ export function useLaboratories(){
         delete pagination.value.data;
     };
 
+    const allLaboratories = async() => {
+        let res = await axios.get('/api/laboratory-all');
+        laboratories.value = res.data;
+    }
+
     const saveLaboratory = async (data) => {
         errors.name = '';
         errors.address = '';
@@ -63,5 +68,5 @@ export function useLaboratories(){
         await axios.delete(`/api/laboratory/${data}`);
     }
 
-    return { laboratories, pagination, errors, route, getLaboratories, saveLaboratory, updateLaboratory, deleteLaboratory };
+    return { laboratories, pagination, errors, route, getLaboratories, saveLaboratory, updateLaboratory, deleteLaboratory, allLaboratories };
 }
