@@ -90,7 +90,6 @@ export default {
         SearchComponent,
     },
     setup(){
-        const search = ref('');
         const presentation = ref([]);
         const form = reactive({
             id : 0,

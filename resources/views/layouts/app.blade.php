@@ -16,6 +16,11 @@
 <!-- Bootstrap and necessary plugins -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/coreui.js') }}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 </body>
 
 </html>

@@ -1,28 +1,32 @@
 <template>
     <table class="table table-bordered table-striped table-sm">
         <thead>
-            <tr>
-                <th  v-for="(item, key, index) in header" :key="index">{{ item }}</th>
-            </tr>
+        <tr>
+            <th  v-for="(item, key, index) in header" :key="index">{{ item }}</th>
+        </tr>
         </thead>
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
-            <td v-text="item.name"></td>
+            <td v-text="item.user"></td>
+            <td v-text="item.supplier"></td>
+            <td v-text="item.iva"></td>
+            <td v-text="item.subtotal"></td>
+            <td v-text="item.total"></td>
+            <td v-text="item.created_at"></td>
             <td>
-                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
-                    <i class="icon-pencil"></i>
-                </button> &nbsp;
+                <router-link class="btn btn-warning btn-sm" :to="{ name: 'product.edit', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
             </td>
         </tr>
         <tr v-else>
-            <td colspan="2" class="text-center">No hay datos Registrados</td>
+            <td colspan="7" class="text-center">No hay datos Registrados</td>
         </tr>
         </tbody>
     </table>
 </template>
+
 <script>
 export default {
     name: "TableComponent",
@@ -33,7 +37,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['Nombre','Opciones']
+            default: ['Usuario', 'Proveedor','IVA','SubTotal', 'Total', 'Registrado','Opciones']
         }
     },
     setup(props, context)
@@ -46,3 +50,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>

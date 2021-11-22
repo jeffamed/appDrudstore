@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-       $product =  Product::create($request->except('usage_id'));
+       $product = Product::create($request->except('usage_id'));
 
         $product->usages()->sync($request->usage_id);
 

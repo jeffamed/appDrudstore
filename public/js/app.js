@@ -20407,6 +20407,10 @@ var routes = [{
   name: 'order',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Order */ "./resources/js/views/Order.vue"))
 }, {
+  path: '/compras/crear',
+  name: 'order.create',
+  component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Order/CreateComponent */ "./resources/js/components/Order/CreateComponent.vue"))
+}, {
   path: '/presentacion',
   name: 'presentation',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Presentation */ "./resources/js/views/Presentation.vue"))

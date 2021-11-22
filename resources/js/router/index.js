@@ -27,6 +27,11 @@ const routes = [
         component : import(/* webpackChunkName: "routes"*/'../views/Order')
     },
     {
+        path:'/compras/crear',
+        name:'order.create',
+        component : import(/* webpackChunkName: "routes"*/'../components/Order/CreateComponent')
+    },
+    {
         path:'/presentacion',
         name:'presentation',
         component : import(/* webpackChunkName: "routes"*/'../views/Presentation')
