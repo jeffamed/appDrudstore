@@ -9,17 +9,17 @@
         <div class="row form-group">
             <div class="col-md-8">
                 <label class="ml-3 form-control-label" for="name">Nombre</label>
-                <vue-select v-model="order.supplier_id" :options="suppliers" label-by="name" value-by="id" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <vue-select v-model="supplier" :options="suppliers" label-by="name" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="ml-3 form-control-label" for="name">Teléfono</label>
-                <input type="text" name="name" class="form-control bg-white" placeholder="Telefono del provedor" disabled>
+                <input type="text" name="name" class="form-control bg-white" placeholder="Telefono del provedor" disabled v-model="detailsSupplier.phone">
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-12">
                 <label class="ml-3 form-control-label" for="name">Dirección</label>
-                <input type="text" name="name" class="form-control bg-white" placeholder="Direccion del proveedor" disabled>
+                <input type="text" name="name" class="form-control bg-white" placeholder="Direccion del proveedor" disabled v-model="detailsSupplier.address">
             </div>
         </div>
     </div>
@@ -30,31 +30,35 @@
             <div class="col-md-3">
                 <label class="ml-3 form-control-label" for="product">Buscar por Codigo</label>
                 <div class="d-flex">
-                    <input type="text" name="product" id="product" class="form-control" placeholder="00000X + Enter" v-model.trim="search" @keydown.enter="search == null || search === '' ? modalProduct() : searchProd('code')" >
+                    <input type="text" name="product" id="txtpCode" class="form-control" placeholder="00000X + Enter" v-model.trim="search" @keydown.enter="search == null || search === '' ? modalProduct() : searchProd('code')" >
                     <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalProducto" id="modalProduct"><i class="icon-settings"></i></button>
                 </div>
+                <span class="help-block text-danger" id="errorCode" style="display: none">(*) Busque un producto segun el codigo.</span>
             </div>
             <div class="col-md-7">
                 <label class="ml-3 form-control-label" for="product">Nombre</label>
-                <input type="text" name="product" id="product-name" class="form-control bg-white" placeholder="Nombre del Producto" disabled v-model="product.name">
+                <input type="text" name="product" id="txtPName" class="form-control bg-white" placeholder="Nombre del Producto + Presentacion" disabled>
             </div>
             <div class="col-md-2">
                 <label class="ml-3 form-control-label" for="product">Stock Act.</label>
-                <input type="text" name="product" id="product-stock" class="form-control bg-white" placeholder="00" disabled v-model="product.stock">
+                <input type="text" name="product" id="txtPStock" class="form-control bg-white" placeholder="00" disabled>
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-3">
                 <label class="ml-3 form-control-label" for="cantidad">Cant. Comprada</label>
-                <input type="number" name="cantidad" id="cantidad" class="form-control" placeholder="00" v-model="product.quantity">
+                <input type="number" name="cantidad" id="txtOrderQty" class="form-control" placeholder="00" v-model.number="form.orderQty">
+                <span class="help-block text-danger" id="errorQty" style="display: none">(*) La cantidad no puede ser cero</span>
             </div>
             <div class="col-md-4">
                 <label class="ml-3 form-control-label" for="precio">Precio</label>
-                <input type="number" name="comprada" id="precio" step="0.01" class="form-control" placeholder="00.00" v-model="product.cost">
+                <input type="number" name="comprada" id="precio" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.unitPrice">
+                <span class="help-block text-danger" id="errorPrice" style="display: none">(*) La precio no puede ser cero</span>
+
             </div>
             <div class="col-md-3">
                 <label class="ml-3 form-control-label" for="descuento">Descuento</label>
-                <input type="number" name="descuento" id="descuento" step="0.01" class="form-control" placeholder="00.00" v-model="product.discount">
+                <input type="number" name="descuento" id="descuento" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.discount">
             </div>
             <div class="col-md-1 mx-auto mt-4">
                 <button class="btn btn-success" @click="addDetails">Agregar</button>
@@ -64,39 +68,40 @@
                 <table class="table table-bordered table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Eliminar</th>
+                            <th width="5%">Eliminar</th>
                             <th>Cod</th>
                             <th>Producto</th>
-                            <th class="text-center">Precio</th>
                             <th class="text-center">Cant.</th>
+                            <th class="text-center">Precio</th>
                             <th class="text-center">Desc.</th>
                             <th class="text-center">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="detailsOrder" v-for="(detail, index) in detailsOrder" :key="index">
-                            <td>
+                        <tr v-if="detailsOrder.length" v-for="(detail, index) in detailsOrder" :key="index">
+                            <td width="5%" class="text-center">
                                 <button type="button" class="btn btn-danger btn-sm" @click="remove(index)">
                                     <i class="icon-close"></i>
                                 </button>
                             </td>
                             <td>{{ detail.code }}</td>
-                            <td width="40%">{{ detail.name }}</td>
-                            <td class="text-center" >25.90</td>
-                            <td class="text-center" >100</td>
-                            <td class="text-center" >0.00</td>
-                            <td class="text-center" >2590</td>
+                            <td width="40%">{{ detail.product }}</td>
+                            <td class="text-center" >{{ detail.orderQty }}</td>
+                            <td class="text-center" > {{ detail.unitPrice }}</td>
+                            <td class="text-center" >{{ detail.discount }}</td>
+                            <td class="text-center" > {{ (detail.unitPrice * detail.orderQty) - detail.discount }}</td>
                         </tr>
                         <tr v-else>
-                            <td colspan="6" class="text-center">No hay datos Registrados</td>
+                            <td colspan="7" class="text-center">No se ha registrado ningun producto...</td>
                         </tr>
                     </tbody>
                     <tfoot class="border-top">
-                        <tr>
-                            <td colspan="4" class="font-weight-bold">Total</td>
-                            <td class="text-center">100</td>
-                            <td class="text-center">0</td>
-                            <td class="text-center font-weight-bold bg-success text-white">2590</td>
+                        <tr v-show="detailsOrder.length">
+                            <td colspan="3" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
+                            <td class="text-center">{{ totalQty }}</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">{{ totalDiscount }}</td>
+                            <td class="text-center font-weight-bold bg-success text-white">{{ totalOrder }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -121,10 +126,10 @@
                 <div class="modal-body">
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label class="form-control-label" for="text-input">Producto</label>
+                            <label class="form-control-label" for="name">Producto</label>
                             <div class="d-flex">
-                                <input type="text" id="name" name="name" class="form-control" placeholder="Buscar por nombre" v-model="search" @keydown.enter="searchProd('nombre')">
-                                <button class="btn btn-sm btn-outline-secondary" @click="searchProd('nombre')"><i class="icon-magnifier"></i></button>
+                                <input type="text" name="name" class="form-control" placeholder="Buscar por nombre" id="txtSearchProd" v-model.trim="search" @keydown.enter="searchProd('name')">
+                                <button class="btn btn-sm btn-outline-secondary" @click="searchProd('name')"><i class="icon-magnifier"></i></button>
                             </div>
 
                         </div>
@@ -141,20 +146,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-if="1 === 1">
-                                        <td>00001</td>
-                                        <td width="50%">Producto encontrado 00001</td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" value="0"> </td>
-                                        <td width="13%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" value="00.00"></td>
-                                        <td width="12%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" value="00.00"></td>
+                                    <tr v-if="products.length" v-for="(product, index) in products" :key="index">
+                                        <td>{{ product.code }}</td>
+                                        <td width="50%">{{ product.name }} Pres.: {{ product.presentation.name }}</td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.qtyOrder"> </td>
+                                        <td width="13%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.costOrder"></td>
+                                        <td width="12%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.discountOrder"></td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-success btn-sm" @click="addDetails">
+                                            <button type="button" class="btn btn-success btn-sm" @click="addProd(product)">
                                                 <i class="icon-plus"></i>
                                             </button>
                                         </td>
                                     </tr>
                                     <tr v-else>
-                                        <td colspan="5" class="text-center">Producto no encontrado</td>
+                                        <td colspan="6" class="text-center">Producto no encontrado</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -170,55 +175,138 @@
 </template>
 <script>
 import Swal from "sweetalert2";
-import {reactive, ref} from "vue";
+import {computed, reactive, ref, watch} from "vue";
 import VueSelect from 'vue-next-select';
 import 'vue-next-select/dist/index.min.css';
 import {useSuppliers} from "../../composables/useSuppliers";
+import {useProducts} from "../../composables/useProducts";
+import {useToast} from "../../composables/useToast";
 export default {
     name: "CreateComponent",
     components:{
         VueSelect
     },
     setup(){
-        const product = reactive({
-            id: '',
-            code: '',
-            name: '',
-            stock: 0,
-            cost: 0,
-            quantity: 0,
-            discount: 0,
-        });
-        const details = reactive({
-            code: 0,
-            product: '',
-            product_id: 0,
+        const form = reactive({
             orderQty: 0,
             unitPrice: 0,
             discount: 0,
-            total: 0,
         });
-        const order = reactive({
-            supplier_id: 0,
+        const supplier = ref([]);
+        const detailsSupplier = reactive({
+            phone: '',
+            address: ''
         })
         const detailsOrder = ref([]);
-
         const search = ref('');
+        const errorForm = ref(false);
+        const total = computed(()=>{
+            let sum = 0;
+            sum = sum + detailsOrder.value.length;
+
+            return sum;
+        });
+        const totalOrder = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsOrder.value.length; i++) {
+                sum = parseFloat(sum) + (parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice) - detailsOrder.value[i].discount );
+            }
+            return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        });
+        const totalQty = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsOrder.value.length; i++) {
+                sum = parseFloat(sum) + parseFloat(detailsOrder.value[i].orderQty);
+            }
+            return sum.toFixed(2);
+        });
+        const totalDiscount = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsOrder.value.length; i++) {
+                sum = parseFloat(sum) + parseFloat(detailsOrder.value[i].discount);
+            }
+            return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        });
 
         const {allSuppliers, suppliers} = useSuppliers();
+        const {searchProduct, products} = useProducts();
+        const {errorToast} = useToast();
 
         const modalProduct = () => {
+            $('#modalProducto').on('shown.bs.modal', function () {
+                $("#txtSearchProd").focus();
+            })
             $("#modalProduct").click();
         }
 
-        const searchProd = (search) => {
-            console.log(`${search} Producto Encontrado`);
+        const searchProd = async (condition) => {
+            await searchProduct(condition, search.value);
+            await products;
+            if (condition != 'name'){
+                if (products.value["code"] !== undefined){
+                    $("#txtPName").val(products.value.name+" - Pres.: "+ products.value.presentacion);
+                    $("#txtPStock").val(products.value.stock);
+                    $("#txtOrderQty").focus().select();
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Producto no fue encontrado, verifique.',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    $("#txtPName").val('');
+                    $("#txtPStock").val('');
+                }
+            }
         }
 
         const addDetails = () => {
-            detailsOrder.value.push( { ...product } );
-            console.log(product);
-            clearProduct();
+            if (validateForm()){
+                return;
+            }
+            if(verify(products.value.id)){
+                Swal.fire({
+                    title: 'Error...',
+                    text: "Lo sentimos, ya tiene registrado el producto",
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
+            }else{
+                form.product_id = products.value.id;
+                form.code = products.value.code;
+                form.product = $("#txtPName").val();
+                detailsOrder.value.push( { ...form } );
+                clearProduct();
+                $("#txtpCode").focus();
+            }
+        }
+
+        const addProd = (product) => {
+            if (verify(product.id)){
+                Swal.fire({
+                    title: 'Error...',
+                    text: "Lo sentimos, ya tiene registrado el producto",
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1000,
+                })
+            }else{
+                let data = {
+                    'product_id': product.id,
+                    'code' : product.code,
+                    'discount' : product.discountOrder,
+                    'orderQty' : product.qtyOrder,
+                    'unitPrice' : product.costOrder,
+                    'product' : product.name + " - Pres.:" + product.presentation.name
+                };
+
+                detailsOrder.value.push( data );
+                search.value = '';
+                $("#txtSearchProd").focus();
+                products.value = [];
+            }
         }
 
         const remove = (index) => {
@@ -245,18 +333,61 @@ export default {
 
         const clearProduct = () => {
             search.value = '';
-            product.id = '';
-            product.code = '';
-            product.name = '';
-            product.stock = 0;
-            product.cost = 0;
-            product.quantity = 0;
-            product.discount = 0;
+            form.orderQty = 0;
+            form.unitPrice = 0;
+            form.discount = 0;
+            $("#txtPName").val('');
+            $("#txtPStock").val('');
+        }
+
+        const verify = (id) => {
+            var temp = false;
+            for (let i = 0; i < detailsOrder.value.length; i++) {
+                if (detailsOrder.value[i].product_id == id) {
+                    return temp=true;
+                }
+            }
+            return temp;
+        }
+
+        const validateForm = () => {
+            let error = false;
+            hideError();
+
+            let product =  $("#txtPName").val();
+            if (product == ""){
+                errorToast();
+                $("#errorCode").show();
+                error = true;
+            }else if (form.orderQty == 0){
+                errorToast();
+                $("#errorQty").show();
+                error = true;
+            }else if (form.unitPrice == 0){
+                errorToast();
+                $("#errorPrice").show();
+                error = true;
+            }
+            errorForm.value = error;
+
+            return errorForm.value;
+
+        }
+
+        const hideError = () => {
+            $("#errorCode").hide();
+            $("#errorQty").hide();
+            $("#errorPrice").hide();
         }
 
         allSuppliers();
 
-        return {product, details, detailsOrder, order, suppliers, search, clearProduct, modalProduct, searchProd, addDetails, remove }
+        watch(supplier, () => {
+            detailsSupplier.phone = supplier.value.phone,
+            detailsSupplier.address = supplier.value.address
+        });
+
+        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, totalDiscount, total }
 
     }
 }

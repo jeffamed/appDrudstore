@@ -31,3 +31,4 @@ Route::get('location-all', 'LocationController@getAll');
 Route::get('supplier-all', 'SupplierController@getAll');
 Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
+Route::get('product-search', 'ProductController@search');
