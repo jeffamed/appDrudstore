@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <!--Buscar producto por nombre-->
+    <!--Modal Buscar producto por nombre-->
     <div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-success modal-lg" role="document">
             <div class="modal-content">
@@ -148,7 +148,7 @@
                                 <tbody>
                                     <tr v-if="products.length" v-for="(product, index) in products" :key="index">
                                         <td>{{ product.code }}</td>
-                                        <td width="50%">{{ product.name }} Pres.: {{ product.presentation.name }}</td>
+                                        <td width="50%">{{ product.name }} * {{ product.presentation.name }}</td>
                                         <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.qtyOrder"> </td>
                                         <td width="13%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.costOrder"></td>
                                         <td width="12%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.discountOrder"></td>
@@ -164,6 +164,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <span class="help-block text-danger" id="errorTable" style="display: none">(*) La cantidad o el precio del producto que desea registrar no puede estar en cero</span>
                     </div>
                 </div>
             </div>
@@ -191,6 +192,13 @@ export default {
             orderQty: 0,
             unitPrice: 0,
             discount: 0,
+        });
+        const order = reactive({
+            supplier_id : 0,
+            iva : 0,
+            subtotal : 0,
+            total : 0,
+            totalDiscount : 0,
         });
         const supplier = ref([]);
         const detailsSupplier = reactive({
@@ -244,7 +252,7 @@ export default {
             await products;
             if (condition != 'name'){
                 if (products.value["code"] !== undefined){
-                    $("#txtPName").val(products.value.name+" - Pres.: "+ products.value.presentacion);
+                    $("#txtPName").val(products.value.name+" *  "+ products.value.presentacion);
                     $("#txtPStock").val(products.value.stock);
                     $("#txtOrderQty").focus().select();
                 }else{
@@ -284,6 +292,13 @@ export default {
         }
 
         const addProd = (product) => {
+            $("#errorTable").hide();
+
+            if(product.qtyOrder === 0 || product.costOrder === 0){
+                $("#errorTable").show();
+                return;
+            }
+
             if (verify(product.id)){
                 Swal.fire({
                     title: 'Error...',
@@ -299,7 +314,7 @@ export default {
                     'discount' : product.discountOrder,
                     'orderQty' : product.qtyOrder,
                     'unitPrice' : product.costOrder,
-                    'product' : product.name + " - Pres.:" + product.presentation.name
+                    'product' : product.name + " * " + product.presentation.name
                 };
 
                 detailsOrder.value.push( data );

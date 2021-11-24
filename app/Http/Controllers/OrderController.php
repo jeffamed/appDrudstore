@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
         Order::create($request->toArray());
 
@@ -42,21 +43,7 @@ class OrderController extends Controller
     {
         return response()->json($order);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        $order->update($request);
-
-        return response()->json("Actualizado Correctamente", 200);
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *

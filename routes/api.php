@@ -18,7 +18,7 @@ Route::resource('customer', 'CustomerController')->except(['create, edit']);
 Route::resource('presentation', 'PresentationController')->except(['create, edit']);
 Route::resource('laboratory', 'LaboratoryController')->except(['create, edit']);
 Route::resource('location', 'LocationController')->except(['create, edit']);
-Route::resource('order', 'OrderController')->except(['create, edit']);
+Route::resource('order', 'OrderController')->except(['create, edit','update']);
 Route::resource('product', 'ProductController')->except(['create, edit']);
 Route::resource('sale', 'SaleController')->except(['create, edit']);
 Route::resource('supplier', 'SupplierController')->except(['create, edit']);
