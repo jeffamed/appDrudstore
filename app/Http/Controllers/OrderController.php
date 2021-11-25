@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use App\Models\OrderDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -28,7 +30,21 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        Order::create($request->toArray());
+        $request['user_id'] = 1; //(user login in the future)
+        $order = Order::create($request->except('details'));
+
+        if ($order){
+            foreach ($request->details as $detail){
+                $dOrder = new OrderDetails();
+                $dOrder->order_id = $order->id;
+                $dOrder->product_id = $detail['product_id'];
+                $dOrder->orderQty = $detail['orderQty'];
+                $dOrder->unitPrice = $detail['unitPrice'];
+                $dOrder->discount = $detail['discount'];
+                $dOrder->total = (($detail['orderQty'] * $detail['unitPrice']) - $detail['discount']);
+                $dOrder->save();
+            }
+        }
 
         return response()->json('Registrado Correctamente');
     }
@@ -43,7 +59,7 @@ class OrderController extends Controller
     {
         return response()->json($order);
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *

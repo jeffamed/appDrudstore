@@ -32,11 +32,19 @@ class OrderRequest extends BaseRequest
     public function store()
     {
         return [
-            'id_supplier' => 'required',
+            'supplier_id' => 'required',
             'subtotal' => 'required|numeric',
             'total' => 'required|numeric|not_in:0',
             'iva' => 'required|numeric',
             'discount' => 'required|numeric',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'supplier_id.required' => 'Seleccione el proveedor de la compra',
+            'total.not_in' => 'Ingrese al menos un producto a sus compra',
         ];
     }
 
@@ -48,7 +56,7 @@ class OrderRequest extends BaseRequest
     public function update()
     {
         return [
-            'id_supplier' => 'required',
+            'supplier_id' => 'required',
             'subtotal' => 'required|numeric',
             'total' => 'required|numeric|not_in:0',
             'iva' => 'required|numeric',

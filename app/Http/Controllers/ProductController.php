@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate($request->pagination);
+        $products = Product::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(6);
 
         return response()->json($products);
     }

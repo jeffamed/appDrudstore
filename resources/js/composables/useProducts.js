@@ -13,8 +13,8 @@ export function useProducts()
     const router = useRouter();
     const {successToast, errorToast} = useToast();
 
-    const getProducts = async (conditon = 'name',search = '', pagination= 6) => {
-        let res = await axios.get(`/api/product?page=${ route.query.page || 1}&condition=${conditon}&search=${ search }&pagination=${pagination}`);
+    const getProducts = async (conditon = 'name',search = '') => {
+        let res = await axios.get(`/api/product?page=${ route.query.page || 1}&condition=${conditon}&search=${ search }`);
         products.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;

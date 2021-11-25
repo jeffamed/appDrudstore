@@ -107,8 +107,9 @@
                 </table>
             </div>
         </div>
+        <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
         <div class="form-group d-flex justify-content-end">
-            <button class="btn btn-success mr-2">Guardar</button>
+            <button class="btn btn-success mr-2" @click="save">Guardar</button>
             <router-link class="btn btn-danger" :to="{ name : 'order' }">Cancelar</router-link>
         </div>
     </div>
@@ -182,6 +183,7 @@ import 'vue-next-select/dist/index.min.css';
 import {useSuppliers} from "../../composables/useSuppliers";
 import {useProducts} from "../../composables/useProducts";
 import {useToast} from "../../composables/useToast";
+import {useOrder} from "../../composables/useOrder";
 export default {
     name: "CreateComponent",
     components:{
@@ -198,13 +200,13 @@ export default {
             iva : 0,
             subtotal : 0,
             total : 0,
-            totalDiscount : 0,
+            discount : 0,
         });
-        const supplier = ref([]);
         const detailsSupplier = reactive({
             phone: '',
             address: ''
         })
+        const supplier = ref([]);
         const detailsOrder = ref([]);
         const search = ref('');
         const errorForm = ref(false);
@@ -238,6 +240,7 @@ export default {
 
         const {allSuppliers, suppliers} = useSuppliers();
         const {searchProduct, products} = useProducts();
+        const {errors, saveOrder} = useOrder();
         const {errorToast} = useToast();
 
         const modalProduct = () => {
@@ -395,6 +398,17 @@ export default {
             $("#errorPrice").hide();
         }
 
+        const save = async () => {
+            order.supplier_id = supplier.value.id;
+            order.total = totalOrder.value.replace(',','');
+            order.discount = totalDiscount.value.replace(',','');
+            order.details = detailsOrder.value;
+            await saveOrder(order);
+            detailsOrder.value = [];
+            supplier.value = [];
+            clearProduct();
+        }
+
         allSuppliers();
 
         watch(supplier, () => {
@@ -402,7 +416,7 @@ export default {
             detailsSupplier.address = supplier.value.address
         });
 
-        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, totalDiscount, total }
+        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, totalDiscount, total, errors, save }
 
     }
 }
