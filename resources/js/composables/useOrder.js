@@ -9,8 +9,8 @@ export function useOrder(){
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getOrders = async (search = '') => {
-        let res = await axios.get(`/api/order?page=${ route.query.page || 1}&search=${ search }`);
+    const getOrders = async (search = '', condition = 'user_id') => {
+        let res = await axios.get(`/api/order?page=${ route.query.page || 1}&search=${ search } &condition=${ condition }`);
         orders.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;

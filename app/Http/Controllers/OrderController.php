@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -15,9 +16,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::all();
+        $orders = Order::with('user','supplier')->where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(6);
 
         return response()->json($orders);
     }
@@ -69,6 +70,16 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $order->delete();
+
+        $details = OrderDetails::where('order_id', $order->id)->get();
+
+        if($details){
+            foreach ($details as $detail){
+                $product = Product::find($detail->product_id);
+                $product->stock = $product->stock - $detail->orderQty;
+                $product->save();
+            }
+        }
 
         return response()->json('Eliminado Correctamente');
     }
