@@ -7,6 +7,7 @@
         </thead>
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
+            <td v-text="item.id"></td>
             <td v-text="item.user.name"></td>
             <td v-text="item.proveedor"></td>
             <td class="text-center" v-text="item.iva"></td>
@@ -21,7 +22,7 @@
             </td>
         </tr>
         <tr v-else>
-            <td colspan="8" class="text-center">No hay datos Registrados</td>
+            <td colspan="9" class="text-center">No hay datos Registrados</td>
         </tr>
         </tbody>
     </table>
@@ -37,7 +38,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['Usuario', 'Proveedor','IVA','SubTotal','Descuento','Total', 'Registrado','Opciones']
+            default: ['Compra','Usuario', 'Proveedor','IVA','SubTotal','Descuento','Total', 'Registrado','Opc.']
         }
     },
     setup(props, context)

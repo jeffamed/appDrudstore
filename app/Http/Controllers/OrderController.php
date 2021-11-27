@@ -73,19 +73,6 @@ class OrderController extends Controller
     {
         $order->delete();
 
-        $details = OrderDetails::where('order_id', $order->id)->get();
-
-        if($details){
-            foreach ($details as $detail){
-                $product = Product::find($detail->product_id);
-                $product->priceSuggest = $detail->priceSuggest;
-                $product->cost = $product->costPrev;
-                $product->stock = $product->stock - $detail->orderQty;
-                $product->expire_at = $detail->expire_at;
-                $product->save();
-            }
-        }
-
         return response()->json('Eliminado Correctamente');
     }
 }
