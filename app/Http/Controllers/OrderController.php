@@ -42,6 +42,8 @@ class OrderController extends Controller
                 $dOrder->orderQty = $detail['orderQty'];
                 $dOrder->unitPrice = $detail['unitPrice'];
                 $dOrder->discount = $detail['discount'];
+                $dOrder->expire_at = $detail['expire_at'];
+                $dOrder->priceSuggest = $detail['priceSuggest'];
                 $dOrder->total = (($detail['orderQty'] * $detail['unitPrice']) - $detail['discount']);
                 $dOrder->save();
             }
@@ -76,7 +78,10 @@ class OrderController extends Controller
         if($details){
             foreach ($details as $detail){
                 $product = Product::find($detail->product_id);
+                $product->priceSuggest = $detail->priceSuggest;
+                $product->cost = $product->costPrev;
                 $product->stock = $product->stock - $detail->orderQty;
+                $product->expire_at = $detail->expire_at;
                 $product->save();
             }
         }

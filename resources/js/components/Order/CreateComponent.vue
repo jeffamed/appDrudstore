@@ -44,23 +44,34 @@
                 <input type="text" name="product" id="txtPStock" class="form-control bg-white" placeholder="00" disabled>
             </div>
         </div>
+        <div class="row from-group">
+
+        </div>
         <div class="row form-group">
+            <div class="col-md-3">
+                <label class="ml-3 form-control-label" for="fecha">Fecha de Venc.</label>
+                <input type="date" name="fecha" id="txtExpire" class="form-control" v-model="form.expire_at">
+                <span class="help-block text-danger" id="errorExpire" style="display: none">(*) Fecha de vencimiento es requerido</span>
+            </div>
             <div class="col-md-3">
                 <label class="ml-3 form-control-label" for="cantidad">Cant. Comprada</label>
                 <input type="number" name="cantidad" id="txtOrderQty" class="form-control" placeholder="00" v-model.number="form.orderQty">
                 <span class="help-block text-danger" id="errorQty" style="display: none">(*) La cantidad no puede ser cero</span>
             </div>
             <div class="col-md-4">
-                <label class="ml-3 form-control-label" for="precio">Precio</label>
-                <input type="number" name="comprada" id="precio" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.unitPrice">
+                <label class="ml-3 form-control-label" for="cost">Precio</label>
+                <input type="number" name="cost" id="cost" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.unitPrice">
                 <span class="help-block text-danger" id="errorPrice" style="display: none">(*) La precio no puede ser cero</span>
-
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
+                <label class="ml-3 form-control-label" for="price">Precio Sugerido</label>
+                <input type="number" name="comprada" id="price" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.priceSuggest">
+            </div>
+            <div class="col-md-3 mt-2">
                 <label class="ml-3 form-control-label" for="descuento">Descuento</label>
                 <input type="number" name="descuento" id="descuento" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.discount">
             </div>
-            <div class="col-md-1 mx-auto mt-4">
+            <div class="col-md-1 d-flex align-items-end">
                 <button class="btn btn-success" @click="addDetails">Agregar</button>
             </div>
             <!--table-->
@@ -71,7 +82,8 @@
                             <th width="5%">Eliminar</th>
                             <th>Cod</th>
                             <th>Producto</th>
-                            <th class="text-center">Cant.</th>
+                            <th class="text-center">F.Venc</th>
+                            <th class="text-center">Cantidad</th>
                             <th class="text-center">Precio</th>
                             <th class="text-center">Desc.</th>
                             <th class="text-center">Total</th>
@@ -86,18 +98,19 @@
                             </td>
                             <td>{{ detail.code }}</td>
                             <td width="40%">{{ detail.product }}</td>
+                            <td>{{ detail.expire_at }}</td>
                             <td class="text-center" >{{ detail.orderQty }}</td>
                             <td class="text-center" > {{ detail.unitPrice }}</td>
                             <td class="text-center" >{{ detail.discount }}</td>
                             <td class="text-center" > {{ (detail.unitPrice * detail.orderQty) - detail.discount }}</td>
                         </tr>
                         <tr v-else>
-                            <td colspan="7" class="text-center">No se ha registrado ningun producto...</td>
+                            <td colspan="8" class="text-center">No se ha registrado ningun producto...</td>
                         </tr>
                     </tbody>
                     <tfoot class="border-top">
                         <tr v-show="detailsOrder.length">
-                            <td colspan="3" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
+                            <td colspan="4" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
                             <td class="text-center">{{ totalQty }}</td>
                             <td class="text-center"></td>
                             <td class="text-center">{{ totalDiscount }}</td>
@@ -140,8 +153,10 @@
                                 <tr>
                                     <th>Cod</th>
                                     <th>Producto</th>
+                                    <th class="text-center">F.Venc</th>
                                     <th class="text-center">Cant.</th>
                                     <th class="text-center">Precio</th>
+                                    <th class="text-center">P.Sug</th>
                                     <th class="text-center">Desc.</th>
                                     <th class="text-center">Agr.</th>
                                 </tr>
@@ -149,10 +164,12 @@
                                 <tbody>
                                     <tr v-if="products.length" v-for="(product, index) in products" :key="index">
                                         <td>{{ product.code }}</td>
-                                        <td width="50%">{{ product.name }} * {{ product.presentation.name }}</td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.qtyOrder"> </td>
-                                        <td width="13%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.costOrder"></td>
-                                        <td width="12%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.discountOrder"></td>
+                                        <td width="40%">{{ product.name }} * {{ product.presentation.name }}</td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="date" v-model="product.expireOrder"> </td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.qtyOrder"></td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.costOrder"> </td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.pvp"> </td>
+                                        <td width="5%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.discountOrder"></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-success btn-sm" @click="addProd(product)">
                                                 <i class="icon-plus"></i>
@@ -160,7 +177,7 @@
                                         </td>
                                     </tr>
                                     <tr v-else>
-                                        <td colspan="6" class="text-center">Producto no encontrado</td>
+                                        <td colspan="8" class="text-center">Producto no encontrado</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -194,6 +211,8 @@ export default {
             orderQty: 0,
             unitPrice: 0,
             discount: 0,
+            expire_at: '',
+            priceSuggest: 0,
         });
         const order = reactive({
             supplier_id : 0,
@@ -257,7 +276,7 @@ export default {
                 if (products.value["code"] !== undefined){
                     $("#txtPName").val(products.value.name+" *  "+ products.value.presentacion);
                     $("#txtPStock").val(products.value.stock);
-                    $("#txtOrderQty").focus().select();
+                    $("#txtExpire").focus().select();
                 }else{
                     Swal.fire({
                         position: 'center',
@@ -317,6 +336,8 @@ export default {
                     'discount' : product.discountOrder,
                     'orderQty' : product.qtyOrder,
                     'unitPrice' : product.costOrder,
+                    'priceSuggest' : product.pvp,
+                    'expire_at': product.expireOrder,
                     'product' : product.name + " * " + product.presentation.name
                 };
 
@@ -330,7 +351,7 @@ export default {
         const remove = (index) => {
             Swal.fire({
                 title: '¿Estas Seguro?',
-                text: "No podra ser capaz de revertir esta operación!",
+                text: "No se podra recuperar los datos",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -354,6 +375,8 @@ export default {
             form.orderQty = 0;
             form.unitPrice = 0;
             form.discount = 0;
+            form.priceSuggest = 0;
+            form.expire_at = '';
             $("#txtPName").val('');
             $("#txtPStock").val('');
         }
@@ -385,11 +408,15 @@ export default {
                 errorToast();
                 $("#errorPrice").show();
                 error = true;
+            }else if (form.expire_at == ''){
+                errorToast();
+                $("#errorExpire").show();
+                error = true;
             }
+
             errorForm.value = error;
 
             return errorForm.value;
-
         }
 
         const hideError = () => {
@@ -404,9 +431,12 @@ export default {
             order.discount = totalDiscount.value.replace(',','');
             order.details = detailsOrder.value;
             await saveOrder(order);
-            detailsOrder.value = [];
-            supplier.value = [];
-            clearProduct();
+            await errors;
+            if (errors.value.length === 0){
+                detailsOrder.value = [];
+                supplier.value = [];
+                clearProduct();
+            }
         }
 
         allSuppliers();

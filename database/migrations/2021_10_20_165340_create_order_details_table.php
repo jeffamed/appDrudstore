@@ -21,6 +21,8 @@ class CreateOrderDetailsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('orderQty');
             $table->float('unitPrice', 8, 2);
+            $table->float('priceSuggest', 8, 2);
+            $table->date('expire_at');
             $table->float('total', 8, 2);
             $table->float('discount', 8, 2);
             $table->timestamps();

@@ -96,7 +96,11 @@ class ProductController extends Controller
                   $products->presentacion = $products->presentation->name;
               }
           }else{
-              $products = Product::with('presentation')->select()->addSelect(DB::raw('0 as costOrder, 0 as qtyOrder, 0 as discountOrder'))->where('name','like','%'.$request->search.'%')->take(25)->get();
+              $products = Product::with('presentation')
+                        ->select()
+                        ->addSelect(DB::raw('0 as costOrder, 0 as qtyOrder, 0 as discountOrder, "" as expireOrder, 0 as pvp '))
+                        ->where('name','like','%'.$request->search.'%')
+                        ->take(25)->get();
           }
 
           return response()->json($products);
