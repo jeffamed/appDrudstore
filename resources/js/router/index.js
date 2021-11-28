@@ -58,6 +58,11 @@ const routes = [
         component : import(/* webpackChunkName: "routes"*/'../views/Sale')
     },
     {
+        path:'/ventas/crear',
+        name:'sale.create',
+        component : import(/* webpackChunkName: "routes"*/'../components/Sale/CreateComponent')
+    },
+    {
         path:'/proveedor',
         name:'supplier',
         component : import(/* webpackChunkName: "routes"*/'../views/Supplier')

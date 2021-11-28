@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-4">
                 <label class="ml-3 form-control-label" for="name">Teléfono</label>
-                <input type="text" name="name" class="form-control bg-white" placeholder="Telefono del provedor" disabled v-model="detailsSupplier.phone">
+                <input type="text" name="name" class="form-control bg-white" placeholder="Telefono del proveedor" disabled v-model="detailsSupplier.phone">
             </div>
         </div>
         <div class="row form-group">
@@ -443,7 +443,8 @@ export default {
 
         watch(supplier, () => {
             detailsSupplier.phone = supplier.value.phone,
-            detailsSupplier.address = supplier.value.address
+            detailsSupplier.address = supplier.value.address,
+            $('#txtpCode').focus();
         });
 
         return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, totalDiscount, total, errors, save }

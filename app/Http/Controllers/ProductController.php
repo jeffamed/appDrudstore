@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\Usage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -95,7 +96,18 @@ class ProductController extends Controller
               if ($products){
                   $products->presentacion = $products->presentation->name;
               }
-          }else{
+          }
+          elseif ($request->condition === 'usage')
+          {
+             $usages = Usage::with('products.presentation')->find($request->search);
+             $products = $usages->products;
+             foreach ($products as $product){
+                $product->qtyOrder = 0;
+                $product->discountOrder = 0;
+             }
+             return response()->json($products);
+          }
+          else{
               $products = Product::with('presentation')
                         ->select()
                         ->addSelect(DB::raw('0 as costOrder, 0 as qtyOrder, 0 as discountOrder, "" as expireOrder, 0 as pvp '))

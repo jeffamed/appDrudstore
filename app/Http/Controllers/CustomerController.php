@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -28,6 +29,7 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
+        Log::info('Data customer: '.$request);
         Customer::create($request->toArray());
         return response()->json('Registrado Existosamente', 200);
     }

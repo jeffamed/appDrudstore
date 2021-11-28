@@ -20432,6 +20432,10 @@ var routes = [{
   name: 'sale',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Sale */ "./resources/js/views/Sale.vue"))
 }, {
+  path: '/ventas/crear',
+  name: 'sale.create',
+  component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sale/CreateComponent */ "./resources/js/components/Sale/CreateComponent.vue"))
+}, {
   path: '/proveedor',
   name: 'supplier',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Supplier */ "./resources/js/views/Supplier.vue"))
