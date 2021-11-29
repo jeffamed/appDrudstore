@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Faker\Provider\Base;
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrderRequest extends BaseRequest
+class SaleRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,7 +33,7 @@ class OrderRequest extends BaseRequest
     public function store()
     {
         return [
-            'supplier_id' => 'required',
+            'customer_id' => 'required',
             'subtotal' => 'required|numeric',
             'total' => 'required|numeric|not_in:0',
             'iva' => 'required|numeric',
@@ -43,8 +44,8 @@ class OrderRequest extends BaseRequest
     public function messages()
     {
         return [
-            'supplier_id.required' => 'Seleccione el proveedor de la compra',
-            'total.not_in' => 'Ingrese al menos un producto a sus compra',
+            'customer_id.required' => 'Seleccione al cliente de la venta',
+            'total.not_in' => 'Ingrese al menos un producto a su factura',
         ];
     }
 }

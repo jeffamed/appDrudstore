@@ -111,7 +111,7 @@
                         <td class="text-center">{{ totalQty }}</td>
                         <td class="text-center"></td>
                         <td class="text-center">{{ totalDiscount }}</td>
-                        <td class="text-center font-weight-bold bg-success text-white">{{ totalOrder }}</td>
+                        <td class="text-center font-weight-bold bg-success text-white">{{ totalSale }}</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -271,7 +271,7 @@ import VueSelect from 'vue-next-select';
 import 'vue-next-select/dist/index.min.css';
 import {useProducts} from "../../composables/useProducts";
 import {useToast} from "../../composables/useToast";
-import {useOrder} from "../../composables/useOrder";
+import {useSale} from "../../composables/useSale";
 import {useCustomer} from "../../composables/useCustomer";
 import {useUsages} from "../../composables/useUsages";
 export default {
@@ -301,8 +301,8 @@ export default {
         });
         const type = ref(false);
         const usage = ref([]);
-        const order = reactive({
-            supplier_id : 0,
+        const sale = reactive({
+            customer_id : 0,
             iva : 0,
             subtotal : 0,
             total : 0,
@@ -316,7 +316,7 @@ export default {
             sum = sum + detailsSale.value.length;
             return sum;
         });
-        const totalOrder = computed(() => {
+        const totalSale = computed(() => {
             let sum = 0;
             for (let i = 0; i < detailsSale.value.length; i++) {
                 sum = parseFloat(sum) + (parseFloat(detailsSale.value[i].orderQty * detailsSale.value[i].unitPrice) - detailsSale.value[i].discount );
@@ -341,7 +341,7 @@ export default {
         const {allCustomers, customers, saveCustomer} = useCustomer();
         const {searchProduct, products} = useProducts();
         const {allUsages, usages} = useUsages();
-        const {errors, saveOrder} = useOrder();
+        const {errors, saveSale} = useSale();
         const {errorToast} = useToast();
 
         const saveC =  async () => {
@@ -533,15 +533,15 @@ export default {
         }
 
         const save = async () => {
-            order.supplier_id = supplier.value.id;
-            order.total = totalOrder.value.replace(',','');
-            order.discount = totalDiscount.value.replace(',','');
-            order.details = detailsSale.value;
-            await saveOrder(order);
+            sale.customer_id = customer.value.id;
+            sale.total = totalSale.value.replace(',','');
+            sale.discount = totalDiscount.value.replace(',','');
+            sale.details = detailsSale.value;
+            await saveSale(sale);
             await errors;
             if (errors.value.length === 0){
                 detailsSale.value = [];
-                supplier.value = [];
+                customer.value = [];
                 clearProduct();
             }
         }
@@ -560,7 +560,7 @@ export default {
            await searchProduct('usage', usage.value.id);
         });
 
-        return {formCustomer, errorsC, saveC, clearCustomer, form, type, usages, usage, products, detailsSale, customers, customer, detailsCustomer, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, totalDiscount, total, errors, save }
+        return {formCustomer, errorsC, saveC, clearCustomer, form, type, usages, usage, products, detailsSale, customers, customer, detailsCustomer, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalSale, totalQty, totalDiscount, total, errors, save }
 
     }
 }

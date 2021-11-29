@@ -2,7 +2,7 @@ import {ref} from "vue";
 import {useRoute} from "vue-router";
 import {useToast} from "./useToast";
 
-export function useOrder(){
+export function useSale(){
     const errors = ref('');
     const sales = ref([]);
     const pagination = ref([]);
