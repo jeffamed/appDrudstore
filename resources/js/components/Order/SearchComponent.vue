@@ -28,7 +28,7 @@ export default {
     },
     setup(props, context){
         const search = ref('');
-        const condition = ref('name');
+        const condition = ref('supplier');
 
         const btnSearch = () => {
             context.emit('search', condition.value, search.value);

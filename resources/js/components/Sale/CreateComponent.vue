@@ -120,7 +120,7 @@
         <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
         <div class="form-group d-flex justify-content-end">
             <button class="btn btn-success mr-2" @click="save">Guardar</button>
-            <router-link class="btn btn-danger" :to="{ name : 'order' }">Cancelar</router-link>
+            <router-link class="btn btn-danger" :to="{ name : 'sale' }">Cancelar</router-link>
         </div>
     </div>
 

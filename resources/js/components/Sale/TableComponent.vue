@@ -7,9 +7,9 @@
         </thead>
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
-            <td class="text-center" v-text="item.id"></td>
+            <td v-text="item.id"></td>
             <td v-text="item.user.name"></td>
-            <td v-text="item.proveedor"></td>
+            <td v-text="item.cliente"></td>
             <td class="text-center" v-text="item.iva"></td>
             <td class="text-center" v-text="item.subtotal_format"></td>
             <td class="text-center" v-text="item.discount_format"></td>
@@ -38,7 +38,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['#','Usuario', 'Proveedor','IVA','SubTotal','Descuento','Total', 'Registrado','Opc.']
+            default: ['#','Usuario', 'Cliente','IVA','SubTotal','Descuento','Total', 'Registrado','Opc.']
         }
     },
     setup(props, context)

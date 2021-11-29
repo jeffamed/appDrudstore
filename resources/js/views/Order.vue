@@ -7,7 +7,8 @@
                 <router-link :to="{ name: 'order.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
-                <table-component :data="orders"  @load="loadOrder"  />
+                <search-component @search="findOrder" />
+                <table-component :data="orders"  @load="loadOrder" />
                 <pagination-component name="order" :pagination="pagination" />
             </div>
         </div>
@@ -23,9 +24,11 @@ import DeleteComponent from "../components/Order/DeleteComponent";
 import {useOrder} from "../composables/useOrder";
 import {ref, watch} from "vue";
 import {useToast} from "../composables/useToast";
+import SearchComponent from "../components/Order/SearchComponent";
 export default {
     name: "Order",
     components: {
+        SearchComponent,
         BreadcrumbComponent,
         TableComponent,
         DeleteComponent
@@ -40,6 +43,10 @@ export default {
             order.value = { ...data };
         }
 
+        const findOrder = async(condition, search) => {
+            await getOrders(search, condition);
+        }
+
         const destroyOrder = async(id) =>{
             await deleteOrder(id);
             await getOrders();
@@ -52,7 +59,7 @@ export default {
             return getOrders();
         })
 
-        return {orders, pagination, loadOrder, order, destroyOrder}
+        return {orders, pagination, loadOrder, order, destroyOrder, findOrder}
     }
 }
 </script>

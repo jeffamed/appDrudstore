@@ -7,8 +7,8 @@
                 <router-link :to="{ name: 'sale.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
-                <table-component title="Ventas" />
-                <pagination-component name="order" :pagination="pagination" />
+                <table-component :data="sales"  @load="loadSale" />
+                <pagination-component name="sale" :pagination="pagination" />
             </div>
         </div>
     </div>
@@ -16,12 +16,39 @@
 
 <script>
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
-import TableComponent from "../components/TableComponent";
+import TableComponent from "../components/Sale/TableComponent";
+import {ref, watch} from "vue";
+import {useSale} from "../composables/useSale";
+import {useToast} from "../composables/useToast";
 export default {
     name: "Sale",
     components: {
         BreadcrumbComponent,
         TableComponent
+    },
+    setup(){
+      const sale = ref([]);
+
+      const {getSales, pagination, sales, route, deleteSale} = useSale();
+      const {successToast} = useToast();
+
+      const loadSale = (data) => {
+        sale.value = { ...data};
+      }
+
+      const destroySale = async (id) => {
+        await deleteSale(id);
+        await getSales();
+        successToast('Eliminado');
+      }
+
+      getSales();
+
+      watch(() => route.query.page, ()=>{
+         return getOrders();
+      })
+
+      return { sales, pagination, loadSale, sale, deleteSale};
     }
 }
 </script>
