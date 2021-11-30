@@ -7,7 +7,7 @@
         </thead>
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
-            <td v-text="item.id"></td>
+            <td class="text-center" v-text="item.id"></td>
             <td v-text="item.user.name"></td>
             <td v-text="item.cliente"></td>
             <td class="text-center" v-text="item.iva"></td>
@@ -19,6 +19,7 @@
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
+                <router-link :to="{name:'sale' }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
             </td>
         </tr>
         <tr v-else>

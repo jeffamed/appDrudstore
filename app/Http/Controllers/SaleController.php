@@ -23,7 +23,7 @@ class SaleController extends Controller
             $suppliers = Customer::where('name', 'like', '%'.$request->search.'%')->get();
             $ids = [];
             foreach ($suppliers as $supplier){ $ids[] = $supplier->id; }
-            $sales = Sale::with('user','customer')->whereIn('supplier_id',$ids)->latest('id')->paginate(6);
+            $sales = Sale::with('user','customer')->whereIn('customer_id',$ids)->latest('id')->paginate(6);
         }
         elseif ($request->condition === 'user')
         {

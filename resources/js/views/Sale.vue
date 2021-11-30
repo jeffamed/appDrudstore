@@ -7,6 +7,7 @@
                 <router-link :to="{ name: 'sale.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
+                <search-component @search="findSale" />
                 <table-component :data="sales"  @load="loadSale" />
                 <pagination-component name="sale" :pagination="pagination" />
             </div>
@@ -20,6 +21,7 @@
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/Sale/TableComponent";
 import DeleteComponent from "../components/Sale/DeleteComponent";
+import SearchComponent from "../components/Sale/SearchComponent";
 import {ref, watch} from "vue";
 import {useSale} from "../composables/useSale";
 import {useToast} from "../composables/useToast";
@@ -28,7 +30,8 @@ export default {
     components: {
         BreadcrumbComponent,
         TableComponent,
-        DeleteComponent
+        DeleteComponent,
+        SearchComponent
     },
     setup(){
       const sale = ref([]);
@@ -40,6 +43,10 @@ export default {
         sale.value = { ...data};
       }
 
+      const findSale = async (condition, search) => {
+          await getSales(search, condition);
+      }
+
       const destroySale = async (id) => {
         await deleteSale(id);
         await getSales();
@@ -49,10 +56,10 @@ export default {
       getSales();
 
       watch(() => route.query.page, ()=>{
-         return getOrders();
+         return getSales();
       })
 
-      return { sales, pagination, loadSale, sale, destroySale};
+      return { sales, pagination, loadSale, sale, destroySale, findSale};
     }
 }
 </script>
