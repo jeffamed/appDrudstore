@@ -19,7 +19,7 @@
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
-                <router-link :to="{name:'order' }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
+                <router-link :to="{name:'order.show', params: { id: item.id } }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
             </td>
         </tr>
         <tr v-else>

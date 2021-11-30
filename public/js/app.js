@@ -20411,6 +20411,11 @@ var routes = [{
   name: 'order.create',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Order/CreateComponent */ "./resources/js/components/Order/CreateComponent.vue"))
 }, {
+  path: '/compras/detalles/:id',
+  name: 'order.show',
+  props: true,
+  component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Order/ShowComponent */ "./resources/js/components/Order/ShowComponent.vue"))
+}, {
   path: '/presentacion',
   name: 'presentation',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Presentation */ "./resources/js/views/Presentation.vue"))
@@ -20435,6 +20440,11 @@ var routes = [{
   path: '/ventas/crear',
   name: 'sale.create',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sale/CreateComponent */ "./resources/js/components/Sale/CreateComponent.vue"))
+}, {
+  path: '/ventas/detalles/:id',
+  name: 'sale.show',
+  props: true,
+  component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sale/ShowComponent */ "./resources/js/components/Sale/ShowComponent.vue"))
 }, {
   path: '/proveedor',
   name: 'supplier',

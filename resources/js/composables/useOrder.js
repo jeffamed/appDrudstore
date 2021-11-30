@@ -16,6 +16,11 @@ export function useOrder(){
         delete pagination.value.data;
     };
 
+    const getOrder = async(data) => {
+        let res = await axios.get(`/api/order/${data}`);
+        orders.value = res.data;
+    }
+
     const saveOrder = async (data) => {
         errors.value = '';
         try {
@@ -35,5 +40,5 @@ export function useOrder(){
         await axios.delete(`/api/order/${data}`);
     }
 
-    return { orders, pagination, route, getOrders, saveOrder, deleteOrder, errors };
+    return { orders, pagination, route, getOrders, saveOrder, deleteOrder, errors, getOrder };
 }

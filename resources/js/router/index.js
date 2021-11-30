@@ -32,6 +32,12 @@ const routes = [
         component : import(/* webpackChunkName: "routes"*/'../components/Order/CreateComponent')
     },
     {
+        path:'/compras/detalles/:id',
+        name:'order.show',
+        props: true,
+        component : import(/* webpackChunkName: "routes"*/'../components/Order/ShowComponent')
+    },
+    {
         path:'/presentacion',
         name:'presentation',
         component : import(/* webpackChunkName: "routes"*/'../views/Presentation')
@@ -61,6 +67,12 @@ const routes = [
         path:'/ventas/crear',
         name:'sale.create',
         component : import(/* webpackChunkName: "routes"*/'../components/Sale/CreateComponent')
+    },
+    {
+        path:'/ventas/detalles/:id',
+        name:'sale.show',
+        props: true,
+        component : import(/* webpackChunkName: "routes"*/'../components/Sale/ShowComponent')
     },
     {
         path:'/proveedor',

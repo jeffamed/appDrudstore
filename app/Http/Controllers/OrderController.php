@@ -77,6 +77,11 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        $order->details = $order->details;
+        $details = $order->details;
+        foreach ($details as $detail){
+            $detail->product;
+        }
         return response()->json($order);
     }
 
