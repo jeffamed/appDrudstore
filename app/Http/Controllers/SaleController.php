@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaleRequest;
+use App\Models\Customer;
 use App\Models\Sale;
 use App\Models\SaleDetails;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -16,7 +18,23 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-        $sales = Sale::all();
+        if ($request->condition === 'customer')
+        {
+            $suppliers = Customer::where('name', 'like', '%'.$request->search.'%')->get();
+            $ids = [];
+            foreach ($suppliers as $supplier){ $ids[] = $supplier->id; }
+            $sales = Sale::with('user','customer')->whereIn('supplier_id',$ids)->latest('id')->paginate(6);
+        }
+        elseif ($request->condition === 'user')
+        {
+            $users = User::where('name', 'like', '%'.$request->search.'%')->get();
+            $ids = [];
+            foreach ($users as $user){ $ids[] = $user->id; }
+            $sales = Sale::with('user','customer')->whereIn('user_id',$ids)->latest('id')->paginate(6);
+        }
+        else{
+            $sales = Sale::with('user','customer')->latest('id')->paginate(6);
+        }
 
         return response()->json($sales);
     }

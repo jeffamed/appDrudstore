@@ -38,7 +38,7 @@ class SaleObserver
      */
     public function deleted(Sale $sale)
     {
-        $details = SaleDetails::where('order_id', $sale->id)->get();
+        $details = SaleDetails::where('sale_id', $sale->id)->get();
 
         if($details){
             foreach ($details as $detail){

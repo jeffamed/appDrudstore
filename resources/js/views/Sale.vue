@@ -12,11 +12,14 @@
             </div>
         </div>
     </div>
+
+    <delete-component title="Venta" :data="sale" @delete="destroySale"  />
 </template>
 
 <script>
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/Sale/TableComponent";
+import DeleteComponent from "../components/Sale/DeleteComponent";
 import {ref, watch} from "vue";
 import {useSale} from "../composables/useSale";
 import {useToast} from "../composables/useToast";
@@ -24,7 +27,8 @@ export default {
     name: "Sale",
     components: {
         BreadcrumbComponent,
-        TableComponent
+        TableComponent,
+        DeleteComponent
     },
     setup(){
       const sale = ref([]);
@@ -48,7 +52,7 @@ export default {
          return getOrders();
       })
 
-      return { sales, pagination, loadSale, sale, deleteSale};
+      return { sales, pagination, loadSale, sale, destroySale};
     }
 }
 </script>
