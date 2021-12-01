@@ -28,9 +28,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->password = Hash::make($request->password);
-
-        User::create($request->toArray());
+        $user = new User();
+        $user->document = $request->document;
+        $user->name     = $request->name;
+        $user->last_name= $request->last_name;
+        $user->email    = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->address  = $request->address;
+        $user->phone    = $request->phone;
+        $user->save();
 
         return response()->json('Registrado Existosamente', 200);
     }
