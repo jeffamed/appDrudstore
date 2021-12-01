@@ -58,7 +58,7 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Acceso</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="i#"><i class="icon-user"></i> Usuarios</a>
+                            <router-link class="nav-link" :to="{ name : 'user' }"><i class="icon-user"></i> Usuarios</router-link>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="icon-user-following"></i> Roles</a>

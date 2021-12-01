@@ -23,6 +23,4 @@ class Customer extends Model
     {
         return $this->name." ".$this->last_name;
     }
-
-
 }

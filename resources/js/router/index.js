@@ -90,6 +90,11 @@ const routes = [
         component : import(/* webpackChunkName: "routes"*/'../views/Usage')
     },
     {
+        path:'/usuario',
+        name:'user',
+        component : import(/* webpackChunkName: "routes"*/'../views/User')
+    },
+    {
         path:'/:pathMatch(.*)*',
         component : import(/* webpackChunkName: "routes"*/'../views/404')
     },

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CustomerRequest;
-use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
-class CustomerController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,9 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $customers = Customer::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
-        return response()->json($customers);
+        $users = User::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
+        return response()->json($users);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -27,51 +26,50 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerRequest $request)
+    public function store(Request $request)
     {
-        Customer::create($request->toArray());
+        $request->password = Hash::make($request->password);
+
+        User::create($request->toArray());
+
         return response()->json('Registrado Existosamente', 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show(User $user)
     {
-        return response()->json($customer);
+        return response()->json($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerRequest $request, Customer $customer)
+    public function update(Request $request, User $user)
     {
-        $customer->update($request->except('full_name'));
+        $user->update($request->except('full_name'));
+
         return response()->json('Actualizado Correctamente', 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy(User $user)
     {
-        $customer->delete();
+        $user->delete();
         return response()->json('Eliminado Existosamente');
     }
 
-    public function getAll()
-    {
-        $customers = Customer::latest('id')->get();
-        return response()->json($customers);
-    }
 }

@@ -33,6 +33,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ['full_name'];
+
     /**
      * The attributes that should be cast.
      *
@@ -50,5 +52,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->name." ".$this->last_name;
     }
 }

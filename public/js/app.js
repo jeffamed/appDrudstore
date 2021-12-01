@@ -20146,9 +20146,48 @@ var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_46 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Clientes");
 
-var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<li class=\"nav-item nav-dropdown\"><a class=\"nav-link nav-dropdown-toggle\" href=\"#\"><i class=\"icon-people\"></i> Acceso</a><ul class=\"nav-dropdown-items\"><li class=\"nav-item\"><a class=\"nav-link\" href=\"i#\"><i class=\"icon-user\"></i> Usuarios</a></li><li class=\"nav-item\"><a class=\"nav-link\" href=\"#\"><i class=\"icon-user-following\"></i> Roles</a></li></ul></li><li class=\"nav-item nav-dropdown\"><a class=\"nav-link nav-dropdown-toggle\" href=\"#\"><i class=\"icon-pie-chart\"></i> Reportes</a><ul class=\"nav-dropdown-items\"><li class=\"nav-item\"><a class=\"nav-link\" href=\"i#\"><i class=\"icon-chart\"></i> Reporte Ingresos</a></li><li class=\"nav-item\"><a class=\"nav-link\" href=\"#\"><i class=\"icon-chart\"></i> Reporte Ventas</a></li></ul></li><li class=\"nav-item\"><a class=\"nav-link\" href=\"main.html\"><i class=\"icon-book-open\"></i> Ayuda <span class=\"badge badge-danger\">PDF</span></a></li><li class=\"nav-item\"><a class=\"nav-link\" href=\"main.html\"><i class=\"icon-info\"></i> Acerca de...<span class=\"badge badge-info\">IT</span></a></li>", 4);
+var _hoisted_47 = {
+  "class": "nav-item nav-dropdown"
+};
 
-var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  "class": "nav-link nav-dropdown-toggle",
+  href: "#"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "icon-people"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Acceso")], -1
+/* HOISTED */
+);
+
+var _hoisted_49 = {
+  "class": "nav-dropdown-items"
+};
+var _hoisted_50 = {
+  "class": "nav-item"
+};
+
+var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "icon-user"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Usuarios");
+
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+  "class": "nav-item"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  "class": "nav-link",
+  href: "#"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "icon-user-following"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Roles")])], -1
+/* HOISTED */
+);
+
+var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<li class=\"nav-item nav-dropdown\"><a class=\"nav-link nav-dropdown-toggle\" href=\"#\"><i class=\"icon-pie-chart\"></i> Reportes</a><ul class=\"nav-dropdown-items\"><li class=\"nav-item\"><a class=\"nav-link\" href=\"i#\"><i class=\"icon-chart\"></i> Reporte Ingresos</a></li><li class=\"nav-item\"><a class=\"nav-link\" href=\"#\"><i class=\"icon-chart\"></i> Reporte Ventas</a></li></ul></li><li class=\"nav-item\"><a class=\"nav-link\" href=\"main.html\"><i class=\"icon-book-open\"></i> Ayuda <span class=\"badge badge-danger\">PDF</span></a></li><li class=\"nav-item\"><a class=\"nav-link\" href=\"main.html\"><i class=\"icon-info\"></i> Acerca de...<span class=\"badge badge-info\">IT</span></a></li>", 3);
+
+var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "sidebar-minimizer brand-minimizer",
   type: "button"
 }, null, -1
@@ -20290,7 +20329,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })])])]), _hoisted_47])]), _hoisted_51]);
+  })])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_47, [_hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    "class": "nav-link",
+    to: {
+      name: 'user'
+    }
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_51, _hoisted_52];
+    }),
+    _: 1
+    /* STABLE */
+
+  })]), _hoisted_53])]), _hoisted_54])]), _hoisted_57]);
 }
 
 /***/ }),
@@ -20457,6 +20508,10 @@ var routes = [{
   path: '/uso',
   name: 'usage',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Usage */ "./resources/js/views/Usage.vue"))
+}, {
+  path: '/usuario',
+  name: 'user',
+  component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/User */ "./resources/js/views/User.vue"))
 }, {
   path: '/:pathMatch(.*)*',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/404 */ "./resources/js/views/404.vue"))
