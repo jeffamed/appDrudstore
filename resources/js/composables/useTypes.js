@@ -10,12 +10,17 @@ export function useTypes() {
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getAll = async (search = '') => {
+    const getTypes = async (search = '') => {
         let res = await axios.get(`/api/type?page=${ route.query.page || 1}&search=${ search }`);
         types.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;
     };
+
+    const allTypes = async() => {
+        let res = await axios.get('/api/type-all');
+        types.value = res.data;
+    }
 
     const saveType = async (data) => {
         try {
@@ -54,5 +59,5 @@ export function useTypes() {
         await axios.delete(`/api/type/${data}`);
     }
 
-    return {types, pagination, route, errors, getAll, saveType, updateType, deleteType};
+    return {types, pagination, route, errors, getTypes, saveType, updateType, deleteType, allTypes};
 }

@@ -69,4 +69,10 @@ class LaboratoryController extends Controller
 
         return response()->json('Eliminado correctamente');
     }
+
+    public function getAll()
+    {
+        $laboratories = Laboratory::latest('id')->get();
+        return response()->json($laboratories);
+    }
 }

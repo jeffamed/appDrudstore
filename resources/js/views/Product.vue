@@ -7,30 +7,55 @@
                 <router-link :to="{ name: 'product.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
-                <table-component title="Productos" />
+                <search-component @search="findProduct" />
+                <table-component :data="products" @load="loadProduct"/>
+                <pagination-component name="product" :pagination="pagination"/>
             </div>
         </div>
     </div>
+
+    <delete-component  title="Productos" :data="product" @delete="destroyProduct" />
 
 </template>
 
 <script>
 import TableComponent from "../components/Product/TableComponent";
-import {reactive} from "vue";
+import SearchComponent from "../components/Product/SearchComponent";
+import {onMounted, ref, watch} from "vue";
+import {useProducts} from "../composables/useProducts";
+import {useToast} from "../composables/useToast";
 export default {
     name: "Product",
     components: {
+        SearchComponent,
         TableComponent
     },
     setup(){
-        const form = reactive({
+        const product = ref([]);
+        const {getProducts, products, pagination, deleteProduct, route} = useProducts();
+        const {successToast} = useToast();
 
-        })
-
-        const save = async () => {
+        const loadProduct = async (data) => {
+            product.value = { ...data };
         }
 
-        return {form, save}
+        const findProduct = async(condition, search) => {
+            await getProducts(condition, search);
+        }
+
+        const destroyProduct = async (id) => {
+            await deleteProduct(id);
+            await getProducts();
+            await successToast('Eliminado');
+        }
+
+        watch( () => route.query.page, ()=>{
+            getProducts();
+        });
+
+        onMounted(getProducts);
+
+        return {products, pagination, product, loadProduct, destroyProduct, findProduct}
     }
 }
 </script>

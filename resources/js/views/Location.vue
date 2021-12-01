@@ -104,7 +104,7 @@ export default {
             name : '',
         })
 
-        const {locations, pagination, route, getAll, saveLocation, deleteLocation, updateLocation, errors } = useLocations();
+        const {locations, pagination, route, getLocations, saveLocation, deleteLocation, updateLocation, errors } = useLocations();
         const {successToast} = useToast();
 
         const save = async() => {
@@ -112,19 +112,19 @@ export default {
             await errors;
             if (errors.value.length === 0){
                 await clear();
-                await getAll();
+                await getLocations();
             }
         };
 
         const destroyLocation = async(id) =>{
             await deleteLocation(id);
-            await getAll();
+            await getLocations();
             successToast('Eliminado')
         };
 
         const updatingLocation = async () => {
             await updateLocation(location.value);
-            await getAll();
+            await getLocations();
         };
 
         const loadLocation = async (data) => {
@@ -136,15 +136,15 @@ export default {
         }
 
         const findLocation = async(data) => {
-            await getAll(data);
+            await getLocations(data);
         }
 
-        onMounted(getAll);
+        onMounted(getLocations);
 
         watch(() => route.query.page , () => {
-            getAll()
+            getLocations()
         })
-        return { locations, pagination, route, getAll, save, form, destroyLocation, updatingLocation,  errors, clear, loadLocation, findLocation, location };
+        return { locations, pagination, route, getLocations, save, form, destroyLocation, updatingLocation,  errors, clear, loadLocation, findLocation, location };
     }
 }
 </script>

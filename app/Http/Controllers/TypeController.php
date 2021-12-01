@@ -70,4 +70,10 @@ class TypeController extends Controller
 
         return response()->json('Eliminado Existosamente', 200);
     }
+
+    public function getAll()
+    {
+        $types = Type::latest('id')->get();
+        return response()->json($types);
+    }
 }

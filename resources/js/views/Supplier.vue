@@ -134,30 +134,30 @@ export default {
             phone: ''
         })
         const supplier = ref([]);
-        const { suppliers, pagination, errors, route, getAll, saveSupplier, updateSupplier, deleteSupplier } = useSuppliers();
+        const { suppliers, pagination, errors, route, getSuppliers, saveSupplier, updateSupplier, deleteSupplier } = useSuppliers();
 
         const save = async () => {
             await saveSupplier(form);
             await errors;
             if (errors.value.length === 0){
                 await clear()
-                await getAll();
+                await getSuppliers();
             }
         }
 
         const updatingSupplier = async () => {
             await updateSupplier(supplier.value);
-            await getAll();
+            await getSuppliers();
         }
 
         const destroySupplier = async (id) => {
             await deleteSupplier(id);
-            await getAll();
+            await getSuppliers();
             await successToast('Eliminado');
         }
 
         const findSupplier = async(condition, search) => {
-            await getAll(condition, search);
+            await getSuppliers(condition, search);
         }
 
         const loadSupplier = async (data) => {
@@ -172,10 +172,10 @@ export default {
         }
 
         watch( () => route.query.page, ()=>{
-            getAll();
+            getSuppliers();
         });
 
-        onMounted(getAll);
+        onMounted(getSuppliers);
 
         return {form, suppliers, supplier, pagination, errors, clear, save, findSupplier, loadSupplier, updatingSupplier, destroySupplier};
     }

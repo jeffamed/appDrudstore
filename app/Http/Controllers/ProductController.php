@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -13,9 +14,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $products = Product::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
 
         return response()->json($products);
     }
@@ -28,7 +29,9 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->toArray());
+       $product =  Product::create($request->except('usage_id'));
+
+        $product->usages()->sync($request->usage_id);
 
         return response()->json("Registrado Correctamente");
     }
@@ -41,6 +44,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->laboratorio = $product->laboratory->name;
+        $product->presentacion = $product->presentation->name;
+        $product->ubicacion = $product->location->name;
+        $product->tipo = $product->type->name;
+        $product->proveedor = $product->supplier->name;
+        $product->usage_id = $product->usages->map(function ($item, $key){
+            return $item->id;
+        });
+
         return response()->json($product);
     }
 
@@ -53,7 +65,11 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->toArray());
+        $product->update($request->except('usage_id','laboratorio','ubicacion','tipo','presentacion','proveedor', 'usages'));
+
+        if (count($request->usage_id) > 0){
+            $product->usages()->sync($request->usage_id);
+        }
 
         return response()->json("Actualizado Correctamente");
     }

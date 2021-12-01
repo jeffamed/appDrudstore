@@ -72,4 +72,10 @@ class PresentationController extends Controller
 
         return response()->json('Eliminado existosamente', 200);
     }
+
+    public function getAll()
+    {
+        $presentations = Presentation::latest('id')->get();
+        return response()->json($presentations);
+    }
 }

@@ -37,9 +37,15 @@ const routes = [
         component : import(/* webpackChunkName: "routes"*/'../views/Product')
     },
     {
-        path:'/crear-productos',
+        path:'/productos/crear',
         name:'product.create',
         component : import(/* webpackChunkName: "routes"*/'../components/Product/CreateComponent')
+    },
+    {
+        path:'/productos/:id/editar',
+        name:'product.edit',
+        props: true,
+        component : import(/* webpackChunkName: "routes"*/'../components/Product/EditComponent')
     },
     {
         path:'/ventas',

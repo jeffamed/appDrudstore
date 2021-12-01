@@ -9,12 +9,17 @@ export function usePresentations() {
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getAll = async (search = '') => {
+    const getPresentations = async (search = '') => {
         let res = await axios.get(`/api/presentation?page=${ route.query.page || 1}&search=${ search }`);
         presentations.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;
     };
+
+    const allPresentations = async() => {
+        let res = await axios.get('/api/presentation-all');
+        presentations.value = res.data;
+    }
 
     const savePresentation = async (data) => {
         try {
@@ -53,5 +58,5 @@ export function usePresentations() {
         await axios.delete(`/api/presentation/${data}`);
     }
 
-    return { presentations, pagination, route, getAll, savePresentation, deletePresentation, updatePresentation, errors };
+    return { presentations, pagination, route, getPresentations, savePresentation, deletePresentation, updatePresentation, errors, allPresentations };
 }

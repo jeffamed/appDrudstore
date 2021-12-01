@@ -7,7 +7,7 @@
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="code">Codigo</label>
-                <input type="text" name="code" class="form-control" placeholder="Codigo del Producto" v-model="form.code">
+                <input type="text" name="code" class="form-control" placeholder="00000X" v-model="form.code">
             </div>
             <div class="col-md-8">
                 <label class="ml-3 form-control-label" for="name">Nombre</label>
@@ -31,29 +31,29 @@
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="supplier">Proveedor</label>
-                <input type="text" name="supplier" class="form-control" placeholder="Proveedor del Producto">
+                <vue-select v-model="form.supplier_id" :options="suppliers" label-by="name" value-by="id" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Laboratorio</label>
-                <input type="text" name="laboratory" class="form-control" placeholder="Laboratorio del Producto">
+                <vue-select v-model="form.laboratory_id" :options="laboratories" label-by="name" value-by="id" placeholder="Seleccione el Laboratorio" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="presentation">Presentación</label>
-                <input type="text" name="presentation" class="form-control" placeholder="Presentacion del Producto">
+                <vue-select v-model="form.presentation_id" :options="presentations" label-by="name" value-by="id" placeholder="Seleccione la Presentación" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="form-control-label" for="laboratory">Ubicación</label>
-                <input type="text" name="laboratory" class="form-control" placeholder="Ubicación del Producto">
+                <vue-select v-model="form.location_id" :options="locations" label-by="name" value-by="id" placeholder="Seleccione la Ubicacion" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="type">Tipo</label>
-                <input type="text" name="type" class="form-control" placeholder="Tipo del Producto">
+                <vue-select v-model="form.type_id" :options="types" label-by="name" value-by="id" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
                 <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
-                <input type="date" name="expire_at" class="form-control">
+                <input type="date" name="expire_at" class="form-control" v-model="form.expire_at">
             </div>
         </div>
         <div class="row form-group">
@@ -62,27 +62,56 @@
                 Seleccione los usos
             </a>
             <hr>
-            <div class="collapse show mx-3" id="collapseExample">
-                <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                </div>
+            <div class="collapse col-md-12" id="collapseExample" style="max-height: 250px; overflow: auto">
+                <table class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Seleccione</th>
+                            <th>Usos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in usages" :key="item.id" v-if="usages.length">
+                            <td>
+                                <input type="checkbox" name="cbUsos" id="cbUsos" v-model="form.usage_id" :value="item.id">
+                            </td>
+                            <td v-text="item.description"></td>
+                        </tr>
+                        <tr v-else>
+                            <td colspan="2" class="text-center">No hay datos Registrados</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+
+        <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
 
         <div class="row form-group">
             <div class="col-md-12">
                 <router-link :to="{ name: 'product' }" class="btn btn-danger float-right"> Cancelar</router-link>
-                <button class="btn btn-success mr-2 float-right">Guardar</button>
+                <button class="btn btn-success mr-2 float-right" @click="save">Guardar</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import {reactive} from "vue";
-
+import {onMounted, reactive} from "vue";
+import VueSelect from 'vue-next-select';
+import 'vue-next-select/dist/index.min.css';
+import {useSuppliers} from "../../composables/useSuppliers";
+import {useLaboratories} from "../../composables/useLaboratories";
+import {usePresentations} from "../../composables/usePresentations";
+import {useLocations} from "../../composables/useLocations";
+import {useTypes} from "../../composables/useTypes";
+import {useUsages} from "../../composables/useUsages";
+import {useProducts} from "../../composables/useProducts";
 export default {
     name: "CreateComponent",
+    components:{
+      VueSelect
+    },
     setup(){
         const form = reactive({
             code: '',
@@ -92,15 +121,52 @@ export default {
             discount: 0,
             stock: 0,
             box_stock: 0,
-            expire_at: new Date(),
+            expire_at: '',
             supplier_id: 0,
             laboratory_id: 0,
             type_id: 0,
             location_id: 0,
             presentation_id: 0,
+            usage_id: [],
         })
+        const {allSuppliers, suppliers} = useSuppliers();
+        const {allLaboratories, laboratories} = useLaboratories();
+        const {allPresentations, presentations} = usePresentations();
+        const {allLocations, locations} = useLocations();
+        const {allTypes, types} = useTypes();
+        const {allUsages, usages} = useUsages();
+        const {saveProduct, errors} = useProducts();
 
-        return {form};
+        const save = async () => {
+            await errors;
+            await saveProduct(form);
+        }
+
+        const clear = () => {
+            form.code = '';
+            form.name = '';
+            form.price = 0;
+            form.cost = 0;
+            form.discount = 0;
+            form.stock = 0;
+            form.box_stock = 0;
+            form.expire_at = '';
+            form.supplier_id = 0;
+            form.laboratory_id = 0;
+            form.type_id = 0;
+            form.location_id = 0;
+            form.presentation_id = 0;
+            form.usage_id = [];
+        }
+
+        allSuppliers();
+        allLaboratories();
+        allPresentations();
+        allLocations();
+        allTypes();
+        allUsages();
+
+        return {form, suppliers, laboratories, presentations, locations, types, usages, save, errors};
     }
 }
 </script>

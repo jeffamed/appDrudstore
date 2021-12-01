@@ -97,7 +97,7 @@ export default {
             name : '',
         })
 
-        const {presentations, pagination, route, getAll, savePresentation, deletePresentation, updatePresentation, errors } = usePresentations();
+        const {presentations, pagination, route, getPresentations, savePresentation, deletePresentation, updatePresentation, errors } = usePresentations();
         const {successToast} = useToast();
 
         const save = async() => {
@@ -105,19 +105,19 @@ export default {
             await errors;
             if(errors.value.length === 0){
                 await clear();
-                await getAll();
+                await getPresentations();
             }
         };
 
         const destroyPresentation = async(id) =>{
             await deletePresentation(id);
-            await getAll();
+            await getPresentations();
             successToast('Eliminado')
         };
 
         const updatingPresentation = async () => {
             await updatePresentation(presentation.value);
-            await getAll();
+            await getPresentations();
         };
 
         const loadPresentation = async (data) => {
@@ -129,13 +129,13 @@ export default {
         }
 
         const findPresentation = async(data) => {
-            await getAll(data);
+            await getPresentations(data);
         }
 
-        onMounted(getAll);
+        onMounted(getPresentations);
 
         watch(() => route.query.page , () => {
-            getAll()
+            getPresentations()
         })
         return { presentations, pagination, save, form, destroyPresentation, updatingPresentation, errors, clear, loadPresentation, findPresentation, presentation };
     }

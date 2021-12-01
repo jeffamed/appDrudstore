@@ -70,4 +70,10 @@ class SupplierController extends Controller
 
         return response()->json("Eliminado correctamente");
     }
+
+    public function getAll()
+    {
+        $supliers = Supplier::latest('id')->get();
+        return response()->json($supliers);
+    }
 }

@@ -9,12 +9,17 @@ export function useCustomer(){
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getAll = async (conditon = 'name',search = '') => {
+    const getCustomers = async (conditon = 'name',search = '') => {
         let res = await axios.get(`/api/customer?page=${ route.query.page || 1}&condition=${conditon}&search=${ search }`);
         customers.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;
     };
+
+    const allCustomers = async() => {
+        let res = await axios.get('/api/customer-all');
+        customers.value = res.data;
+    }
 
     const saveCustomer = async (data) => {
         try {
@@ -53,5 +58,5 @@ export function useCustomer(){
         await axios.delete(`/api/customer/${data}`);
     }
 
-    return {customers, errors, pagination, route, getAll, saveCustomer, updateCustomer, deleteCustomer};
+    return {customers, errors, pagination, route, getCustomers, saveCustomer, updateCustomer, deleteCustomer, allCustomers};
 }

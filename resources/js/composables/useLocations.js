@@ -9,12 +9,18 @@ export function useLocations() {
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getAll = async (search = '') => {
+    const getLocations = async (search = '') => {
         let res = await axios.get(`/api/location?page=${ route.query.page || 1}&search=${ search }`);
         locations.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;
     };
+
+    const allLocations = async() => {
+        let res = await axios.get('/api/location-all');
+        locations.value = res.data;
+    }
+
 
     const saveLocation = async (data) => {
         try {
@@ -53,5 +59,5 @@ export function useLocations() {
         await axios.delete(`/api/location/${data}`);
     }
 
-    return { locations, pagination, route, getAll, saveLocation, deleteLocation, updateLocation, errors };
+    return { locations, pagination, route, getLocations, saveLocation, deleteLocation, updateLocation, errors, allLocations };
 }
