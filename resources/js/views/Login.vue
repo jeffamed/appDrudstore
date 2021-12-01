@@ -23,6 +23,7 @@
                         </div>
                     </div>
                 </div>
+                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-success" @click="login">Acceder</button>
                 </div>
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-import {reactive} from 'vue';
+import {reactive, ref} from 'vue';
 export default {
     name: "Login",
     setup(){
@@ -41,12 +42,25 @@ export default {
             password: ''
         })
 
+        const errors = ref('');
+
         const login = async () => {
-            let rsp = await axios.post('login', form);
-            console.log(rsp)
+           errors.value = '';
+           await axios.get('/sanctum/csrf-cookie').then(response => {
+                axios.post('/api/login', form).then(rsp => {
+                    console.log(rsp)
+                }).catch(e => {
+                    if (e.response.status == 422){
+                        for (const key in e.response.data.errors) {
+                            errors.value += e.response.data.errors[key][0] + ' / ';
+                        }
+                    }
+                    return errors.value;
+                })
+            });
         }
 
-        return {form, login}
+        return {form, login, errors}
     }
 }
 </script>

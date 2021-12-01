@@ -34,4 +34,4 @@ Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
 
-Route::post('login', 'Auth\LoginController@login2');
+Route::post('login', 'LoginController@login');

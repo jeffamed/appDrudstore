@@ -61,7 +61,14 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->except('full_name'));
+        $user->document = $request->document;
+        $user->name     = $request->name;
+        $user->last_name= $request->last_name;
+        $user->email    = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->address  = $request->address;
+        $user->phone    = $request->phone;
+        $user->save();
 
         return response()->json('Actualizado Correctamente', 200);
     }
