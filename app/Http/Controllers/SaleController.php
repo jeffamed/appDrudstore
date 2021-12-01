@@ -74,6 +74,10 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
+        $details=$sale->details;
+        foreach ($details as $detail){
+            $detail->product;
+        }
         return response()->json($sale);
     }
 

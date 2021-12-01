@@ -16,6 +16,11 @@ export function useSale(){
         delete pagination.value.data;
     };
 
+    const getSale = async (data) => {
+        let res = await axios.get(`/api/sale/${data}`);
+        sales.value = res.data;
+    };
+
     const saveSale = async (data) => {
         errors.value = '';
         try {
@@ -35,5 +40,5 @@ export function useSale(){
         await axios.delete(`/api/sale/${data}`);
     }
 
-    return { sales, pagination, route, getSales, saveSale, deleteSale, errors };
+    return { sales, pagination, route, getSales, saveSale, deleteSale, errors, getSale };
 }
