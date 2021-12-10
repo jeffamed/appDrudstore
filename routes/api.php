@@ -35,3 +35,4 @@ Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
 
 Route::post('login', 'LoginController@login');
+Route::get('verified', 'LoginController@verified');
