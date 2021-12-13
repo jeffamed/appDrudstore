@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Clientes
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
+                <button  v-show="btnCreate" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
             </div>
@@ -143,7 +143,7 @@
 <script>
 import TableComponent from "../components/Customer/TableComponent";
 import SearchComponent from "../components/Customer/SearchComponent";
-import {onMounted, reactive, ref, watch} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import {useCustomer} from "../composables/useCustomer";
 import {useToast} from "../composables/useToast";
 
@@ -165,6 +165,8 @@ export default {
         const customer = ref([]);
         const {customers, pagination, errors, route, getCustomers, saveCustomer, updateCustomer, deleteCustomer} = useCustomer();
         const {successToast}= useToast();
+        const permissions = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permissions.includes('customer.create')})
 
         const save = async () => {
             await saveCustomer(form);
@@ -209,7 +211,7 @@ export default {
 
         onMounted(getCustomers);
 
-        return {form, customers, pagination, errors, customer, clear,findCustomer, loadCustomer, save, updatingCustomer, destroyCustomer};
+        return {form, customers, pagination, errors, customer, clear,findCustomer, loadCustomer, save, updatingCustomer, destroyCustomer, btnCreate};
     }
 }
 </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -18,7 +19,13 @@ class LoginController extends Controller
 
        if(Auth::attempt($credentials))
        {
-            return response()->json(Auth::user(), 200);
+           $user = Auth::user();
+           $permissions = [];
+           foreach ($user->rol->permissions as $permission){
+               $permissions[] = $permission->name;
+           }
+           $user->permissions = $permissions;
+            return response()->json($user, 200);
        }
        throw ValidationException::withMessages([
            'email' => ['Las credenciales registradas anteriormente no coiniciden']
@@ -29,7 +36,7 @@ class LoginController extends Controller
     public function verified()
     {
         $user = Auth::user() ?? 'unauthorization';
-        Log::info($user);
+        //$user = User::with('rol.permissions')->find(1);
 
         return response()->json($user);
     }

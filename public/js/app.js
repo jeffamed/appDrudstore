@@ -19880,6 +19880,9 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [{
   path: '/login',
   name: 'login',
+  meta: {
+    requiresAuth: false
+  },
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Login */ "./resources/js/views/Login.vue"))
 }, {
   path: '/',
@@ -19891,77 +19894,132 @@ var routes = [{
   children: [{
     path: '/cliente',
     name: 'customer',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Customer */ "./resources/js/views/Customer.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Customer */ "./resources/js/views/Customer.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/laboratorio',
     name: 'laboratory',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Laboratory */ "./resources/js/views/Laboratory.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Laboratory */ "./resources/js/views/Laboratory.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/ubicacion',
     name: 'location',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Location */ "./resources/js/views/Location.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Location */ "./resources/js/views/Location.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/compras',
     name: 'order',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Order */ "./resources/js/views/Order.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Order */ "./resources/js/views/Order.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/compras/crear',
     name: 'order.create',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Order/CreateComponent */ "./resources/js/components/Order/CreateComponent.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Order/CreateComponent */ "./resources/js/components/Order/CreateComponent.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/compras/detalles/:id',
     name: 'order.show',
     props: true,
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Order/ShowComponent */ "./resources/js/components/Order/ShowComponent.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Order/ShowComponent */ "./resources/js/components/Order/ShowComponent.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/presentacion',
     name: 'presentation',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Presentation */ "./resources/js/views/Presentation.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Presentation */ "./resources/js/views/Presentation.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/productos',
     name: 'product',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Product */ "./resources/js/views/Product.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Product */ "./resources/js/views/Product.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/productos/crear',
     name: 'product.create',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Product/CreateComponent */ "./resources/js/components/Product/CreateComponent.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Product/CreateComponent */ "./resources/js/components/Product/CreateComponent.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/productos/:id/editar',
     name: 'product.edit',
     props: true,
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Product/EditComponent */ "./resources/js/components/Product/EditComponent.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Product/EditComponent */ "./resources/js/components/Product/EditComponent.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/ventas',
     name: 'sale',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Sale */ "./resources/js/views/Sale.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Sale */ "./resources/js/views/Sale.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/ventas/crear',
     name: 'sale.create',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sale/CreateComponent */ "./resources/js/components/Sale/CreateComponent.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sale/CreateComponent */ "./resources/js/components/Sale/CreateComponent.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/ventas/detalles/:id',
     name: 'sale.show',
     props: true,
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sale/ShowComponent */ "./resources/js/components/Sale/ShowComponent.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sale/ShowComponent */ "./resources/js/components/Sale/ShowComponent.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/proveedor',
     name: 'supplier',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Supplier */ "./resources/js/views/Supplier.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Supplier */ "./resources/js/views/Supplier.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/tipo-producto',
     name: 'type',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Type */ "./resources/js/views/Type.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Type */ "./resources/js/views/Type.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/uso',
     name: 'usage',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Usage */ "./resources/js/views/Usage.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Usage */ "./resources/js/views/Usage.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/usuario',
     name: 'user',
-    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/User */ "./resources/js/views/User.vue"))
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/User */ "./resources/js/views/User.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }]
 }, {
   path: '/:pathMatch(.*)*',
+  name: 'page-not-authorized',
+  meta: {
+    requiresAuth: false
+  },
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/404 */ "./resources/js/views/404.vue"))
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
@@ -19969,22 +20027,48 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   routes: routes
 });
 router.beforeEach(function (to, from, next) {
-  if (to.matched.some(function (record) {
-    return record.meta.requiresAuth;
-  })) {
+  if (to.name === 'login' && localStorage.getItem("user")) {
+    router.push({
+      name: 'home'
+    });
+  } else if (to.meta.requiresAuth) {
+    //if (to.matched.some(record => record.meta.requiresAuth)) {
     var user = localStorage.getItem('user');
 
     if (!user) {
-      next({
-        path: '/login'
+      router.push({
+        name: 'login'
       });
     } else {
-      next();
+      if (!hasAccess(to.name)) {
+        router.push({
+          name: 'page-not-authorized'
+        });
+      }
     }
-  } else {
-    next(); // make sure to always call next()!
   }
+
+  return next();
 });
+
+function hasAccess(name) {
+  var permissions = localStorage.getItem("permissions");
+
+  switch (name) {
+    case "home":
+      return true;
+
+    case "customer":
+      return permissions.includes("customer");
+
+    case "supplier":
+      return permissions.includes("supplier");
+
+    default:
+      return false;
+  }
+}
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
 /***/ }),

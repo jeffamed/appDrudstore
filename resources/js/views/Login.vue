@@ -54,7 +54,16 @@ export default {
            errors.value = '';
            await axios.get('/sanctum/csrf-cookie').then(response => {
                 axios.post('/api/login', form).then(rsp => {
+                    delete rsp.data.created_at
+                    delete rsp.data.updated_at
+                    delete rsp.data.full_name
+                    delete rsp.data.address
+                    delete rsp.data.document
+                    delete rsp.data.phone
+                    delete rsp.data.delete_at
+                    delete rsp.data.email_verified_at
                     localStorage.setItem('user', JSON.stringify(rsp.data));
+                    localStorage.setItem('permissions', JSON.stringify(rsp.data.permissions));
                     router.push({ name: 'home'})
                 }).catch(e => {
                     if (e.response.status == 422){
@@ -67,9 +76,7 @@ export default {
             });
         }
 
-
-
-        verified();
+        //verified();
         return {form, login, errors}
     }
 }
