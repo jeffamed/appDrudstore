@@ -14,7 +14,7 @@ class AddRolIdToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('rol_id');
+            $table->unsignedBigInteger('rol_id')->default(2);
             $table->foreign('rol_id')->references('id')->on('rols');
         });
     }

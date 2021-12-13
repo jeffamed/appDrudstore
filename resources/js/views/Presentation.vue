@@ -4,13 +4,13 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Presentación
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
+                <button v-show="btnCreate" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
             </div>
             <div class="card-body">
                 <search-component @search="findPresentation"/>
-                <table-component :data="presentations"  @load="loadPresentation" />
+                <table-component :data="presentations" permission="presentation" @load="loadPresentation" />
                 <pagination-component name="presentation" :pagination="pagination"/>
             </div>
         </div>
@@ -83,7 +83,7 @@ import TableComponent from "../components/TableComponent";
 import SearchComponent from "../components/SearchComponent";
 import { usePresentations } from '../composables/usePresentations';
 import {useToast} from "../composables/useToast";
-import {reactive, watch, onMounted, ref } from "vue";
+import {reactive, watch, onMounted, ref, computed} from "vue";
 export default {
     components: {
         TableComponent,
@@ -98,6 +98,8 @@ export default {
 
         const {presentations, pagination, route, getPresentations, savePresentation, deletePresentation, updatePresentation, errors } = usePresentations();
         const {successToast} = useToast();
+        const permissions = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permissions.includes('presentation.create')})
 
         const save = async() => {
             await savePresentation(form);
@@ -136,7 +138,7 @@ export default {
         watch(() => route.query.page , () => {
             getPresentations()
         })
-        return { presentations, pagination, save, form, destroyPresentation, updatingPresentation, errors, clear, loadPresentation, findPresentation, presentation };
+        return { presentations, pagination, save, form, destroyPresentation, updatingPresentation, errors, clear, loadPresentation, findPresentation, presentation, btnCreate };
     }
 }
 </script>

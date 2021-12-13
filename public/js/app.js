@@ -20061,8 +20061,56 @@ function hasAccess(name) {
     case "customer":
       return permissions.includes("customer");
 
+    case "laboratory":
+      return permissions.includes("laboratory");
+
+    case "location":
+      return permissions.includes("location");
+
+    case "order":
+      return permissions.includes("order");
+
+    case "order.create":
+      return permissions.includes("order.create");
+
+    case "presentation":
+      return permissions.includes("presentation");
+
+    case "product":
+      return permissions.includes("product");
+
+    case "product.create":
+      return permissions.includes("product.create");
+
+    case "product.edit":
+      return permissions.includes("product.edit");
+
+    case "sale":
+      return permissions.includes("sale");
+
+    case "sale.create":
+      return permissions.includes("sale.create");
+
     case "supplier":
       return permissions.includes("supplier");
+
+    case "type":
+      return permissions.includes("type");
+
+    case "usage":
+      return permissions.includes("usage");
+
+    case "user":
+      return permissions.includes("user");
+
+    case "user.create":
+      return permissions.includes("user.create");
+
+    case "user.edit":
+      return permissions.includes("user.edit");
+
+    case "user.delete":
+      return permissions.includes("user.delete");
 
     default:
       return false;

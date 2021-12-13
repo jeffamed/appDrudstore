@@ -36,3 +36,4 @@ Route::get('product-search', 'ProductController@search');
 
 Route::post('login', 'LoginController@login');
 Route::get('verified', 'LoginController@verified');
+Route::post('logout', 'LoginController@logout');

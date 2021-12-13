@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Productos
-                <router-link :to="{ name: 'product.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
+                <router-link v-show="btnCreate" :to="{ name: 'product.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
                 <search-component @search="findProduct" />
@@ -21,7 +21,7 @@
 <script>
 import TableComponent from "../components/Product/TableComponent";
 import SearchComponent from "../components/Product/SearchComponent";
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useProducts} from "../composables/useProducts";
 import {useToast} from "../composables/useToast";
 export default {
@@ -34,6 +34,8 @@ export default {
         const product = ref([]);
         const {getProducts, products, pagination, deleteProduct, route} = useProducts();
         const {successToast} = useToast();
+        const permissions = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permissions.includes('product.create')})
 
         const loadProduct = async (data) => {
             product.value = { ...data };
@@ -55,7 +57,7 @@ export default {
 
         onMounted(getProducts);
 
-        return {products, pagination, product, loadProduct, destroyProduct, findProduct}
+        return {products, pagination, product, loadProduct, destroyProduct, findProduct, btnCreate}
     }
 }
 </script>

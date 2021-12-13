@@ -13,5 +13,12 @@ export function useAuth(){
         }
     }
 
-    return {verified, auth}
+    const logout = async () => {
+        let rsp = await axios.post('/api/logout');
+        localStorage.removeItem('user');
+        localStorage.removeItem('permissions');
+        router.push({ name: 'login'});
+    }
+
+    return {verified, auth, logout}
 }

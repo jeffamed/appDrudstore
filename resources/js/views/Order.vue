@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Compras
-                <router-link :to="{ name: 'order.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
+                <router-link v-show="btnCreate" :to="{ name: 'order.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
                 <search-component @search="findOrder" />
@@ -22,7 +22,7 @@ import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/Order/TableComponent";
 import DeleteComponent from "../components/Order/DeleteComponent";
 import {useOrder} from "../composables/useOrder";
-import {ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import {useToast} from "../composables/useToast";
 import SearchComponent from "../components/Order/SearchComponent";
 export default {
@@ -38,6 +38,8 @@ export default {
 
         const {getOrders, pagination, orders, route, deleteOrder} = useOrder();
         const { successToast } = useToast();
+        const permissions = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permissions.includes('order.create')})
 
         const loadOrder = (data) => {
             order.value = { ...data };
@@ -59,7 +61,7 @@ export default {
             return getOrders();
         })
 
-        return {orders, pagination, loadOrder, order, destroyOrder, findOrder}
+        return {orders, pagination, loadOrder, order, destroyOrder, findOrder, btnCreate}
     }
 }
 </script>

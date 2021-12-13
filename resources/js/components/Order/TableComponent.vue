@@ -16,7 +16,7 @@
             <td class="text-center" v-text="item.total_format"></td>
             <td class="text-center" v-text="item.created"></td>
             <td class="text-center">
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
+                <button v-show="btnDelete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
                 <router-link :to="{name:'order.show', params: { id: item.id } }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import {computed} from "vue";
+
 export default {
     name: "TableComponent",
     props: {
@@ -44,11 +46,13 @@ export default {
     },
     setup(props, context)
     {
+        const permissions = localStorage.getItem('permissions');
+        const btnDelete = computed(() => {return permissions.includes('order.delete')})
         const load = (data) => {
             context.emit('load', data);
         }
 
-        return { load };
+        return { load, btnDelete };
     }
 }
 </script>

@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Ventas
-                <router-link :to="{ name: 'sale.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
+                <router-link v-show="btnCreate" :to="{ name: 'sale.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
                 <search-component @search="findSale" />
@@ -22,7 +22,7 @@ import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/Sale/TableComponent";
 import DeleteComponent from "../components/Sale/DeleteComponent";
 import SearchComponent from "../components/Sale/SearchComponent";
-import {ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import {useSale} from "../composables/useSale";
 import {useToast} from "../composables/useToast";
 export default {
@@ -38,6 +38,8 @@ export default {
 
       const {getSales, pagination, sales, route, deleteSale} = useSale();
       const {successToast} = useToast();
+      const permissions = localStorage.getItem('permissions');
+      const btnCreate = computed(() => {return permissions.includes('sale.create')})
 
       const loadSale = (data) => {
         sale.value = { ...data};
@@ -59,7 +61,7 @@ export default {
          return getSales();
       })
 
-      return { sales, pagination, loadSale, sale, destroySale, findSale};
+      return { sales, pagination, loadSale, sale, destroySale, findSale, btnCreate};
     }
 }
 </script>

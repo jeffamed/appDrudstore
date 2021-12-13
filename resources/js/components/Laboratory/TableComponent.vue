@@ -10,10 +10,10 @@
             <td v-text="item.name"></td>
             <td v-text="item.address"></td>
             <td>
-                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
+                <button v-show="btnUpdate" type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
                     <i class="icon-pencil"></i>
                 </button> &nbsp;
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
+                <button v-show="btnDelete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
             </td>
@@ -27,6 +27,8 @@
 
 </template>
 <script>
+import {computed} from "vue";
+
 export default {
     name: "TableComponent",
     props: {
@@ -44,8 +46,11 @@ export default {
         const load = (data) => {
             context.emit('load', data);
         }
+        const permissions = localStorage.getItem('permissions');
+        const btnUpdate = computed(() => {return permissions.includes('laboratory.update')})
+        const btnDelete = computed(() => {return permissions.includes('laboratory.delete')})
 
-        return { load };
+        return { load, btnDelete, btnUpdate };
     }
 }
 </script>

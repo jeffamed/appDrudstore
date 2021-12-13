@@ -14,8 +14,8 @@
             <td v-text="item.stock"></td>
             <td v-text="item.box_stock"></td>
             <td>
-                <router-link class="btn btn-warning btn-sm" :to="{ name: 'product.edit', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
+                <router-link v-show="btnUpdate" class="btn btn-warning btn-sm" :to="{ name: 'product.edit', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
+                <button v-show="btnDelete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
             </td>
@@ -27,6 +27,7 @@
     </table>
 </template>
 <script>
+import {computed} from "vue";
 export default {
     name: "TableComponent",
     props: {
@@ -41,11 +42,15 @@ export default {
     },
     setup(props, context)
     {
+        const permissions = localStorage.getItem('permissions');
+        const btnUpdate = computed(() => {return permissions.includes('product.update')})
+        const btnDelete = computed(() => {return permissions.includes('product.delete')})
+
         const load = (data) => {
             context.emit('load', data);
         }
 
-        return { load };
+        return { load, btnDelete, btnUpdate };
     }
 }
 </script>

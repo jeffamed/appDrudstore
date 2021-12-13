@@ -56,7 +56,6 @@ export default {
                 axios.post('/api/login', form).then(rsp => {
                     delete rsp.data.created_at
                     delete rsp.data.updated_at
-                    delete rsp.data.full_name
                     delete rsp.data.address
                     delete rsp.data.document
                     delete rsp.data.phone
@@ -71,12 +70,15 @@ export default {
                             errors.value += e.response.data.errors[key][0] + ' / ';
                         }
                     }
+                    if(e.response.status === 500){
+                        errors.value = 'Su usuario no cuenta con un rol';
+                    }
                     return errors.value;
                 })
             });
         }
 
-        //verified();
+        verified();
         return {form, login, errors}
     }
 }

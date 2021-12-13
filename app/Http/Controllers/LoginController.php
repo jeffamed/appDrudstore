@@ -36,8 +36,17 @@ class LoginController extends Controller
     public function verified()
     {
         $user = Auth::user() ?? 'unauthorization';
-        //$user = User::with('rol.permissions')->find(1);
-
         return response()->json($user);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->json('login');
     }
 }
