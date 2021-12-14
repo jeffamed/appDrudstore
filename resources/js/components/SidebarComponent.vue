@@ -8,7 +8,7 @@
                 <li class="nav-title">
                     Mantenimiento
                 </li>
-                <li class="nav-item nav-dropdown">
+                <li class="nav-item nav-dropdown" id="ddAlmacen" @click="openAlmacen">
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-social-dropbox"></i> Almacén</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
@@ -31,7 +31,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item nav-dropdown">
+                <li class="nav-item nav-dropdown" id="ddCompras" @click="openCompras">
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
@@ -42,7 +42,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item nav-dropdown">
+                <li class="nav-item nav-dropdown" id="ddVentas" @click="openVentas">
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
@@ -54,7 +54,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item nav-dropdown">
+                <li class="nav-item nav-dropdown" id="ddAcceso" @click="openAcceso">
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Acceso</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
@@ -65,7 +65,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item nav-dropdown">
+                <li class="nav-item nav-dropdown" id="ddReportes" @click="openReportes">
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Reportes</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
@@ -76,12 +76,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="main.html"><i class="icon-book-open"></i> Ayuda <span class="badge badge-danger">PDF</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="main.html"><i class="icon-info"></i> Acerca de...<span class="badge badge-info">IT</span></a>
-                </li>
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>
@@ -90,10 +84,47 @@
 
 <script>
 export default {
-    name: "SidebarComponent"
+    name: "SidebarComponent",
+    setup(){
+        function openAlmacen(){
+            $('#ddAlmacen').addClass('open');
+            $('#ddCompras').removeClass('open');
+            $('#ddVentas').removeClass('open');
+            $('#ddAcceso').removeClass('open');
+            $('#ddReportes').removeClass('open');
+        }
+        function openCompras(){
+            $('#ddCompras').addClass('open');
+            $('#ddAlmacen').removeClass('open');
+            $('#ddVentas').removeClass('open');
+            $('#ddAcceso').removeClass('open');
+            $('#ddReportes').removeClass('open');
+        }
+        function openVentas(){
+            $('#ddVentas').addClass('open');
+            $('#ddCompras').removeClass('open');
+            $('#ddAlmacen').removeClass('open');
+            $('#ddAcceso').removeClass('open');
+            $('#ddReportes').removeClass('open');
+        }
+        function openAcceso(){
+            $('#ddAcceso').addClass('open');
+            $('#ddVentas').removeClass('open');
+            $('#ddCompras').removeClass('open');
+            $('#ddAlmacen').removeClass('open');
+            $('#ddReportes').removeClass('open');
+        }
+        function openReportes(){
+            $('#ddReportes').addClass('open');
+            $('#ddAcceso').removeClass('open');
+            $('#ddVentas').removeClass('open');
+            $('#ddCompras').removeClass('open');
+            $('#ddAlmacen').removeClass('open');
+        }
+        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes}
+    }
 }
 </script>
-
 <style scoped>
 
 </style>
