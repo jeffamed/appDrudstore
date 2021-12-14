@@ -33,6 +33,7 @@ Route::get('supplier-all', 'SupplierController@getAll');
 Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
+Route::get('all_product', 'ProductController@reportAll');
 
 Route::post('login', 'LoginController@login');
 Route::get('verified', 'LoginController@verified');

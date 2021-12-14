@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\Usage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\PDF;
 
 class ProductController extends Controller
 {
@@ -116,5 +116,14 @@ class ProductController extends Controller
           }
 
           return response()->json($products);
+    }
+
+    public function reportAll()
+    {
+        $products = Product::all();
+
+        $pdf = \PDF::loadView('report.all_product', compact('products'));
+
+        return $pdf->download('inventario.pdf');
     }
 }
