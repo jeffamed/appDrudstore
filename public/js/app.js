@@ -19932,7 +19932,7 @@ var routes = [{
     props: true,
     component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Order/ShowComponent */ "./resources/js/components/Order/ShowComponent.vue")),
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   }, {
     path: '/presentacion',
@@ -19964,6 +19964,14 @@ var routes = [{
       requiresAuth: true
     }
   }, {
+    path: '/productos/detalle/:id',
+    name: 'product.show',
+    props: true,
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Product/ShowComponent */ "./resources/js/components/Product/ShowComponent.vue")),
+    meta: {
+      requiresAuth: false
+    }
+  }, {
     path: '/ventas',
     name: 'sale',
     component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Sale */ "./resources/js/views/Sale.vue")),
@@ -19983,7 +19991,7 @@ var routes = [{
     props: true,
     component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Sale/ShowComponent */ "./resources/js/components/Sale/ShowComponent.vue")),
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   }, {
     path: '/proveedor',
@@ -20032,7 +20040,6 @@ router.beforeEach(function (to, from, next) {
       name: 'home'
     });
   } else if (to.meta.requiresAuth) {
-    //if (to.matched.some(record => record.meta.requiresAuth)) {
     var user = localStorage.getItem('user');
 
     if (!user) {

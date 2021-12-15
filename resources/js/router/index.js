@@ -48,7 +48,7 @@ const routes = [
                 name:'order.show',
                 props: true,
                 component : import(/* webpackChunkName: "routes"*/'../components/Order/ShowComponent'),
-                meta : { requiresAuth: true }
+                meta : { requiresAuth: false }
             },
             {
                 path:'/presentacion',
@@ -76,6 +76,13 @@ const routes = [
                 meta : { requiresAuth: true },
             },
             {
+                path:'/productos/detalle/:id',
+                name:'product.show',
+                props: true,
+                component : import(/* webpackChunkName: "routes"*/'../components/Product/ShowComponent'),
+                meta : { requiresAuth: false },
+            },
+            {
                 path:'/ventas',
                 name:'sale',
                 component : import(/* webpackChunkName: "routes"*/'../views/Sale'),
@@ -92,7 +99,7 @@ const routes = [
                 name:'sale.show',
                 props: true,
                 component : import(/* webpackChunkName: "routes"*/'../components/Sale/ShowComponent'),
-                meta : { requiresAuth: true },
+                meta : { requiresAuth: false },
             },
             {
                 path:'/proveedor',
@@ -139,7 +146,6 @@ router.beforeEach((to, from, next) => {
             name: 'home'
         })
     } else if (to.meta.requiresAuth) {
-        //if (to.matched.some(record => record.meta.requiresAuth)) {
         let user = localStorage.getItem('user')
         if (!user) {
             router.push({

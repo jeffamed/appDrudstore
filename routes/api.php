@@ -14,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('customer', 'CustomerController')->except(['create, edit']);
-Route::resource('presentation', 'PresentationController')->except(['create, edit']);
-Route::resource('laboratory', 'LaboratoryController')->except(['create, edit']);
-Route::resource('location', 'LocationController')->except(['create, edit']);
-Route::resource('order', 'OrderController')->except(['create, edit','update']);
-Route::resource('product', 'ProductController')->except(['create, edit']);
-Route::resource('sale', 'SaleController')->except(['create, edit']);
-Route::resource('supplier', 'SupplierController')->except(['create, edit']);
-Route::resource('type', 'TypeController')->except(['create, edit']);
-Route::resource('usage', 'UsageController')->except(['create, edit']);
+Route::apiresource('customer', 'CustomerController');
+Route::apiresource('presentation', 'PresentationController');
+Route::apiresource('laboratory', 'LaboratoryController');
+Route::apiresource('location', 'LocationController');
+Route::apiresource('order', 'OrderController')->except(['update']);
+Route::apiresource('product', 'ProductController');
+Route::apiresource('sale', 'SaleController');
+Route::apiresource('supplier', 'SupplierController');
+Route::apiresource('type', 'TypeController');
+Route::apiresource('usage', 'UsageController');
 Route::apiResource('user', 'UserController');
 Route::get('customer-all', 'CustomerController@getAll');
 Route::get('presentation-all', 'PresentationController@getAll');

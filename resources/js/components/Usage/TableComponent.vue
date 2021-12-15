@@ -2,13 +2,13 @@
     <table class="table table-bordered table-striped table-sm">
         <thead>
         <tr>
-            <th  v-for="(item,index) in header" :key="index">{{ item }}</th>
+            <th  v-for="(item,index) in header" :key="index" :class="item === 'Opciones' ? 'text-center' : ''">{{ item }}</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
             <td v-text="item.description"></td>
-            <td>
+            <td class="text-center">
                 <button v-show="btnUpdate" type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
                     <i class="icon-pencil"></i>
                 </button> &nbsp;

@@ -12,11 +12,9 @@
 <script>
 import HeaderComponent from "../components/HeaderComponent";
 import SidebarComponent from "../components/SidebarComponent";
-import Sidebar2Component from "../components/Sidebar2Component";
 export default {
     name: "Main",
     components: {
-        Sidebar2Component,
         HeaderComponent,
         SidebarComponent
     }
