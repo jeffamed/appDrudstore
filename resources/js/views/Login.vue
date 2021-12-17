@@ -53,6 +53,7 @@ export default {
         const login = async () => {
            errors.value = '';
            await axios.get('/sanctum/csrf-cookie').then(response => {
+               console.log(response)
                 axios.post('/api/login', form).then(rsp => {
                     delete rsp.data.created_at
                     delete rsp.data.updated_at

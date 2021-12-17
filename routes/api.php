@@ -34,7 +34,7 @@ Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
 Route::get('all_product', 'ProductController@reportAll');
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/usuario', function (Request $request) {
     return $request->user();
 });
 

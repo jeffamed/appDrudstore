@@ -8,7 +8,7 @@ export function useAuth(){
     const verified = async () => {
         const rsp = await axios.get('/api/verified');
         auth.value = rsp.data;
-        console.log(auth.value);
+        console.log(rsp.data);
         if (rsp.data !== 'unauthorization'){
             router.push({ name: 'home' })
         }
