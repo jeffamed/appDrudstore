@@ -12,11 +12,17 @@
 <script>
 import HeaderComponent from "../components/HeaderComponent";
 import SidebarComponent from "../components/SidebarComponent";
+import {useAuth} from "../composables/useAuth";
 export default {
     name: "Main",
     components: {
         HeaderComponent,
         SidebarComponent
+    },
+    setup(){
+        const {verified} = useAuth();
+
+        verified();
     }
 }
 </script>

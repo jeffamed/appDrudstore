@@ -122,7 +122,8 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        $pdf = \PDF::loadView('report.all_product', compact('products'));
+        //$pdf = \PDF::loadView('report.all_product', compact('products'));
+        $pdf = \PDF::loadView('report.invoice', compact('products'))->setPaper('letter', 'landscape');
 
         return $pdf->download('inventario.pdf');
     }

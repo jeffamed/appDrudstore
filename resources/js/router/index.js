@@ -70,7 +70,7 @@ const routes = [
             },
             {
                 path:'/productos/:id/editar',
-                name:'product.edit',
+                name:'product.update',
                 props: true,
                 component : import(/* webpackChunkName: "routes"*/'../components/Product/EditComponent'),
                 meta : { requiresAuth: true },
@@ -192,8 +192,8 @@ function hasAccess(name) {
         case "product.create":
             return permissions.includes("product.create")
 
-        case "product.edit":
-            return permissions.includes("product.edit")
+        case "product.update":
+            return permissions.includes("product.update")
 
         case "sale":
             return permissions.includes("sale")

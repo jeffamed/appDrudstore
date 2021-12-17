@@ -34,7 +34,12 @@ Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
 Route::get('all_product', 'ProductController@reportAll');
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::post('login', 'LoginController@login');
-Route::get('verified', 'LoginController@verified');
+Route::get('verified', function (Request $request){
+    return $request->user();
+});
 Route::post('logout', 'LoginController@logout');

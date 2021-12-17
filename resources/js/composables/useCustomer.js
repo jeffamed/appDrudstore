@@ -10,7 +10,9 @@ export function useCustomer(){
     const {successToast, errorToast} = useToast();
 
     const getCustomers = async (conditon = 'name',search = '') => {
-        let res = await axios.get(`/api/customer?page=${ route.query.page || 1}&condition=${conditon}&search=${ search }`);
+        await axios.get('/sanctum/csrf-cookie').then(async () => {
+            let res = await axios.get(`/api/customer?page=${route.query.page || 1}&condition=${conditon}&search=${search}`);
+        })
         customers.value = res.data.data;
         pagination.value = res.data;
         delete pagination.value.data;

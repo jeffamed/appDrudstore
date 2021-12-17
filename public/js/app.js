@@ -19957,7 +19957,7 @@ var routes = [{
     }
   }, {
     path: '/productos/:id/editar',
-    name: 'product.edit',
+    name: 'product.update',
     props: true,
     component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Product/EditComponent */ "./resources/js/components/Product/EditComponent.vue")),
     meta: {
@@ -20089,8 +20089,8 @@ function hasAccess(name) {
     case "product.create":
       return permissions.includes("product.create");
 
-    case "product.edit":
-      return permissions.includes("product.edit");
+    case "product.update":
+      return permissions.includes("product.update");
 
     case "sale":
       return permissions.includes("sale");
