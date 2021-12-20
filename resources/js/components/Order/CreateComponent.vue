@@ -426,13 +426,15 @@ export default {
         }
 
         const save = async () => {
-            order.supplier_id = supplier.value.id;
-            order.total = totalOrder.value.replace(',','');
-            order.discount = totalDiscount.value.replace(',','');
-            order.details = detailsOrder.value;
-            await saveOrder(order);
-            await errors;
+            let user = JSON.parse(localStorage.getItem('user'));
             if (errors.value.length === 0){
+                order.supplier_id = supplier.value.id;
+                order.total = totalOrder.value.replace(',','');
+                order.discount = totalDiscount.value.replace(',','');
+                order.details = detailsOrder.value;
+                order.user_id = user.id;
+                await saveOrder(order);
+                await errors;
                 detailsOrder.value = [];
                 supplier.value = [];
                 clearProduct();

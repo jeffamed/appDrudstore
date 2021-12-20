@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
@@ -48,7 +49,6 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $request['user_id'] = 1; //(user login in the future)
         $order = Order::create($request->except('details'));
 
         if ($order){
