@@ -12,22 +12,22 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-social-dropbox"></i> Almacén</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link :to="{ name : 'product' }" class="nav-link"><i class="icon-bag"></i> Productos</router-link>
+                            <router-link v-show="enableProduct" :to="{ name : 'product' }" class="nav-link"><i class="icon-bag"></i> Productos</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'location' }" class="nav-link"><i class="icon-location-pin"></i> Ubicación</router-link>
+                            <router-link v-show="enableLocation" :to="{ name : 'location' }" class="nav-link"><i class="icon-location-pin"></i> Ubicación</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'type' }" class="nav-link"><i class="icon-folder"></i> Tipos</router-link>
+                            <router-link v-show="enableType" :to="{ name : 'type' }" class="nav-link"><i class="icon-folder"></i> Tipos</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'presentation' }" class="nav-link"><i class="icon-present"></i> Presentación</router-link>
+                            <router-link v-show="enablePresentation" :to="{ name : 'presentation' }" class="nav-link"><i class="icon-present"></i> Presentación</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'usage' }" class="nav-link"><i class="icon-list"></i> Uso</router-link>
+                            <router-link v-show="enableUsage" :to="{ name : 'usage' }" class="nav-link"><i class="icon-list"></i> Uso</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'laboratory' }" class="nav-link"><i class="icon-chemistry"></i> Laboratorio</router-link>
+                            <router-link v-show="enableLaboratory" :to="{ name : 'laboratory' }" class="nav-link"><i class="icon-chemistry"></i> Laboratorio</router-link>
                         </li>
                     </ul>
                 </li>
@@ -35,10 +35,10 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link :to="{ name : 'order' }" class="nav-link"><i class="icon-wallet"></i> Ingresos</router-link>
+                            <router-link v-show="enableOrder" :to="{ name : 'order' }" class="nav-link"><i class="icon-wallet"></i> Ingresos</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'supplier' }" class="nav-link"><i class="icon-notebook"></i> Proveedores</router-link>
+                            <router-link v-show="enableSupplier" :to="{ name : 'supplier' }" class="nav-link"><i class="icon-notebook"></i> Proveedores</router-link>
                         </li>
                     </ul>
                 </li>
@@ -46,10 +46,10 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link :to="{ name : 'sale' }" class="nav-link"><i class="icon-basket-loaded"></i> Ventas</router-link>
+                            <router-link v-show="enableSales" :to="{ name : 'sale' }" class="nav-link"><i class="icon-basket-loaded"></i> Ventas</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'customer' }" class="nav-link"><i class="icon-people"></i> Clientes</router-link>
+                            <router-link v-show="enableCustomer" :to="{ name : 'customer' }" class="nav-link"><i class="icon-people"></i> Clientes</router-link>
 
                         </li>
                     </ul>
@@ -58,7 +58,7 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Acceso</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link class="nav-link" :to="{ name : 'user' }"><i class="icon-user"></i> Usuarios</router-link>
+                            <router-link v-show="enableUser" class="nav-link" :to="{ name : 'user' }"><i class="icon-user"></i> Usuarios</router-link>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="icon-user-following"></i> Roles</a>
@@ -83,9 +83,23 @@
 </template>
 
 <script>
+import {computed} from "vue";
+
 export default {
     name: "SidebarComponent",
     setup(){
+        const permissions = localStorage.getItem('permissions');
+        const enableSales = computed(() => {return permissions.includes('sale')});
+        const enableProduct = computed(() => {return permissions.includes('product')});
+        const enableLocation = computed(() => {return permissions.includes('locations')});
+        const enableType = computed(() => {return permissions.includes('type')});
+        const enablePresentation = computed(() => {return permissions.includes('presentation')});
+        const enableUsage = computed(() => {return permissions.includes('usage')});
+        const enableLaboratory = computed(() => {return permissions.includes('laboratory')});
+        const enableOrder = computed(() => {return permissions.includes('order')});
+        const enableSupplier = computed(() => {return permissions.includes('supplier')});
+        const enableCustomer = computed(() => {return permissions.includes('customer')});
+        const enableUser = computed(() => {return permissions.includes('user')});
         function openAlmacen(){
             $('#ddAlmacen').addClass('open');
             $('#ddCompras').removeClass('open');
@@ -121,7 +135,7 @@ export default {
             $('#ddCompras').removeClass('open');
             $('#ddAlmacen').removeClass('open');
         }
-        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes}
+        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser}
     }
 }
 </script>

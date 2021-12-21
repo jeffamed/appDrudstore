@@ -5,7 +5,7 @@
                 <select class="form-control col-md-3" id="opcion" name="opcion" v-model="condition">
                     <option v-for="(option, key, index) in options" :key="index" :value="key" v-text="option"></option>
                 </select>
-                <input type="text" id="texto" name="texto" class="form-control" placeholder="Texto a buscar" v-model="search" @keyup.enter="btnSearch">
+                <input type="text" class="form-control" placeholder="Texto a buscar" v-model="search" @keyup.enter="btnSearch">
                 <button type="submit" class="btn btn-primary" @click="btnSearch"><i class="fa fa-search"></i> Buscar</button>
             </div>
         </div>

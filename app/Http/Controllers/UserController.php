@@ -36,6 +36,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->address  = $request->address;
         $user->phone    = $request->phone;
+        $user->rol_id    = $request->rol_id;
         $user->save();
 
         return response()->json('Registrado Existosamente', 200);
@@ -68,6 +69,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->address  = $request->address;
         $user->phone    = $request->phone;
+        $user->rol_id    = $request->rol_id;
         $user->save();
 
         return response()->json('Actualizado Correctamente', 200);

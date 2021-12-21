@@ -25,6 +25,7 @@ Route::apiresource('supplier', 'SupplierController');
 Route::apiresource('type', 'TypeController');
 Route::apiresource('usage', 'UsageController');
 Route::apiResource('user', 'UserController');
+Route::apiResource('role', 'RoleController');
 Route::get('customer-all', 'CustomerController@getAll');
 Route::get('presentation-all', 'PresentationController@getAll');
 Route::get('laboratory-all', 'LaboratoryController@getAll');
@@ -34,9 +35,7 @@ Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
 Route::get('all_product', 'ProductController@reportAll');
-Route::middleware('auth:sanctum')->get('/usuario', function (Request $request) {
-    return $request->user();
-});
+
 
 Route::post('login', 'LoginController@login');
 Route::get('verified', function (Request $request){

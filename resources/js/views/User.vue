@@ -29,47 +29,45 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Cédula</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="form.document">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                        <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="col-md-3 form-control-label">Nombre</label>
                             <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="form.name">
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Apellido</label>
-                        <div class="col-md-9">
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Apellido</label>
                             <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="form.last_name">
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Cliente" v-model="form.address">
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Cédula</label>
+                            <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="form.document">
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Teléfono</label>
-                        <div class="col-md-9">
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Teléfono</label>
                             <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="form.phone">
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Correo Electrónico</label>
-                        <div class="col-md-9">
+                        <div class="col-md-12 form-group">
+                            <label class="form-control-label">Dirección</label>
+                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Cliente" v-model="form.address">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Correo Electrónico</label>
                             <input type="email" name="email" class="form-control" placeholder="example@emial.com" v-model="form.email">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Contraseña</label>
+                            <input type="password" name="password" class="form-control" placeholder="example" v-model="form.password">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Roles</label>
+                            <select v-model="form.rol_id" class="form-control">
+                                <option value="">Seleccione un Rol...</option>
+                                <option :value="role.id" v-for="role in roles" :key="role.id" v-text="role.name"></option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Contraseña</label>
                         <div class="col-md-9">
-                            <input type="password" name="password" class="form-control" placeholder="example" v-model="form.password">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
@@ -96,47 +94,45 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Cédula</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="user.document">
-                        </div>
+                    <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label class="col-md-3 form-control-label">Nombre</label>
+                        <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="user.name">
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="user.name">
-                        </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-control-label">Apellido</label>
+                        <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="user.last_name">
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Apellido</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="user.last_name">
-                        </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-control-label">Cédula</label>
+                        <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="user.document">
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Cliente" v-model="user.address">
-                        </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-control-label">Teléfono</label>
+                        <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="user.phone">
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Teléfono</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="user.phone">
-                        </div>
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">Dirección</label>
+                        <input type="text" name="direccion" class="form-control" placeholder="Direccion del Cliente" v-model="user.address">
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Correo Electrónico</label>
-                        <div class="col-md-9">
-                            <input type="email" name="email" class="form-control" placeholder="example@emial.com" v-model="user.email">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
-                        </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-control-label">Correo Electrónico</label>
+                        <input type="email" name="email" class="form-control" placeholder="example@emial.com" v-model="user.email">
                     </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-control-label">Contraseña</label>
+                        <input type="password" name="password" class="form-control" placeholder="example" v-model="user.password">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="form-control-label">Roles</label>
+                        <select v-model="user.rol_id" class="form-control">
+                            <option value="">Seleccione un Rol...</option>
+                            <option :value="role.id" v-for="role in roles" :key="role.id" v-text="role.name"></option>
+                        </select>
+                    </div>
+                </div>
                     <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Contraseña</label>
                         <div class="col-md-9">
-                            <input type="password" name="password" class="form-control" placeholder="example" v-model="user.password">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
@@ -160,6 +156,7 @@ import SearchComponent from "../components/User/SearchComponent";
 import {computed, onMounted, reactive, ref, watch} from "vue";
 import {useToast} from "../composables/useToast";
 import {useUser} from "../composables/useUser";
+import {useRole} from "../composables/useRole";
 
 export default {
     name: "User",
@@ -175,10 +172,12 @@ export default {
             address: '',
             phone: '',
             email: '',
-            password: ''
+            password: '',
+            rol_id: ''
         })
         const user = ref([]);
         const {users, pagination, errors, route, getUsers, saveUser, updateUser, deleteUser} = useUser();
+        const { getRoles, roles } = useRole();
         const {successToast}= useToast();
         const permissions = localStorage.getItem('permissions');
         const btnCreate = computed(() => {return permissions.includes('user.create')})
@@ -226,8 +225,9 @@ export default {
         });
 
         onMounted(getUsers());
+        getRoles();
 
-        return {form, users, pagination, errors, user, clear,findUser, loadUser, save, updatingUser, destroyUser, btnCreate};
+        return {form, users, pagination, errors, user, clear,findUser, loadUser, save, updatingUser, destroyUser, btnCreate, roles};
     }
 }
 </script>
