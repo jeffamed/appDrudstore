@@ -72,13 +72,13 @@
                                         <td class="center">Factura No.</td>
                                     </tr>
                                     <tr>
-                                        <td class="center"><h3><b>00001</b></h3></td>
+                                        <td class="center"><h3><b>{{$sale->id}}</b></h3></td>
                                     </tr>
                                     <tr>
                                         <td class="center">Fecha</td>
                                     </tr>
                                     <tr>
-                                        <td class="center"><h3>21/12/2021</h3></td>
+                                        <td class="center"><h3>{{$sale->created}}</h3></td>
                                     </tr>
                                 </table>
                             </div>
@@ -87,15 +87,15 @@
                                 <table width="100%">
                                     <tr>
                                         <td colspan="2">
-                                            <p>Cliente: <b>Patricio Bedon</b></p>
+                                            <p>Cliente: <b>{{$customer->name}} {{$customer->last_name}}</b></p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="70%"><p>R.U.C o C.I: 0502253271</p></td>
-                                        <td><p>Telf.:128924434</p></td>
+                                        <td width="70%"><p>R.U.C o C.I: {{$customer->document}}</p></td>
+                                        <td><p>Telf.:{{$customer->phone}}</p></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><p>Dirección: <span>Satacunga</span></p></td>
+                                        <td colspan="2"><p>Dirección: <span>{{ $customer->address }}</span></p></td>
                                     </tr>
                                 </table>
                             </div>
@@ -111,50 +111,29 @@
                                 </tr>
                                 </thead>
                                 <tbody style="border-bottom: 1px solid">
+                                    @foreach($details as $detail)
                                     <tr>
-                                        <td style="font-size: 11px" class="center">3</td>
-                                        <td style="font-size: 11px; width: 51%">Algo</td>
-                                        <td style="font-size: 11px" class="center">25.00</td>
-                                        <td style="font-size: 11px" class="center">75.00</td>
+                                            <td style="font-size: 11px" class="center">{{$detail->orderQty}}</td>
+                                            <td style="font-size: 11px; width: 51%">{{$detail->product->name}}</td>
+                                            <td style="font-size: 11px" class="center">{{number_format($detail->unitPrice, 2)}}</td>
+                                            <td style="font-size: 11px" class="center">{{number_format($detail->total, 2)}}</td>
                                     </tr>
-                                    <tr>
-                                        <td style="font-size: 11px" class="center">3</td>
-                                        <td style="font-size: 11px; width: 51%">Algo</td>
-                                        <td style="font-size: 11px" class="center">25.00</td>
-                                        <td style="font-size: 11px" class="center">75.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px" class="center">3</td>
-                                        <td style="font-size: 11px; width: 51%">Algo</td>
-                                        <td style="font-size: 11px" class="center">25.00</td>
-                                        <td style="font-size: 11px" class="center">75.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px" class="center">3</td>
-                                        <td style="font-size: 11px; width: 51%">Algo</td>
-                                        <td style="font-size: 11px" class="center">25.00</td>
-                                        <td style="font-size: 11px" class="center">75.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px" class="center">3</td>
-                                        <td style="font-size: 11px; width: 51%">Algo</td>
-                                        <td style="font-size: 11px" class="center">25.00</td>
-                                        <td style="font-size: 11px" class="center">75.00</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="3" style="text-align: right; padding-right: 25px; border-bottom: 0px">SubTotal</td>
-                                        <td class="center" style="font-size: 11px; border-bottom: 0px">17.00</td>
+                                        <td rowspan="3"> <b>ORIGINAL</b> </td>
+                                        <td colspan="2" style="text-align: right; padding-right: 25px; border-bottom: 0px">SubTotal</td>
+                                        <td class="center" style="font-size: 11px; border-bottom: 0px">{{$sale->subtotal_format}}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" style="text-align: right; padding-right: 25px; border-bottom: 0px">Descuento</td>
-                                        <td class="center" style="font-size: 11px; border-bottom: 0px">00.00</td>
+                                        <td colspan="2" style="text-align: right; padding-right: 25px; border-bottom: 0px">Descuento</td>
+                                        <td class="center" style="font-size: 11px; border-bottom: 0px">{{$sale->discount_format}}</td>
                                     </tr>
                                     <tr style="font-weight: bold;">
-                                        <td colspan="3" style="text-align: right; padding-right: 25px; border-bottom: 0px">TOTAL</td>
-                                        <td class="center" style="font-size: 12px; border-bottom: 0px">17.00</td>
-                                    </tr>
+                                        <td colspan="2" style="text-align: right; padding-right: 25px; border-bottom: 0px">TOTAL</td>
+                                        <td class="center" style="font-size: 12px; border-bottom: 0px">{{$sale->total_format}}</td>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -178,13 +157,13 @@
                                             <td class="center">Factura No.</td>
                                         </tr>
                                         <tr>
-                                            <td class="center"><h3><b>00001</b></h3></td>
+                                            <td class="center"><h3><b>{{$sale->id}}</b></h3></td>
                                         </tr>
                                         <tr>
                                             <td class="center">Fecha</td>
                                         </tr>
                                         <tr>
-                                            <td class="center"><h3>21/12/2021</h3></td>
+                                            <td class="center"><h3>{{$sale->created}}</h3></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -193,15 +172,15 @@
                                 <table width="100%">
                                     <tr>
                                         <td colspan="2">
-                                            <p>Cliente: <b>Patricio Bedon</b></p>
+                                            <p>Cliente: <b>{{$customer->name}} {{$customer->last_name}}</b></p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="70%"><p>R.U.C o C.I: 0502253271</p></td>
-                                        <td><p>Telf.:128924434</p></td>
+                                        <td width="70%"><p>R.U.C o C.I: {{$customer->document}}</p></td>
+                                        <td><p>Telf.:{{$customer->phone}}</p></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><p>Dirección: <span>Satacunga</span></p></td>
+                                        <td colspan="2"><p>Dirección: <span>{{ $customer->address }}</span></p></td>
                                     </tr>
                                 </table>
                             </div>
@@ -209,7 +188,7 @@
                         <div>
                             <table class="tabla" >
                                 <thead>
-                                <tr>
+                                <tr style="padding-bottom: 5px">
                                     <th>Cant</th>
                                     <th>Producto</th>
                                     <th>Precio</th>
@@ -217,50 +196,29 @@
                                 </tr>
                                 </thead>
                                 <tbody style="border-bottom: 1px solid">
-                                <tr>
-                                    <td style="font-size: 11px" class="center">3</td>
-                                    <td style="font-size: 11px; width: 51%">Algo</td>
-                                    <td style="font-size: 11px" class="center">25.00</td>
-                                    <td style="font-size: 11px" class="center">75.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px" class="center">3</td>
-                                    <td style="font-size: 11px; width: 51%">Algo</td>
-                                    <td style="font-size: 11px" class="center">25.00</td>
-                                    <td style="font-size: 11px" class="center">75.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px" class="center">3</td>
-                                    <td style="font-size: 11px; width: 51%">Algo</td>
-                                    <td style="font-size: 11px" class="center">25.00</td>
-                                    <td style="font-size: 11px" class="center">75.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px" class="center">3</td>
-                                    <td style="font-size: 11px; width: 51%">Algo</td>
-                                    <td style="font-size: 11px" class="center">25.00</td>
-                                    <td style="font-size: 11px" class="center">75.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px" class="center">3</td>
-                                    <td style="font-size: 11px; width: 51%">Algo</td>
-                                    <td style="font-size: 11px" class="center">25.00</td>
-                                    <td style="font-size: 11px" class="center">75.00</td>
-                                </tr>
+                                    @foreach($details as $detail)
+                                    <tr>
+                                            <td style="font-size: 11px" class="center">{{$detail->orderQty}}</td>
+                                            <td style="font-size: 11px; width: 51%">{{$detail->product->name}}</td>
+                                            <td style="font-size: 11px" class="center">{{number_format($detail->unitPrice, 2)}}</td>
+                                            <td style="font-size: 11px" class="center">{{number_format($detail->total, 2)}}</td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td colspan="3" style="text-align: right; padding-right: 25px; border-bottom: 0px">SubTotal</td>
-                                    <td class="center" style="font-size: 11px; border-bottom: 0px">17.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="text-align: right; padding-right: 25px; border-bottom: 0px">Descuento</td>
-                                    <td class="center" style="font-size: 11px; border-bottom: 0px">00.00</td>
-                                </tr>
-                                <tr style="font-weight: bold;">
-                                    <td colspan="3" style="text-align: right; padding-right: 25px; border-bottom: 0px">TOTAL</td>
-                                    <td class="center" style="font-size: 12px; border-bottom: 0px">17.00</td>
-                                </tr>
+                                    <tr>
+                                        <td rowspan="3"> <b>COPIA</b> </td>
+                                        <td colspan="2" style="text-align: right; padding-right: 25px; border-bottom: 0px">SubTotal</td>
+                                        <td class="center" style="font-size: 11px; border-bottom: 0px">{{$sale->subtotal_format}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: right; padding-right: 25px; border-bottom: 0px">Descuento</td>
+                                        <td class="center" style="font-size: 11px; border-bottom: 0px">{{$sale->discount_format}}</td>
+                                    </tr>
+                                    <tr style="font-weight: bold;">
+                                        <td colspan="2" style="text-align: right; padding-right: 25px; border-bottom: 0px">TOTAL</td>
+                                        <td class="center" style="font-size: 12px; border-bottom: 0px">{{$sale->total_format}}</td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>

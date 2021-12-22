@@ -35,6 +35,7 @@ Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
 Route::get('all_product', 'ProductController@reportAll');
+Route::get('invoice/{sale}', 'SaleController@invoice')->name('invoice');
 
 
 Route::post('login', 'LoginController@login');

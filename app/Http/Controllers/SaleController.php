@@ -93,4 +93,14 @@ class SaleController extends Controller
 
         return response()->json("Eliminado Correctamente");
     }
+
+    public function invoice(Sale $sale)
+    {
+        $customer = Customer::find($sale->customer_id);
+
+        $details = SaleDetails::with('product')->where('sale_id', $sale->id)->get();
+
+        $pdf = \PDF::loadView('report.invoice', compact('sale','customer','details'))->setPaper('letter', 'landscape');
+        return $pdf->download('factura.pdf');
+    }
 }

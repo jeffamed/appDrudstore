@@ -17,6 +17,7 @@
         "vue-loader": "^16.8.1"
     },
     "dependencies": {
+        "@vueform/multiselect": "^2.3.1",
         "vue": "^3.2.20",
         "vue-next-select": "^2.10.1",
         "vue-router": "^4.0.12",
