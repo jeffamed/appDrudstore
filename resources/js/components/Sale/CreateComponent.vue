@@ -341,7 +341,7 @@ export default {
         const {allCustomers, customers, saveCustomer} = useCustomer();
         const {searchProduct, products} = useProducts();
         const {allUsages, usages} = useUsages();
-        const {errors, saveSale} = useSale();
+        const {errors, saveSale, sale_id} = useSale();
         const {errorToast} = useToast();
 
         const saveC =  async () => {
@@ -533,16 +533,28 @@ export default {
         }
 
         const save = async () => {
+            let user = JSON.parse(localStorage.getItem('user'));
             sale.customer_id = customer.value.id;
             sale.total = totalSale.value.replace(',','');
             sale.discount = totalDiscount.value.replace(',','');
             sale.details = detailsSale.value;
+            sale.user_id = user.id;
             await saveSale(sale);
+            await sale_id;
             await errors;
             if (errors.value.length === 0){
                 detailsSale.value = [];
                 customer.value = [];
                 clearProduct();
+                axios({ url: `/api/invoice/${sale_id.value.data}/stream`, method: 'GET', responseType: 'blob'})
+                    .then(response=>{
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('href',  `/api/invoice/${sale_id.value.data}/stream`);
+                        link.setAttribute('target', '_blank');
+                        link.click();
+                    });
             }
         }
 

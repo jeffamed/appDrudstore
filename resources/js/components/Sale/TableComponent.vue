@@ -20,6 +20,7 @@
                     <i class="icon-trash"></i>
                 </button>
                 <router-link v-show="btnUpdate" :to="{ name:'sale.show', params: { id: item.id } }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
+                <button class="btn btn-sm btn-success" @click="download(item.id,item.cliente)"><span class="icon-cloud-download"></span></button>
             </td>
         </tr>
         <tr v-else>
@@ -52,7 +53,18 @@ export default {
             context.emit('load', data);
         }
 
-        return { load, btnDelete, btnUpdate };
+        const download = (id, customer) => {
+            axios({ url: `/api/invoice/${id}`, method: 'GET', responseType: 'blob'})
+                .then(response=>{
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', `Factura-${customer}.pdf`);
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        }
+        return { load, btnDelete, btnUpdate, download };
     }
 }
 </script>

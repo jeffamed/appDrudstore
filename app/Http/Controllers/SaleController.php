@@ -47,7 +47,6 @@ class SaleController extends Controller
      */
     public function store(SaleRequest $request)
     {
-        $request['user_id'] = 1; //(user login in the future)
         $sale = Sale::create($request->except('details'));
 
         if ($sale){
@@ -63,7 +62,7 @@ class SaleController extends Controller
             }
         }
 
-        return response()->json('Registrado Correctamente');
+        return response()->json($sale->id);
     }
 
     /**
@@ -94,13 +93,13 @@ class SaleController extends Controller
         return response()->json("Eliminado Correctamente");
     }
 
-    public function invoice(Sale $sale)
+    public function invoice(Sale $sale, $type = 'download')
     {
         $customer = Customer::find($sale->customer_id);
 
         $details = SaleDetails::with('product')->where('sale_id', $sale->id)->get();
 
         $pdf = \PDF::loadView('report.invoice', compact('sale','customer','details'))->setPaper('letter', 'landscape');
-        return $pdf->download('factura.pdf');
+        return $type === 'download' ? $pdf->download('factura.pdf') : $pdf->stream();
     }
 }

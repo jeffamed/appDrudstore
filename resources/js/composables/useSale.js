@@ -5,6 +5,7 @@ import {useToast} from "./useToast";
 export function useSale(){
     const errors = ref('');
     const sales = ref([]);
+    const sale_id = ref('');
     const pagination = ref([]);
     const route = useRoute();
     const {successToast, errorToast} = useToast();
@@ -24,7 +25,7 @@ export function useSale(){
     const saveSale = async (data) => {
         errors.value = '';
         try {
-            await axios.post('/api/sale', data);
+            sale_id.value = await axios.post('/api/sale', data);
             await successToast('Registrado')
         }catch (e) {
             errorToast();
@@ -40,5 +41,5 @@ export function useSale(){
         await axios.delete(`/api/sale/${data}`);
     }
 
-    return { sales, pagination, route, getSales, saveSale, deleteSale, errors, getSale };
+    return { sales, pagination, route, getSales, saveSale, deleteSale, errors, getSale, sale_id };
 }
