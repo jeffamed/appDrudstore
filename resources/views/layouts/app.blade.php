@@ -12,15 +12,11 @@
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-<div id="app"></div>
+<div id="app" class="bg-login">
+</div>
 <!-- Bootstrap and necessary plugins -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/coreui.js') }}"></script>
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
 </body>
 
 </html>

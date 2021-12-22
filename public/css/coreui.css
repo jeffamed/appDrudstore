@@ -9129,6 +9129,13 @@ hr.transparent {
   height: 35px;
   margin: 0 10px; }
 
+.bg-login {
+    background-image: url('../img/bk3.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
 *[dir="rtl"] {
   direction: rtl;
   unicode-bidi: embed; }

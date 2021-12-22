@@ -53,7 +53,6 @@ export default {
         const login = async () => {
            errors.value = '';
            await axios.get('/sanctum/csrf-cookie').then(response => {
-               console.log(response)
                 axios.post('/api/login', form).then(rsp => {
                     delete rsp.data.created_at
                     delete rsp.data.updated_at
@@ -65,6 +64,7 @@ export default {
                     localStorage.setItem('user', JSON.stringify(rsp.data));
                     localStorage.setItem('permissions', JSON.stringify(rsp.data.permissions));
                     router.push({ name: 'home'})
+                    $('#app').removeClass('bg-login');
                 }).catch(e => {
                     if (e.response.status == 422){
                         for (const key in e.response.data.errors) {
