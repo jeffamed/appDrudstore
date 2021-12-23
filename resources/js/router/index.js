@@ -125,6 +125,12 @@ const routes = [
                 component : import(/* webpackChunkName: "routes"*/'../views/User'),
                 meta : { requiresAuth: true },
             },
+            {
+                path:'/roles',
+                name:'role',
+                component : import(/* webpackChunkName: "routes"*/'../views/Role'),
+                meta : { requiresAuth: true },
+            },
         ]
     },
     {

@@ -20022,6 +20022,13 @@ var routes = [{
     meta: {
       requiresAuth: true
     }
+  }, {
+    path: '/roles',
+    name: 'role',
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Role */ "./resources/js/views/Role.vue")),
+    meta: {
+      requiresAuth: true
+    }
   }]
 }, {
   path: '/:pathMatch(.*)*',

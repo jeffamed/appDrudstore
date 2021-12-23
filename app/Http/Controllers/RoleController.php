@@ -26,7 +26,11 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = Rol::create($request->except('permission_id'));
+
+        $role->permissions()->sync($request->permission_id);
+
+        return response()->json("Registrado Correctamente");
     }
 
     /**
