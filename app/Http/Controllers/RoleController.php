@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Rol;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
@@ -39,9 +41,14 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Rol $role)
     {
-        //
+        $permissions = DB::table('permission_rol')->select('permission_id')->where('rol_id', $role->id)->get();
+        $id = [];
+        foreach ($permissions as $permission){
+            $id[] = $permission->permission_id;
+        }
+        return response()->json($id);
     }
 
     /**
@@ -51,19 +58,11 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Rol $role)
     {
-        //
-    }
+        $role->update($request->except('permission_id'));
+        $role->permissions()->sync($request->permission_id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json("Actualizado Correctamente");
     }
 }

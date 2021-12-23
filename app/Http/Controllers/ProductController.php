@@ -67,7 +67,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->except('usage_id','laboratorio','ubicacion','tipo','presentacion','proveedor', 'usages','laboratory','supplier'));
+        $product->update($request->except('usage_id','laboratorio','ubicacion','tipo','presentacion','proveedor','usages','laboratory','supplier'));
 
         if (count($request->usage_id) > 0){
             $product->usages()->sync($request->usage_id);

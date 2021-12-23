@@ -49,5 +49,5 @@ export function useRole(){
     const deleteRole = async (data) => {
         await axios.delete(`/api/role/${data}`);
     }
-    return {getRoles, roles}
+    return {getRoles, roles, saveRole, updateRole, deleteRole, errors, route}
 }

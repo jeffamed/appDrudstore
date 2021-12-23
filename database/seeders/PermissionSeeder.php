@@ -140,5 +140,17 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             'name' => 'user.delete',
         ]);
+        DB::table('permissions')->insert([
+            'name' => 'role',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'role.create',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'role.update',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'role.delete',
+        ]);
     }
 }

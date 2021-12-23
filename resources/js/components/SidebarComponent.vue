@@ -61,7 +61,7 @@
                             <router-link v-show="enableUser" class="nav-link" :to="{ name : 'user' }"><i class="icon-user"></i> Usuarios</router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="icon-user-following"></i> Roles</a>
+                            <router-link v-show="enableRole" class="nav-link" :to="{ name : 'role' }"><i class="icon-user-following"></i> Roles</router-link>
                         </li>
                     </ul>
                 </li>
@@ -100,6 +100,7 @@ export default {
         const enableSupplier = computed(() => {return permissions.includes('supplier')});
         const enableCustomer = computed(() => {return permissions.includes('customer')});
         const enableUser = computed(() => {return permissions.includes('user')});
+        const enableRole = computed(() => {return permissions.includes('role')});
         function openAlmacen(){
             $('#ddAlmacen').addClass('open');
             $('#ddCompras').removeClass('open');
@@ -135,7 +136,7 @@ export default {
             $('#ddCompras').removeClass('open');
             $('#ddAlmacen').removeClass('open');
         }
-        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser}
+        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole}
     }
 }
 </script>

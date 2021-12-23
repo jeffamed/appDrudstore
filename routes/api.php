@@ -37,7 +37,7 @@ Route::get('product-search', 'ProductController@search');
 Route::get('all_product', 'ProductController@reportAll');
 Route::get('invoice/{sale}/{type?}', 'SaleController@invoice')->name('invoice');
 Route::get('permissions', function (){
-   return \App\Models\Permission::all();
+   return \App\Models\Permission::all('id', 'label');
 });
 
 Route::post('login', 'LoginController@login');

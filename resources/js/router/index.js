@@ -228,6 +228,18 @@ function hasAccess(name) {
         case "user.delete":
             return permissions.includes("user.delete")
 
+        case "role":
+            return permissions.includes("user")
+
+        case "role.create":
+            return permissions.includes("user.create")
+
+        case "role.edit":
+            return permissions.includes("user.edit")
+
+        case "role.delete":
+            return permissions.includes("user.delete")
+
         default:
             return false;
     }
