@@ -3,7 +3,7 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <router-link :to="{ name : 'home' }" class="nav-link active" ><i class="icon-speedometer"></i> Escritorio</router-link>
+                    <router-link :to="{ name : 'dashboard' }" class="nav-link active" ><i class="icon-speedometer"></i> Escritorio</router-link>
                 </li>
                 <li class="nav-title">
                     Mantenimiento

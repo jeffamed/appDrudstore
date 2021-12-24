@@ -37,7 +37,6 @@
 <script>
 import {reactive, ref} from 'vue';
 import {useRouter} from 'vue-router';
-import {useAuth} from "../composables/useAuth";
 export default {
     name: "Login",
     setup(){
@@ -48,7 +47,6 @@ export default {
 
         const errors = ref('');
         const router = useRouter();
-        const {verified} = useAuth();
 
         const login = async () => {
            errors.value = '';
@@ -63,7 +61,7 @@ export default {
                     delete rsp.data.email_verified_at
                     localStorage.setItem('user', JSON.stringify(rsp.data));
                     localStorage.setItem('permissions', JSON.stringify(rsp.data.permissions));
-                    router.push({ name: 'home'})
+                    router.push({ name: 'dashboard'})
                     $('#app').removeClass('bg-login');
                 }).catch(e => {
                     if (e.response.status == 422){
@@ -79,7 +77,6 @@ export default {
             });
         }
 
-        verified();
         return {form, login, errors}
     }
 }

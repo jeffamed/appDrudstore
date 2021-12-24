@@ -9,7 +9,7 @@ export function useAuth(){
         const rsp = await axios.get('/api/verified');
         auth.value = rsp.data;
         if (rsp.data !== 'unauthorization'){
-            router.push({ name: 'home' })
+            router.push({ name: 'dashboard' })
         }
     }
 

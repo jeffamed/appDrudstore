@@ -19879,6 +19879,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
 
 var routes = [{
+  path: '/',
+  redirect: {
+    name: 'login'
+  }
+}, {
   path: '/login',
   name: 'login',
   meta: {
@@ -19886,13 +19891,20 @@ var routes = [{
   },
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Login */ "./resources/js/views/Login.vue"))
 }, {
-  path: '/',
+  path: '/home',
   name: 'home',
   component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Main */ "./resources/js/views/Main.vue")),
   meta: {
     requiresAuth: true
   },
   children: [{
+    path: '/dashboard',
+    name: 'dashboard',
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/ExampleComponent */ "./resources/js/components/ExampleComponent.vue")),
+    meta: {
+      requiresAuth: false
+    }
+  }, {
     path: '/cliente',
     name: 'customer',
     component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Customer */ "./resources/js/views/Customer.vue")),
@@ -20045,7 +20057,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
 router.beforeEach(function (to, from, next) {
   if (to.name === 'login' && localStorage.getItem("user")) {
     router.push({
-      name: 'home'
+      name: 'dashboard'
     });
   } else if (to.meta.requiresAuth) {
     var user = localStorage.getItem('user');
