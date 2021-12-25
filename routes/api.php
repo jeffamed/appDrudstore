@@ -39,6 +39,7 @@ Route::get('invoice/{sale}/{type?}', 'SaleController@invoice')->name('invoice');
 Route::get('permissions', function (){
    return \App\Models\Permission::all('id', 'label');
 });
+Route::get('dashboard', 'DashboardController@index');
 
 Route::post('login', 'LoginController@login');
 Route::get('verified', function (Request $request){
