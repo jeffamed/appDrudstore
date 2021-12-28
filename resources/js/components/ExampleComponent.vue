@@ -9,7 +9,7 @@
                     <div class="col-md-8">
                         <div class="card-body p-1 text-center">
                             <h3 class="card-title mb-1" v-text="daySale"></h3>
-                            <p class="text-muted mb-1 "><small class="font-weight-bold">Ventas del Dia</small></p>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Facturas del Dia</small></p>
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="col-md-8">
                         <div class="card-body p-1 text-center">
                             <h3 class="card-title mb-1" v-text="weekSale"></h3>
-                            <p class="text-muted mb-1 "><small class="font-weight-bold">Ventas de la Semana</small></p>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Facturas de la Semana</small></p>
                         </div>
                     </div>
                 </div>
@@ -34,11 +34,12 @@
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row no-gutters border border-info">
                     <div class="col-md-4 bg-info">
-                        <img src="" class="card-img" alt="">
+                        <i class="fa fa-money fa-3x my-3 d-block text-center" aria-hidden="true"></i>
                     </div>
                     <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                        <div class="card-body p-1 text-center">
+                            <h3 class="card-title mb-1" v-text="moneySale"></h3>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Ventas del dia</small></p>
                         </div>
                     </div>
                 </div>
@@ -86,6 +87,7 @@ export default {
         const labelSale = ref([]);
         const dataSale = ref([]);
         const daySale = ref(0);
+        const moneySale = ref(0);
         const weekSale = ref(0);
 
         const getData = async () => {
@@ -96,6 +98,7 @@ export default {
           dataSale.value = rsp.data.sales.total;
           daySale.value = rsp.data.day;
           weekSale.value = rsp.data.week;
+          moneySale.value = rsp.data.money;
         }
 
         const TopOptions = ref({
@@ -146,7 +149,7 @@ export default {
         }))
 
         getData();
-        return{topData, TopOptions, SalesData, SaleOptions, daySale, weekSale}
+        return{topData, TopOptions, SalesData, SaleOptions, daySale, weekSale, moneySale}
     }
 
 }

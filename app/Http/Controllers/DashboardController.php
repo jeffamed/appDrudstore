@@ -18,6 +18,7 @@ class DashboardController extends Controller
         $endWeek = $today->endOfWeek()->format('Y-m-d');
 
         $day = DB::table('sales')->whereDate('created_at',now()->format('Y-m-d'))->count();
+        $money = DB::table('sales')->whereDate('created_at',now()->format('Y-m-d'))->sum('total');
         $week = DB::table('sales')->whereBetween('created_at',[$startWeek, $endWeek])->count();
         $top_product = DB::table('sale_details')
                     ->join('products','sale_details.product_id','=', 'products.id')
@@ -32,8 +33,8 @@ class DashboardController extends Controller
         }
 
         DB::statement("SET lc_time_names = 'es_ES'");
-        $sales = DB::table('sale_details')
-                    ->selectRaw('MONTHNAME(sale_details.created_at) as mes, count(id) as total')
+        $sales = DB::table('sales')
+                    ->selectRaw('MONTHNAME(sales.created_at) as mes, count(id) as total')
                     ->whereYear('created_at',now())
                     ->groupByRaw('mes DESC')
                     ->get();
@@ -47,7 +48,8 @@ class DashboardController extends Controller
             'top'=>['product'=>$tmp_TopProd,'total'=>$tmp_TotalProd],
             'sales' => ['month' => $tmp_month, 'total' => $tmp_TotalMonth],
             'day' => $day,
-            'week' => $week
+            'week' => $week,
+            'money' => $money
             ]);
 
         return response()->json($data);

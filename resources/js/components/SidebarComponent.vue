@@ -69,10 +69,10 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Reportes</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="i#"><i class="icon-chart"></i> Reporte Ingresos</a>
+                            <a class="nav-link" v-show="enableOrder" :href="void(0)" @click="reportOrder"><i class="icon-chart"></i> Reporte Ingresos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="icon-chart"></i> Reporte Ventas</a>
+                            <a class="nav-link" v-show="enableSales" :href="void(0)" @click="reportSale"><i class="icon-chart"></i> Reporte Ventas</a>
                         </li>
                     </ul>
                 </li>
@@ -136,7 +136,31 @@ export default {
             $('#ddCompras').removeClass('open');
             $('#ddAlmacen').removeClass('open');
         }
-        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole}
+
+        function reportSale() {
+            axios({ url: '/api/report_sale', method: 'GET', responseType: 'blob'})
+            .then(response=>{
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Ventas segun Meses.pdf');
+                document.body.appendChild(link);
+                link.click();
+            });
+        }
+
+        function reportOrder() {
+            axios({ url: '/api/report_order', method: 'GET', responseType: 'blob'})
+                .then(response=>{
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'Compras segun Meses.pdf');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        }
+        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole, reportSale, reportOrder}
     }
 }
 </script>
