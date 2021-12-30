@@ -10,6 +10,7 @@ use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
@@ -96,5 +97,21 @@ class OrderController extends Controller
         $order->delete();
 
         return response()->json('Eliminado Correctamente');
+    }
+
+    public function reportOrder()
+    {
+        DB::statement("SET lc_time_names = 'es_ES'");
+        $orders = DB::table('orders')
+            ->selectRaw('MONTHNAME(orders.created_at) as mes, sum(subtotal) as subTotal, sum(discount) as Descuento, sum(total) as Total')
+            ->whereYear('created_at',now())
+            ->groupByRaw('mes DESC')
+            ->get();
+        $orders_total = DB::table('orders')
+            ->selectRaw('sum(subtotal) as subTotal, sum(discount) as Descuento, sum(total) as Total')
+            ->whereYear('created_at',now())
+            ->get();
+        $pdf = \PDF::loadView('report.orders', compact('orders','orders_total'))->setPaper('letter', 'portrait');
+        return $pdf->download('compras_segun_meses.pdf');
     }
 }

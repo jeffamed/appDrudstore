@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Tipos de Productos
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
+                <button v-show="btnCreate" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
             </div>
@@ -141,7 +141,7 @@ export default {
 
         onMounted(getTypes);
 
-        return {form, types, type, pagination, errors, save, loadType, updatingType, destroyType, findType, clear};
+        return {form, types, type, pagination, errors, save, loadType, updatingType, destroyType, findType, clear, btnCreate};
     }
 }
 </script>

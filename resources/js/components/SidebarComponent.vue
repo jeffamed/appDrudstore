@@ -3,7 +3,7 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <router-link :to="{ name : 'home' }" class="nav-link active" ><i class="icon-speedometer"></i> Escritorio</router-link>
+                    <router-link :to="{ name : 'dashboard' }" class="nav-link active" ><i class="icon-speedometer"></i> Escritorio</router-link>
                 </li>
                 <li class="nav-title">
                     Mantenimiento
@@ -61,7 +61,7 @@
                             <router-link v-show="enableUser" class="nav-link" :to="{ name : 'user' }"><i class="icon-user"></i> Usuarios</router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="icon-user-following"></i> Roles</a>
+                            <router-link v-show="enableRole" class="nav-link" :to="{ name : 'role' }"><i class="icon-user-following"></i> Roles</router-link>
                         </li>
                     </ul>
                 </li>
@@ -69,10 +69,10 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Reportes</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="i#"><i class="icon-chart"></i> Reporte Ingresos</a>
+                            <a class="nav-link" v-show="enableOrder" :href="void(0)" @click="reportOrder"><i class="icon-chart"></i> Reporte Ingresos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="icon-chart"></i> Reporte Ventas</a>
+                            <a class="nav-link" v-show="enableSales" :href="void(0)" @click="reportSale"><i class="icon-chart"></i> Reporte Ventas</a>
                         </li>
                     </ul>
                 </li>
@@ -100,6 +100,7 @@ export default {
         const enableSupplier = computed(() => {return permissions.includes('supplier')});
         const enableCustomer = computed(() => {return permissions.includes('customer')});
         const enableUser = computed(() => {return permissions.includes('user')});
+        const enableRole = computed(() => {return permissions.includes('role')});
         function openAlmacen(){
             $('#ddAlmacen').addClass('open');
             $('#ddCompras').removeClass('open');
@@ -135,7 +136,31 @@ export default {
             $('#ddCompras').removeClass('open');
             $('#ddAlmacen').removeClass('open');
         }
-        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser}
+
+        function reportSale() {
+            axios({ url: '/api/report_sale', method: 'GET', responseType: 'blob'})
+            .then(response=>{
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Ventas segun Meses.pdf');
+                document.body.appendChild(link);
+                link.click();
+            });
+        }
+
+        function reportOrder() {
+            axios({ url: '/api/report_order', method: 'GET', responseType: 'blob'})
+                .then(response=>{
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'Compras segun Meses.pdf');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        }
+        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole, reportSale, reportOrder}
     }
 }
 </script>

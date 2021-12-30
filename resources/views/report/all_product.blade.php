@@ -64,16 +64,38 @@
         tfoot tr td{
             padding-top: 10px;
         }
+        #products {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #products td, #products th {
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        #products tr:nth-child(even){background-color: #f2f2f2;}
+
+        #products tr:hover {background-color: #ddd;}
+
+        #products th {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            text-align: left;
+            background-color: #0082CA;
+            color: white;
+        }
     </style>
 </head>
 <body>
 <div>
     <div style="text-align: center">
-        <h2 class="bold text-center">FARMACIA</h2>
+        <h2 class="bold text-center">FARMACIA FARMARED</h2>
         <h4>LISTADO DE PRODUCTO EXISTENTE Y PRECIO</h4>
     </div>
 </div>
-<table class="tabla">
+<table class="tabla" id="products">
     <thead>
     <tr>
         <th style="text-align: left">Codigo</th>

@@ -2,17 +2,27 @@ import { createRouter, createWebHistory }  from  "vue-router"
 
 const routes = [
     {
+      path: '/',
+      redirect: {name: 'login'}
+    },
+    {
         path:'/login',
         name:'login',
         meta : { requiresAuth: false },
         component : import(/* webpackChunkName: "routes"*/'../views/Login')
     },
     {
-        path:'/',
+        path:'/home',
         name:'home',
         component : import(/* webpackChunkName: "routes"*/'../views/Main'),
         meta : { requiresAuth: true },
         children:[
+            {
+                path:'/dashboard',
+                name:'dashboard',
+                component : import(/* webpackChunkName: "routes"*/'../components/ExampleComponent'),
+                meta : { requiresAuth: false },
+            },
             {
                 path:'/cliente',
                 name:'customer',
@@ -149,7 +159,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     if (to.name === 'login' && localStorage.getItem("user")) {
         router.push({
-            name: 'home'
+            name: 'dashboard'
         })
     } else if (to.meta.requiresAuth) {
         let user = localStorage.getItem('user')
@@ -226,6 +236,18 @@ function hasAccess(name) {
             return permissions.includes("user.edit")
 
         case "user.delete":
+            return permissions.includes("user.delete")
+
+        case "role":
+            return permissions.includes("user")
+
+        case "role.create":
+            return permissions.includes("user.create")
+
+        case "role.edit":
+            return permissions.includes("user.edit")
+
+        case "role.delete":
             return permissions.includes("user.delete")
 
         default:

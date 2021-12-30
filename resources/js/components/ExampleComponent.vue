@@ -1,211 +1,156 @@
 <template>
-    <!-- Breadcrumb -->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item"><a href="#">Admin</a></li>
-        <li class="breadcrumb-item active">Dashboard</li>
-    </ol>
-
-    <div class="container-fluid">
-        <!-- Ejemplo de tabla Listado -->
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-align-justify"></i> {{ title }}
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
-                    <i class="icon-plus"></i>&nbsp;Nuevo
-                </button>
-            </div>
-            <div class="card-body">
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <div class="input-group">
-                            <select class="form-control col-md-3" id="opcion" name="opcion">
-                                <option value="nombre">Nombre</option>
-                                <option value="descripcion">Descripción</option>
-                            </select>
-                            <input type="text" id="texto" name="texto" class="form-control" placeholder="Texto a buscar">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+    <div class="row mt-3 mx-auto justify-content-around">
+        <div class="col-md-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters border border-success">
+                    <div class="col-md-4 bg-success">
+                        <i class="fa fa-shopping-basket fa-3x my-3 d-block text-center" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body p-1 text-center">
+                            <h3 class="card-title mb-1" v-text="daySale"></h3>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Facturas del Dia</small></p>
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th>Opciones</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button> &nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-success">Activo</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button> &nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-success">Activo</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button> &nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-secondary">Inactivo</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button> &nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-secondary">Inactivo</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalNuevo">
-                                <i class="icon-pencil"></i>
-                            </button>&nbsp;
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                        <td>Equipos</td>
-                        <td>Dispositivos electrónicos</td>
-                        <td>
-                            <span class="badge badge-success">Activo</span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <nav>
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#">Ant</a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Sig</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
-        <!-- Fin ejemplo de tabla Listado -->
-    </div>
-    <!--Inicio del modal agregar/actualizar-->
-    <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-primary modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Agregar categoría</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                            <div class="col-md-9">
-                                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre de categoría">
-                                <span class="help-block">(*) Ingrese el nombre de la categoría</span>
-                            </div>
+        <div class="col-md-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters border border-warning">
+                    <div class="col-md-4 bg-warning">
+                        <i class="fa fa-line-chart fa-3x my-3 d-block text-center" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body p-1 text-center">
+                            <h3 class="card-title mb-1" v-text="weekSale"></h3>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Facturas de la Semana</small></p>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
-                            <div class="col-md-9">
-                                <input type="email" id="descripcion" name="descripcion" class="form-control" placeholder="Enter Email">
-                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters border border-info">
+                    <div class="col-md-4 bg-info">
+                        <i class="fa fa-money fa-3x my-3 d-block text-center" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body p-1 text-center">
+                            <h3 class="card-title mb-1" v-text="moneySale"></h3>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Ventas del dia</small></p>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!--Fin del modal-->
-    <!-- Inicio del modal Eliminar -->
-    <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-danger" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Eliminar Categoría</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Estas seguro de eliminar la categoría?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-danger">Eliminar</button>
+        <div class="col-md-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters border border-danger">
+                    <div class="col-md-4 bg-danger">
+                        <img src="" class="card-img" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!-- Fin del modal Eliminar -->
+    <div class="row my-3 mx-auto justify-content-around">
+        <div class="col-md-5 bg-white">
+            <PieChart :chartData="topData" :options="TopOptions"/>
+        </div>
+        <div class="col-md-5 bg-white">
+            <LineChart :chartData="SalesData" :options="SaleOptions"/>
+        </div>
+    </div>
 </template>
 <script>
+import { DoughnutChart, LineChart, PieChart } from 'vue-chart-3';
+import { Chart, ChartData, ChartOptions, registerables } from "chart.js";
+import {computed, ref} from "vue";
+Chart.register(...registerables);
 export default {
-    setup: () => ({
-        greeting: 'Hello World from Vue 3!'
-    })
+    name:'ExampleComponent',
+    components:{
+        DoughnutChart,
+        LineChart,
+        PieChart
+    },
+    setup(){
+        const labelTop = ref([]);
+        const dataTop = ref([]);
+        const labelSale = ref([]);
+        const dataSale = ref([]);
+        const daySale = ref(0);
+        const moneySale = ref(0);
+        const weekSale = ref(0);
+
+        const getData = async () => {
+          let rsp = await axios.get('api/dashboard');
+          labelTop.value = rsp.data.top.product;
+          dataTop.value = rsp.data.top.total;
+          labelSale.value = rsp.data.sales.month;
+          dataSale.value = rsp.data.sales.total;
+          daySale.value = rsp.data.day;
+          weekSale.value = rsp.data.week;
+          moneySale.value = rsp.data.money;
+        }
+
+        const TopOptions = ref({
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Productos mas Vendido',
+                },
+            },
+        });
+
+        const topData =  computed(() => ({
+            labels: labelTop.value,
+            datasets: [
+                {
+                    label: 'Productos mas vendidos',
+                    data: dataTop.value,
+                    backgroundColor: ['#E74C3C', '#8E44AD', '#3498DB', '#16A085', '#2ECC71','#F1C40F','#F39C12', '#34495E', '#AAB7B8', '#2980B9'],
+                },
+            ],
+        }))
+
+        const SaleOptions = ref({
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Ventas por mes',
+                },
+            },
+        });
+        const SalesData =  computed(() => ({
+            labels: labelSale.value,
+            datasets: [
+                {
+                    label: 'Ventas Totales',
+                    data: dataSale.value,
+                    backgroundColor: ['#F1C40F'],
+                },
+            ],
+        }))
+
+        getData();
+        return{topData, TopOptions, SalesData, SaleOptions, daySale, weekSale, moneySale}
+    }
+
 }
 </script>

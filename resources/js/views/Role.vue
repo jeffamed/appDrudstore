@@ -1,22 +1,20 @@
 <template>
-    <breadcrumb-component folder="Almacén" subfolder="Tipos"/>
+    <breadcrumb-component folder="Acceso" subfolder="Roles"/>
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Tipos de Productos
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
+                <i class="fa fa-align-justify"></i> Roles
+                <button v-show="btnCreate" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
             </div>
             <div class="card-body">
-                <search-component @search="findType"/>
-                <table-component :data="types" permission="type" @load="loadType" />
-                <pagination-component name="type" :pagination="pagination"/>
+                <table-component :data="roles" permission="role" @load="loadRole" />
             </div>
         </div>
     </div>
 
-    <delete-component title="Rol" :data="type" @delete="destroyType" />
+    <delete-component title="Rol" :data="role" @delete="destroyRole" />
 
     <!--Inicio del modal agregar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
@@ -30,18 +28,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                        <label class="col-md-3 form-control-label" for="name">Nombre</label>
                         <div class="col-md-9">
                             <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del tipo de uso" v-model.trim="form.name">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Permisos</label>
+                        <label class="col-md-3 form-control-label" >Permisos</label>
                         <div class="col-md-9">
                             <Multiselect
-                                v-model="value"
-                                :options="options"
+                                valueProp="id"
+                                v-model="form.permission_id"
+                                 mode="tags"
+                                 :searchable="true"
+                                 :createTag="true"
+                                :options="permissions"
                             />
                         </div>
                     </div>
@@ -62,23 +64,36 @@
         <div class="modal-dialog modal-warning modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Role</h5>
+                    <h5 class="modal-title">Roles</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                        <label class="col-md-3 form-control-label" for="txtname">Nombre</label>
                         <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del tipo de uso" v-model="type.name">
+                            <input type="text" id="txtname" name="name" class="form-control" placeholder="Nombre del tipo de uso" v-model="role.name">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 form-control-label" >Permisos</label>
+                        <div class="col-md-9">
+                            <Multiselect
+                                valueProp="id"
+                                v-model="role.permission_id"
+                                mode="tags"
+                                :searchable="true"
+                                :createTag="true"
+                                :options="permissions"
+                            />
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="btnCloseUpdate" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="updatingType">Actualizar</button>
+                    <button type="button" class="btn btn-primary" @click="updatingRole">Actualizar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -89,32 +104,83 @@
 </template>
 
 <script>
+import SearchComponent from "../components/SearchComponent";
+import TableComponent from "../components/TableComponent";
 import Multiselect from '@vueform/multiselect'
-import {reactive, ref} from "vue";
+import {computed, reactive, ref, watch} from "vue";
+import {useRole} from "../composables/useRole";
+import {useToast} from "../composables/useToast";
 export default {
     name: "Role",
     components: {
         Multiselect,
+        SearchComponent,
+        TableComponent
     },
     setup(){
+        const role = ref([]);
         const permissions = ref([]);
         const form = reactive({
             name : '',
             permission_id : []
         })
 
-        const load = async () => {
-            await axios('/api/permission').then( response => {
-                permissions.value = response.data;
-                console.log(response.data)
+        const {getRoles, roles, errors, saveRole, updateRole, deleteRole, route} = useRole();
+        const {successToast} = useToast();
+        const permission = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permission.includes('type.create')})
+
+        const save = async() => {
+            await saveRole(form);
+            await errors;
+            if (errors.value.length === 0){
+                await clear();
+                await getRoles();
+            }
+        };
+
+        const updatingRole = async () => {
+            await updateRole(role.value);
+            getRoles();
+        };
+
+        const destroyRole = async (id) => {
+            await deleteRole(id);
+            getRoles();
+            successToast('Eliminado');
+        }
+
+        const loadRole = async (data) => {
+            role.value = { ...data };
+            await axios.get(`api/role/${role.value.id}`).then(response => {
+                role.value.permission_id = response.data;
             })
         }
 
-        load();
+        const findRole = async(data) => {
+            await getRoles(data);
+        }
+
+        const clear = () => {
+            form.name = '';
+            form.permission_id = [];
+        }
+
+        watch(() => route.query.page , () => {
+            getRoles()
+        })
+
+        const loadPermission = async () => {
+            await axios.get('/api/permissions').then( response => {
+                permissions.value = response.data;
+            })
+        }
+
+        loadPermission();
+        getRoles();
+        return {form, permissions, roles, role, errors, save, updatingRole, destroyRole, findRole, loadRole, btnCreate, clear}
     }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style src="@vueform/multiselect/themes/default.css"></style>

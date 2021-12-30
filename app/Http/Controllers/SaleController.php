@@ -8,6 +8,7 @@ use App\Models\Sale;
 use App\Models\SaleDetails;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
@@ -101,5 +102,21 @@ class SaleController extends Controller
 
         $pdf = \PDF::loadView('report.invoice', compact('sale','customer','details'))->setPaper('letter', 'landscape');
         return $type === 'download' ? $pdf->download('factura.pdf') : $pdf->stream();
+    }
+
+    public function reportSale()
+    {
+        DB::statement("SET lc_time_names = 'es_ES'");
+        $sales = DB::table('sales')
+            ->selectRaw('MONTHNAME(sales.created_at) as mes, sum(subtotal) as subTotal, sum(discount) as Descuento, sum(total) as Total')
+            ->whereYear('created_at',now())
+            ->groupByRaw('mes DESC')
+            ->get();
+        $sales_total = DB::table('sales')
+            ->selectRaw('sum(subtotal) as subTotal, sum(discount) as Descuento, sum(total) as Total')
+            ->whereYear('created_at',now())
+            ->get();
+        $pdf = \PDF::loadView('report.sales', compact('sales','sales_total'))->setPaper('letter', 'portrait');
+        return $pdf->download('ventas_segun_meses.pdf');
     }
 }

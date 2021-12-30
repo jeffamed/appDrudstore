@@ -36,9 +36,10 @@ Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
 Route::get('all_product', 'ProductController@reportAll');
 Route::get('invoice/{sale}/{type?}', 'SaleController@invoice')->name('invoice');
-Route::get('permissions', function (){
-   return \App\Models\Permission::all();
-});
+Route::get('permissions', function (){return \App\Models\Permission::all('id', 'label');});
+Route::get('dashboard', 'DashboardController@index');
+Route::get('report_sale', 'SaleController@reportSale')->name('reportSale');
+Route::get('report_order', 'OrderController@reportOrder')->name('reportOrder');
 
 Route::post('login', 'LoginController@login');
 Route::get('verified', function (Request $request){
