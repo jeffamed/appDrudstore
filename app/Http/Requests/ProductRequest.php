@@ -32,7 +32,7 @@ class ProductRequest extends BaseRequest
     public function store()
     {
         return [
-            'code' => 'required|max:13',
+            'code' => 'required|unique:products|max:13',
             'name' => 'required|max:250',
             'price' => 'required|numeric',
             'cost' => 'required|numeric',

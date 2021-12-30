@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name', 250);
             $table->float('price', 8, 2);
             $table->float('cost', 8, 2);
+            $table->float('costPrev', 8, 2);
             $table->float('discount', 8, 2);
             $table->integer('stock');
             $table->float('box_stock', 8,2);

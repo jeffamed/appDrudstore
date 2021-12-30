@@ -118,7 +118,7 @@
 <script>
 import TableComponent from "../components/Supplier/TableComponent";
 import SearchComponent from "../components/Supplier/SearchComponent";
-import {onMounted, reactive, ref, watch} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import {useSuppliers} from "../composables/useSuppliers";
 export default {
     name: "Supplier",
@@ -135,6 +135,8 @@ export default {
         })
         const supplier = ref([]);
         const { suppliers, pagination, errors, route, getSuppliers, saveSupplier, updateSupplier, deleteSupplier } = useSuppliers();
+        const permissions = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permissions.includes('supplier.create')})
 
         const save = async () => {
             await saveSupplier(form);
@@ -177,7 +179,7 @@ export default {
 
         onMounted(getSuppliers);
 
-        return {form, suppliers, supplier, pagination, errors, clear, save, findSupplier, loadSupplier, updatingSupplier, destroySupplier};
+        return {form, suppliers, supplier, pagination, errors, clear, save, findSupplier, loadSupplier, updatingSupplier, destroySupplier, btnCreate};
     }
 }
 </script>

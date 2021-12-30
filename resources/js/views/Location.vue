@@ -4,13 +4,13 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Ubicación
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
+                <button v-show="btnCreate" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
             </div>
             <div class="card-body">
                 <search-component @search="findLocation"/>
-                <table-component :data="locations"  @load="loadLocation" />
+                <table-component :data="locations" permission="location" @load="loadLocation" />
                 <pagination-component name="location" :pagination="pagination"/>
             </div>
         </div>
@@ -86,7 +86,7 @@ import PaginationComponent from "../components/PaginationComponent";
 import DeleteComponent from "../components/DeleteComponent";
 import { useLocations } from '../composables/useLocations';
 import {useToast} from "../composables/useToast";
-import {reactive, watch, onMounted, ref } from "vue";
+import {reactive, watch, onMounted, ref, computed} from "vue";
 export default {
     name: "Location",
     components: {
@@ -106,8 +106,10 @@ export default {
 
         const {locations, pagination, route, getLocations, saveLocation, deleteLocation, updateLocation, errors } = useLocations();
         const {successToast} = useToast();
+            const permissions = localStorage.getItem('permissions');
+            const btnCreate = computed(() => {return permissions.includes('location.create')})
 
-        const save = async() => {
+            const save = async() => {
             await saveLocation(form);
             await errors;
             if (errors.value.length === 0){
@@ -144,7 +146,7 @@ export default {
         watch(() => route.query.page , () => {
             getLocations()
         })
-        return { locations, pagination, route, getLocations, save, form, destroyLocation, updatingLocation,  errors, clear, loadLocation, findLocation, location };
+        return { locations, pagination, route, getLocations, save, form, destroyLocation, updatingLocation,  errors, clear, loadLocation, findLocation, location, btnCreate };
     }
 }
 </script>

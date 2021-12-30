@@ -1,76 +1,76 @@
 <template>
     <breadcrumb-component folder="Almacén" subfolder="Productos   /   Crear"/>
-    <div class="container pb-3 pt-2" style="background: #ffffff">
-        <div class="row col-md-12 justify-content-center">
-            <h5>Registrar Producto</h5>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-4">
-                <label class="form-control-label" for="code">Codigo</label>
-                <input type="text" name="code" class="form-control" placeholder="00000X" v-model="form.code">
+    <div class="container pb-1 pt-2 shadow" style="background: #ffffff">
+            <div class="row col-md-12 justify-content-center">
+                <h5>Registrar Producto</h5>
             </div>
-            <div class="col-md-8">
-                <label class="ml-3 form-control-label" for="name">Nombre</label>
-                <input type="text" name="name" class="form-control" placeholder="Nombre del Producto" v-model="form.name">
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="form-control-label" for="code">Codigo</label>
+                    <input type="text" name="code" class="form-control" placeholder="00000X" v-model="form.code">
+                </div>
+                <div class="col-md-8">
+                    <label class="ml-3 form-control-label" for="name">Nombre</label>
+                    <input type="text" name="name" class="form-control" placeholder="Nombre del Producto" v-model="form.name">
+                </div>
             </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-4">
-                <label class="form-control-label" for="price">Precio</label>
-                <input type="number" name="price" step=".01" min="0" class="form-control" placeholder="0.0" v-model="form.price">
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="form-control-label" for="price">Precio</label>
+                    <input type="number" name="price" step=".01" min="0" class="form-control" placeholder="0.0" v-model="form.price">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-control-label" for="cost">Costo</label>
+                    <input type="number" name="cost" step=".01" min="0" class="form-control" placeholder="0.0" v-model="form.cost">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-control-label" for="discount">Descuento</label>
+                    <input type="number" name="discount" step=".01" min="0" class="form-control" placeholder="0.0" v-model="form.discount">
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="form-control-label" for="cost">Costo</label>
-                <input type="number" name="cost" step=".01" min="0" class="form-control" placeholder="0.0" v-model="form.cost">
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="form-control-label" for="supplier">Proveedor</label>
+                    <vue-select v-model="form.supplier_id" :options="suppliers" label-by="name" value-by="id" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-control-label" for="laboratory">Laboratorio</label>
+                    <vue-select v-model="form.laboratory_id" :options="laboratories" label-by="name" value-by="id" placeholder="Seleccione el Laboratorio" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-control-label" for="presentation">Presentación</label>
+                    <vue-select v-model="form.presentation_id" :options="presentations" label-by="name" value-by="id" placeholder="Seleccione la Presentación" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="form-control-label" for="discount">Descuento</label>
-                <input type="number" name="discount" step=".01" min="0" class="form-control" placeholder="0.0" v-model="form.discount">
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="form-control-label" for="laboratory">Ubicación</label>
+                    <vue-select v-model="form.location_id" :options="locations" label-by="name" value-by="id" placeholder="Seleccione la Ubicacion" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-control-label" for="type">Tipo</label>
+                    <vue-select v-model="form.type_id" :options="types" label-by="name" value-by="id" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
+                    <input type="date" name="expire_at" class="form-control" v-model="form.expire_at">
+                </div>
             </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-4">
-                <label class="form-control-label" for="supplier">Proveedor</label>
-                <vue-select v-model="form.supplier_id" :options="suppliers" label-by="name" value-by="id" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-control-label" for="laboratory">Laboratorio</label>
-                <vue-select v-model="form.laboratory_id" :options="laboratories" label-by="name" value-by="id" placeholder="Seleccione el Laboratorio" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-control-label" for="presentation">Presentación</label>
-                <vue-select v-model="form.presentation_id" :options="presentations" label-by="name" value-by="id" placeholder="Seleccione la Presentación" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-4">
-                <label class="form-control-label" for="laboratory">Ubicación</label>
-                <vue-select v-model="form.location_id" :options="locations" label-by="name" value-by="id" placeholder="Seleccione la Ubicacion" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-control-label" for="type">Tipo</label>
-                <vue-select v-model="form.type_id" :options="types" label-by="name" value-by="id" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
-                <input type="date" name="expire_at" class="form-control" v-model="form.expire_at">
-            </div>
-        </div>
-        <div class="row form-group">
-            <hr>
-            <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Seleccione los usos
-            </a>
-            <hr>
-            <div class="collapse col-md-12" id="collapseExample" style="max-height: 250px; overflow: auto">
-                <table class="table table-bordered table-striped table-responsive">
-                    <thead>
+            <div class="row form-group">
+                <hr>
+                <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Seleccione los usos
+                </a>
+                <hr>
+                <div class="collapse col-md-12" id="collapseExample" style="max-height: 250px; overflow: auto">
+                    <table class="table table-bordered table-striped table-responsive">
+                        <thead>
                         <tr>
                             <th>Seleccione</th>
                             <th>Usos</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr v-for="item in usages" :key="item.id" v-if="usages.length">
                             <td>
                                 <input type="checkbox" name="cbUsos" id="cbUsos" v-model="form.usage_id" :value="item.id">
@@ -80,20 +80,20 @@
                         <tr v-else>
                             <td colspan="2" class="text-center">No hay datos Registrados</td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <router-link :to="{ name: 'product' }" class="btn btn-danger float-right"> Cancelar</router-link>
+                    <button class="btn btn-success mr-2 float-right" @click="save">Guardar</button>
+                </div>
             </div>
         </div>
-
-        <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
-
-        <div class="row form-group">
-            <div class="col-md-12">
-                <router-link :to="{ name: 'product' }" class="btn btn-danger float-right"> Cancelar</router-link>
-                <button class="btn btn-success mr-2 float-right" @click="save">Guardar</button>
-            </div>
-        </div>
-    </div>
 </template>
 
 <script>
@@ -172,5 +172,11 @@ export default {
 </script>
 
 <style scoped>
-
+    .shadow{
+        border: 0.2px solid hsl(0, 10%, 80%);
+        border-radius: 5px;
+        box-shadow: 7px 6px 6px 1px rgba(0,0,0,0.30);
+        -webkit-box-shadow: 7px 6px 6px 1px rgba(0,0,0,0.30);
+        -moz-box-shadow: 7px 6px 6px 1px rgba(0,0,0,0.30);
+    }
 </style>

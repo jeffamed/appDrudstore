@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\Usage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\PDF;
 
 class ProductController extends Controller
 {
@@ -16,7 +18,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
+        $products = Product::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(6);
 
         return response()->json($products);
     }
@@ -29,7 +31,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-       $product =  Product::create($request->except('usage_id'));
+       $product = Product::create($request->except('usage_id'));
 
         $product->usages()->sync($request->usage_id);
 
@@ -65,7 +67,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->except('usage_id','laboratorio','ubicacion','tipo','presentacion','proveedor', 'usages'));
+        $product->update($request->except('usage_id','laboratorio','ubicacion','tipo','presentacion','proveedor', 'usages','laboratory','supplier'));
 
         if (count($request->usage_id) > 0){
             $product->usages()->sync($request->usage_id);
@@ -85,5 +87,43 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->json("Eliminado Correctamente");
+    }
+
+    public function search(Request $request)
+    {
+          if($request->condition === 'code'){
+              $products = Product::where('code','like','%'.$request->search.'%')->first();
+              if ($products){
+                  $products->presentacion = $products->presentation->name;
+              }
+          }
+          elseif ($request->condition === 'usage')
+          {
+             $usages = Usage::with('products.presentation')->find($request->search);
+             $products = $usages->products;
+             foreach ($products as $product){
+                $product->qtyOrder = 0;
+                $product->discountOrder = 0;
+             }
+             return response()->json($products);
+          }
+          else{
+              $products = Product::with('presentation')
+                        ->select()
+                        ->addSelect(DB::raw('0 as costOrder, 0 as qtyOrder, 0 as discountOrder, "" as expireOrder, 0 as pvp '))
+                        ->where('name','like','%'.$request->search.'%')
+                        ->take(25)->get();
+          }
+
+          return response()->json($products);
+    }
+
+    public function reportAll()
+    {
+        $products = Product::all();
+
+        $pdf = \PDF::loadView('report.all_product', compact('products'));
+
+        return $pdf->download('inventario.pdf');
     }
 }

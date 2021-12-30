@@ -10,7 +10,7 @@
             </div>
             <div class="card-body">
                 <search-component @search="findType"/>
-                <table-component :data="types"  @load="loadType" />
+                <table-component :data="types" permission="type" @load="loadType" />
                 <pagination-component name="type" :pagination="pagination"/>
             </div>
         </div>
@@ -82,7 +82,7 @@
 <script>
 import SearchComponent from "../components/SearchComponent";
 import TableComponent from "../components/TableComponent";
-import {onMounted, reactive, ref, watch} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import {useTypes} from "../composables/useTypes";
 import {useToast} from "../composables/useToast";
 export default {
@@ -100,6 +100,8 @@ export default {
 
         const { types, pagination, route, errors, getTypes, saveType, updateType, deleteType } = useTypes();
         const {successToast} = useToast();
+        const permissions = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permissions.includes('type.create')})
 
         const save = async() => {
             await saveType(form);

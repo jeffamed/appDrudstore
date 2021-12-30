@@ -1,8 +1,8 @@
 <template>
     <table class="table table-bordered table-striped table-sm">
         <thead>
-        <tr>
-            <th  v-for="(item, key, index) in header" :key="index">{{ item }}</th>
+        <tr class="text-center">
+            <th  v-for="(item, key, index) in header" :key="index" :class="item === 'Opciones' ? 'text-center' : ''" >{{ item }}</th>
         </tr>
         </thead>
         <tbody>
@@ -13,11 +13,12 @@
             <td v-text="item.cost"></td>
             <td v-text="item.stock"></td>
             <td v-text="item.box_stock"></td>
-            <td>
-                <router-link class="btn btn-warning btn-sm" :to="{ name: 'product.edit', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
+            <td class="text-center">
+                <router-link v-show="btnUpdate" class="btn btn-warning btn-sm" :to="{ name: 'product.update', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
+                <button v-show="btnDelete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
+                <router-link class="btn btn-info btn-sm" :to="{ name: 'product.show', params: { id: item.id } }"><i class="icon-eye"></i></router-link>
             </td>
         </tr>
         <tr v-else>
@@ -27,6 +28,7 @@
     </table>
 </template>
 <script>
+import {computed} from "vue";
 export default {
     name: "TableComponent",
     props: {
@@ -41,11 +43,15 @@ export default {
     },
     setup(props, context)
     {
+        const permissions = localStorage.getItem('permissions');
+        const btnUpdate = computed(() => {return permissions.includes('product.update')})
+        const btnDelete = computed(() => {return permissions.includes('product.delete')})
+
         const load = (data) => {
             context.emit('load', data);
         }
 
-        return { load };
+        return { load, btnDelete, btnUpdate };
     }
 }
 </script>

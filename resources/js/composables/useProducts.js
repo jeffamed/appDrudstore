@@ -8,6 +8,8 @@ export function useProducts()
     const errors = ref('');
     const products = ref([]);
     const product = ref([]);
+    const lab = ref([]);
+    const sup = ref([]);
     const pagination = ref([]);
     const route = useRoute();
     const router = useRouter();
@@ -23,12 +25,17 @@ export function useProducts()
     const getProduct = async(data) => {
         let res = await axios.get(`/api/product/${data}`);
         product.value = res.data;
-        delete product.value.supplier;
+        lab.value = product.value.laboratory
+        sup.value = product.value.supplier
         delete product.value.presentation;
-        delete product.value.laboratory;
         delete product.value.location;
         delete product.value.usage;
         delete product.value.type;
+    }
+
+    const searchProduct = async(condition, search) => {
+        let res = await axios.get(`/api/product-search?condition=${condition}&search=${search}`);
+        products.value = res.data;
     }
 
     const saveProduct = async (data) => {
@@ -70,5 +77,5 @@ export function useProducts()
         await axios.delete(`/api/product/${data}`);
     }
 
-    return {products, errors, pagination, route, product, getProduct, getProducts, saveProduct, updateProduct, deleteProduct};
+    return {products, errors, pagination, route, product, lab, sup, getProduct, getProducts, saveProduct, updateProduct, deleteProduct, searchProduct};
 }

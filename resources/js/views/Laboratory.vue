@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Laboratorios
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
+                <button v-show="btnCreate" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
             </div>
@@ -96,7 +96,7 @@
 <script>
 import TableComponent from "../components/Laboratory/TableComponent";
 import SearchComponent from "../components/Laboratory/SearchComponent";
-import {onMounted, reactive, ref, watch} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import {useToast} from "../composables/useToast";
 import {useLaboratories} from "../composables/useLaboratories";
 export default {
@@ -117,6 +117,8 @@ export default {
         const laboratory = ref([]);
         const {laboratories,errors, route, pagination, getLaboratories, saveLaboratory, updateLaboratory, deleteLaboratory} = useLaboratories();
         const {successToast} =useToast();
+        const permissions = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permissions.includes('laboratory.create')})
 
         const save = async () => {
             await saveLaboratory(form);
@@ -157,7 +159,7 @@ export default {
 
         onMounted(getLaboratories);
 
-        return {form, laboratories, laboratory, pagination, errors, save, clear, loadLaboratory,  updatingLaboratory, destroyLaboratory, findLaboratory, search}
+        return {form, laboratories, laboratory, pagination, errors, save, clear, loadLaboratory,  updatingLaboratory, destroyLaboratory, findLaboratory, search, btnCreate}
     }
 }
 </script>

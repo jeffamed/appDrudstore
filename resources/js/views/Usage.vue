@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Usos del Producto
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
+                <button v-show="btnCreate" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalNuevo">
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
             </div>
@@ -82,7 +82,7 @@ import TableComponent from "../components/Usage/TableComponent";
 import SearchComponent from "../components/SearchComponent";
 import {useUsages} from "../composables/useUsages";
 import {useToast} from "../composables/useToast";
-import {watch, onMounted, reactive, ref} from "vue";
+import {watch, onMounted, reactive, ref, computed} from "vue";
 export default {
     name: "Usage",
     components:{
@@ -96,6 +96,8 @@ export default {
         const usage = ref([]);
         const { usages, pagination, route, getUsages, saveUsage, errors, deleteUsage, updateUsage } = useUsages();
         const {successToast} = useToast();
+        const permissions = localStorage.getItem('permissions');
+        const btnCreate = computed(() => {return permissions.includes('usage.create')})
 
         const save = async () => {
             await saveUsage(form);
@@ -135,7 +137,7 @@ export default {
             getUsages()
         })
 
-        return { form, usages, pagination, errors, save, findUsage, loadUsage, usage, destroyUsage, updatingUsage, clear };
+        return { form, usages, pagination, errors, save, findUsage, loadUsage, usage, destroyUsage, updatingUsage, clear, btnCreate };
     }
 }
 </script>

@@ -124,7 +124,9 @@ return [
         'laboratory_id' => 'laboratorio',
         'type_id' => 'tipo de producto',
         'location_id' => 'ubicación',
-        'supplier_id' => 'proveedor'
+        'supplier_id' => 'proveedor',
+        'iva' => 'IVA',
+        'password' => 'contraseña'
     ],
 
 ];

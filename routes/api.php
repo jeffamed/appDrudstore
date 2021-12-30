@@ -14,16 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('customer', 'CustomerController')->except(['create, edit']);
-Route::resource('presentation', 'PresentationController')->except(['create, edit']);
-Route::resource('laboratory', 'LaboratoryController')->except(['create, edit']);
-Route::resource('location', 'LocationController')->except(['create, edit']);
-Route::resource('order', 'OrderController')->except(['create, edit']);
-Route::resource('product', 'ProductController')->except(['create, edit']);
-Route::resource('sale', 'SaleController')->except(['create, edit']);
-Route::resource('supplier', 'SupplierController')->except(['create, edit']);
-Route::resource('type', 'TypeController')->except(['create, edit']);
-Route::resource('usage', 'UsageController')->except(['create, edit']);
+Route::apiresource('customer', 'CustomerController');
+Route::apiresource('presentation', 'PresentationController');
+Route::apiresource('laboratory', 'LaboratoryController');
+Route::apiresource('location', 'LocationController');
+Route::apiresource('order', 'OrderController')->except(['update']);
+Route::apiresource('product', 'ProductController');
+Route::apiresource('sale', 'SaleController');
+Route::apiresource('supplier', 'SupplierController');
+Route::apiresource('type', 'TypeController');
+Route::apiresource('usage', 'UsageController');
+Route::apiResource('user', 'UserController');
+Route::apiResource('role', 'RoleController');
 Route::get('customer-all', 'CustomerController@getAll');
 Route::get('presentation-all', 'PresentationController@getAll');
 Route::get('laboratory-all', 'LaboratoryController@getAll');
@@ -31,3 +33,15 @@ Route::get('location-all', 'LocationController@getAll');
 Route::get('supplier-all', 'SupplierController@getAll');
 Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
+Route::get('product-search', 'ProductController@search');
+Route::get('all_product', 'ProductController@reportAll');
+Route::get('invoice/{sale}/{type?}', 'SaleController@invoice')->name('invoice');
+Route::get('permissions', function (){
+   return \App\Models\Permission::all();
+});
+
+Route::post('login', 'LoginController@login');
+Route::get('verified', function (Request $request){
+    return $request->user();
+});
+Route::post('logout', 'LoginController@logout');
