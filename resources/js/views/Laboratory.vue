@@ -123,10 +123,8 @@ export default {
         const save = async () => {
             await saveLaboratory(form);
             await errors;
-            if (errors.value.length === 0){
-                await clear();
-                await getLaboratories();
-            }
+            await clear();
+            await getLaboratories();
         }
 
         const updatingLaboratory = async () => {

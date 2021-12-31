@@ -32,23 +32,11 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label class="col-md-3 form-control-label">Nombre</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="form.name">
+                            <input type="text" name="name" class="form-control" placeholder="Nombre del Usuario" v-model="form.name">
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="form-control-label">Apellido</label>
-                            <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="form.last_name">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="form-control-label">Cédula</label>
-                            <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="form.document">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="form-control-label">Teléfono</label>
-                            <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="form.phone">
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label class="form-control-label">Dirección</label>
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Cliente" v-model="form.address">
+                            <input type="text" name="name" class="form-control" placeholder="Apellido del Usuario" v-model="form.last_name">
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="form-control-label">Correo Electrónico</label>
@@ -97,23 +85,11 @@
                     <div class="row">
                     <div class="col-md-6 form-group">
                         <label class="col-md-3 form-control-label">Nombre</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="user.name">
+                        <input type="text" name="name" class="form-control" placeholder="Nombre del Usuario" v-model="user.name">
                     </div>
                     <div class="col-md-6 form-group">
                         <label class="form-control-label">Apellido</label>
-                        <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="user.last_name">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-control-label">Cédula</label>
-                        <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="user.document">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-control-label">Teléfono</label>
-                        <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="user.phone">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">Dirección</label>
-                        <input type="text" name="direccion" class="form-control" placeholder="Direccion del Cliente" v-model="user.address">
+                        <input type="text" name="name" class="form-control" placeholder="Apellido del Usuario" v-model="user.last_name">
                     </div>
                     <div class="col-md-6 form-group">
                         <label class="form-control-label">Correo Electrónico</label>

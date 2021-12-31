@@ -18,6 +18,7 @@ class DashboardController extends Controller
         $endWeek = $today->endOfWeek()->format('Y-m-d');
 
         $day = DB::table('sales')->whereDate('created_at',now()->format('Y-m-d'))->count();
+        $order = DB::table('orders')->whereDate('created_at',now()->format('Y-m-d'))->count();
         $money = DB::table('sales')->whereDate('created_at',now()->format('Y-m-d'))->sum('total');
         $week = DB::table('sales')->whereBetween('created_at',[$startWeek, $endWeek])->count();
         $top_product = DB::table('sale_details')
@@ -49,7 +50,8 @@ class DashboardController extends Controller
             'sales' => ['month' => $tmp_month, 'total' => $tmp_TotalMonth],
             'day' => $day,
             'week' => $week,
-            'money' => $money
+            'money' => $money,
+            'order' => $order
             ]);
 
         return response()->json($data);

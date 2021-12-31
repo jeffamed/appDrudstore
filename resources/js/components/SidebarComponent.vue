@@ -91,7 +91,7 @@ export default {
         const permissions = localStorage.getItem('permissions');
         const enableSales = computed(() => {return permissions.includes('sale')});
         const enableProduct = computed(() => {return permissions.includes('product')});
-        const enableLocation = computed(() => {return permissions.includes('locations')});
+        const enableLocation = computed(() => {return permissions.includes('location')});
         const enableType = computed(() => {return permissions.includes('type')});
         const enablePresentation = computed(() => {return permissions.includes('presentation')});
         const enableUsage = computed(() => {return permissions.includes('usage')});
