@@ -23,6 +23,10 @@
             margin-left: 10px;
             font-size: 15px;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-image: url("./img/logoweb.png");
+            background-repeat: no-repeat;
+            background-position: top right;
+            background-size: 270px;
         }
         h5{
             font-weight: normal;
@@ -79,18 +83,18 @@
     </style>
 </head>
 <body>
-<div>
+<div  style="margin-bottom: 30px">
     <div style="text-align: center">
-        <h2 class="bold text-center">FARMACIA FARMAREDs</h2>
+        <h2 class="bold text-center">FARMACIA FARMAREDS</h2>
     </div>
-    <div style="margin-bottom: 30px; border: 1px solid; padding: 5px">
+    <div style="margin-bottom: 40px; border: 1px solid; padding: 5px">
         <table width="100%">
             <tr>
                 <td style="width: 80%">
                     <h4>Reporte de Ventas</h4>
                 </td>
                 <td>
-                    <h4 style="text-align: right">{{ now()->format('d/M/Y') }}</h4>
+                    <h4 style="text-align: right">{{ now()->format('d/m/Y') }}</h4>
                 </td>
             </tr>
         </table>

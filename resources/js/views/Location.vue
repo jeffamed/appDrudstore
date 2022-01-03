@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <delete-component title="presentación" :data="location" @delete="destroyLocation"  />
+    <delete-component title="Ubicación" :data="location" @delete="destroyLocation"  />
 
     <!--Inicio del modal agregar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
@@ -31,7 +31,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de presentación" v-model="form.name">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de ubicación" v-model="form.name">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors.replace('name', 'nombre') }}</span>
                         </div>
                     </div>

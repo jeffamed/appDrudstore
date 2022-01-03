@@ -20,5 +20,5 @@ export function useAuth(){
         router.push({ name: 'login'});
     }
 
-    return {verified, auth, logout}
+    return {verified, auth, logout, router}
 }
