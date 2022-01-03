@@ -47,7 +47,7 @@ class Sale extends Model
 
     public function getCreatedAttribute()
     {
-        return Carbon::parse($this->created_at)->format('d/M/Y');
+        return Carbon::parse($this->created_at)->format('d/m/Y');
     }
 
     public function getClienteAttribute()

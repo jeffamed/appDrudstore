@@ -33,6 +33,10 @@
             margin-left: 10px;
             font-size: 15px;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-image: url("./img/logoweb.png");
+            background-repeat: no-repeat;
+            background-position: top right;
+            background-size: 270px;
         }
         h5{
             font-weight: normal;
@@ -90,8 +94,8 @@
 </head>
 <body>
 <div>
-    <div style="text-align: center">
-        <h2 class="bold text-center">FARMACIA FARMARED</h2>
+    <div style="text-align: center; margin-bottom: 20px">
+        <h2 class="bold text-center">FARMACIA FARMAREDS</h2>
         <h4>LISTADO DE PRODUCTO EXISTENTE Y PRECIO</h4>
     </div>
 </div>

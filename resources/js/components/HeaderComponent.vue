@@ -3,7 +3,7 @@
         <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#"></a>
+        <a class="navbar-brand" href="javascript:void(0)" @click="dashboard"></a>
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,9 +30,13 @@ export default {
     name: "HeaderComponent",
     setup(){
         const user = JSON.parse(localStorage.getItem('user'));
-        const {logout} = useAuth();
+        const {logout, router} = useAuth();
 
-        return {logout, user}
+        const dashboard = () => {
+          router.push({name : 'dashboard'});
+        }
+
+        return {logout, user, dashboard}
     }
 }
 </script>

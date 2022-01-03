@@ -9,7 +9,7 @@
                     <div class="col-md-8">
                         <div class="card-body p-1 text-center">
                             <h3 class="card-title mb-1" v-text="daySale"></h3>
-                            <p class="text-muted mb-1 "><small class="font-weight-bold">Ventas del Dia</small></p>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Ventas del Día</small></p>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="col-md-8">
                         <div class="card-body p-1 text-center">
                             <h3 class="card-title mb-1" v-text="moneySale"></h3>
-                            <p class="text-muted mb-1 "><small class="font-weight-bold">Total del dia</small></p>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Total del Día</small></p>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div class="col-md-8">
                         <div class="card-body p-1 text-center">
                             <h3 class="card-title mb-1" v-text="dayOrder"></h3>
-                            <p class="text-muted mb-1 "><small class="font-weight-bold">Compras del dia</small></p>
+                            <p class="text-muted mb-1 "><small class="font-weight-bold">Compras del Día</small></p>
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@ export default {
                 },
                 title: {
                     display: true,
-                    text: 'Productos mas Vendido',
+                    text: 'Productos más Vendido',
                 },
             },
         });
@@ -122,7 +122,7 @@ export default {
             labels: labelTop.value,
             datasets: [
                 {
-                    label: 'Productos mas vendidos',
+                    label: 'Productos más vendidos',
                     data: dataTop.value,
                     backgroundColor: ['#E74C3C', '#8E44AD', '#3498DB', '#16A085', '#2ECC71','#F1C40F','#F39C12', '#34495E', '#AAB7B8', '#2980B9'],
                 },

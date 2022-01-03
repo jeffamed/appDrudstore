@@ -35,7 +35,7 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link v-show="enableOrder" :to="{ name : 'order' }" class="nav-link"><i class="icon-wallet"></i> Ingresos</router-link>
+                            <router-link v-show="enableOrder" :to="{ name : 'order' }" class="nav-link"><i class="icon-wallet"></i> Compras</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link v-show="enableSupplier" :to="{ name : 'supplier' }" class="nav-link"><i class="icon-notebook"></i> Proveedores</router-link>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import {computed} from "vue";
+import {computed, ref} from "vue";
 
 export default {
     name: "SidebarComponent",
@@ -102,39 +102,59 @@ export default {
         const enableUser = computed(() => {return permissions.includes('user')});
         const enableRole = computed(() => {return permissions.includes('role')});
         function openAlmacen(){
-            $('#ddAlmacen').addClass('open');
-            $('#ddCompras').removeClass('open');
-            $('#ddVentas').removeClass('open');
-            $('#ddAcceso').removeClass('open');
-            $('#ddReportes').removeClass('open');
+            if ($('#ddAlmacen').hasClass('open')){
+                $('#ddAlmacen').removeClass('open');
+            }else{
+                $('#ddAlmacen').addClass('open');
+                $('#ddCompras').removeClass('open');
+                $('#ddVentas').removeClass('open');
+                $('#ddAcceso').removeClass('open');
+                $('#ddReportes').removeClass('open');
+            }
         }
         function openCompras(){
-            $('#ddCompras').addClass('open');
-            $('#ddAlmacen').removeClass('open');
-            $('#ddVentas').removeClass('open');
-            $('#ddAcceso').removeClass('open');
-            $('#ddReportes').removeClass('open');
+            if ($('#ddCompras').hasClass('open')){
+                $('#ddCompras').removeClass('open');
+            }else{
+                $('#ddCompras').addClass('open');
+                $('#ddAlmacen').removeClass('open');
+                $('#ddVentas').removeClass('open');
+                $('#ddAcceso').removeClass('open');
+                $('#ddReportes').removeClass('open');
+            }
         }
         function openVentas(){
-            $('#ddVentas').addClass('open');
-            $('#ddCompras').removeClass('open');
-            $('#ddAlmacen').removeClass('open');
-            $('#ddAcceso').removeClass('open');
-            $('#ddReportes').removeClass('open');
+            if ($('#ddVentas').hasClass('open')){
+                $('#ddVentas').removeClass('open');
+            }else {
+                $('#ddVentas').addClass('open');
+                $('#ddCompras').removeClass('open');
+                $('#ddAlmacen').removeClass('open');
+                $('#ddAcceso').removeClass('open');
+                $('#ddReportes').removeClass('open');
+            }
         }
         function openAcceso(){
-            $('#ddAcceso').addClass('open');
-            $('#ddVentas').removeClass('open');
-            $('#ddCompras').removeClass('open');
-            $('#ddAlmacen').removeClass('open');
-            $('#ddReportes').removeClass('open');
+            if ($('#ddAcceso').hasClass('open')){
+                $('#ddAcceso').removeClass('open');
+            }else {
+                $('#ddAcceso').addClass('open');
+                $('#ddVentas').removeClass('open');
+                $('#ddCompras').removeClass('open');
+                $('#ddAlmacen').removeClass('open');
+                $('#ddReportes').removeClass('open');
+            }
         }
         function openReportes(){
-            $('#ddReportes').addClass('open');
-            $('#ddAcceso').removeClass('open');
-            $('#ddVentas').removeClass('open');
-            $('#ddCompras').removeClass('open');
-            $('#ddAlmacen').removeClass('open');
+            if ($('#ddReportes').hasClass('open')){
+                $('#ddReportes').removeClass('open');
+            }else {
+                $('#ddReportes').addClass('open');
+                $('#ddAcceso').removeClass('open');
+                $('#ddVentas').removeClass('open');
+                $('#ddCompras').removeClass('open');
+                $('#ddAlmacen').removeClass('open');
+            }
         }
 
         function reportSale() {

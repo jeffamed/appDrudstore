@@ -58,7 +58,7 @@
                     <div>
                         <div class="encabezado">
                             <div class="titulo">
-                                <h3>FARMARED</h3>
+                                <h3>FARMAREDS</h3>
                             </div>
                             <div>
                                 <div class="box" style="float: left; width: 50%; padding: 3px">
@@ -67,25 +67,21 @@
                                 <p><span>Telefono:</span> (03) 2660 486 - Latacunga Ecuador</p>
                             </div>
                                 <div class="box" style="float: right; width: 45%">
-                                <table style="width: 100%; border-spacing: 0;">
-                                    <tr>
-                                        <td class="center">Factura No.</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center"><h3><b>{{$sale->id}}</b></h3></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center">Fecha</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center"><h3>{{$sale->created}}</h3></td>
-                                    </tr>
-                                </table>
+                                    <table style="width: 100%; border-spacing: 0;">
+                                        <tr>
+                                            <td class="center">Factura No.:</td>
+                                            <td class="center"><h3><b>{{$sale->id}}</b></h3></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center">Fecha: </td>
+                                            <td class="center"><h3>{{$sale->created}}</h3></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                            </div>
-                            <div class="box" style="width: 99%; border: 1px solid">
+                            <div class="box" style="width: 99%; border: 1px solid; ">
                                 <table width="100%">
-                                    <tr>
+                                    <tr rowspan="2">
                                         <td colspan="2">
                                             <p>Cliente: <b>{{$customer->name}} {{$customer->last_name}}</b></p>
                                         </td>
