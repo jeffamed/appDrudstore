@@ -113,7 +113,7 @@ export default {
                 },
                 title: {
                     display: true,
-                    text: 'Productos más Vendido',
+                    text: 'Productos más Vendidos',
                 },
             },
         });
