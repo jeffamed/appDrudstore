@@ -127,6 +127,7 @@ export default {
             type_id: 0,
             location_id: 0,
             presentation_id: 0,
+            costPrev: 0,
             usage_id: [],
         })
         const {allSuppliers, suppliers} = useSuppliers();
