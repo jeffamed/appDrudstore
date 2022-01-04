@@ -14,7 +14,20 @@
         <div class="row form-group">
             <div class="col-md-12">
                 <label class="ml-3 form-control-label" for="name">Nombre</label>
-                <vue-select v-model="customer" :options="customers" label-by="full_name" placeholder="Seleccione al Cliente" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
+                <Multiselect
+                    v-model="customer"
+                    placeholder="Seleccione al Cliente"
+                    :close-on-select="false"
+                    :filter-results="false"
+                    :min-chars="1"
+                    valueProp="code"
+                    :resolve-on-load="false"
+                    :delay="0"
+                    :searchable="true"
+                    :options="async function(query) {
+                        return await fetchCustomer(query) // check JS block for implementation
+                      }"
+                />
             </div>
         </div>
         <div class="row container d-flex justify-content-between" v-if="customer.full_name">
@@ -274,9 +287,11 @@ import {useToast} from "../../composables/useToast";
 import {useSale} from "../../composables/useSale";
 import {useCustomer} from "../../composables/useCustomer";
 import {useUsages} from "../../composables/useUsages";
+import Multiselect from '@vueform/multiselect'
 export default {
     name: "CreateComponent",
     components:{
+        Multiselect,
         VueSelect
     },
     setup(){
@@ -338,7 +353,7 @@ export default {
             return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
 
-        const {allCustomers, customers, saveCustomer} = useCustomer();
+        const {saveCustomer} = useCustomer();
         const {searchProduct, products} = useProducts();
         const {allUsages, usages} = useUsages();
         const {errors, saveSale, sale_id} = useSale();
@@ -355,6 +370,13 @@ export default {
                 $('#btnCloseCust').click();
                 errorsC.value = false;
             }
+        }
+
+        const fetchCustomer = async(query) => {
+           let res = await axios.get(`/api/customer-all/${query}`);
+            console.log(res)
+           return res.data;
+
         }
 
         const clearCustomer = () =>{
@@ -558,7 +580,6 @@ export default {
             }
         }
 
-        allCustomers();
         allUsages();
 
         watch(customer, () => {
@@ -572,7 +593,7 @@ export default {
            await searchProduct('usage', usage.value.id);
         });
 
-        return {formCustomer, errorsC, saveC, clearCustomer, form, type, usages, usage, products, detailsSale, customers, customer, detailsCustomer, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalSale, totalQty, totalDiscount, total, errors, save }
+        return {formCustomer, errorsC, saveC, clearCustomer, form, type, usages, usage, products, detailsSale, customer, detailsCustomer, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalSale, totalQty, totalDiscount, total, errors, save, fetchCustomer }
 
     }
 }

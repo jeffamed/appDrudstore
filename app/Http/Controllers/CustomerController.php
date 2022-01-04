@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
@@ -69,9 +70,12 @@ class CustomerController extends Controller
         return response()->json('Eliminado Existosamente');
     }
 
-    public function getAll()
+    public function getAll($customer)
     {
-        $customers = Customer::latest('id')->get();
+        $customers = DB::table('customers')->where('name','like','%'.$customer.'%')
+                    ->orWhere('last_name','like','%'.$customer.'%')
+                    ->selectRaw("id, concat(name,' ',last_name) as fullname")
+                    ->latest('id')->pluck('fullname','id')->take(50);
         return response()->json($customers);
     }
 }
