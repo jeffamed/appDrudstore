@@ -27,7 +27,7 @@
                     <p class="font-weight-bold text-muted">Información del Cliente</p>
                     <p class="font-lg font-weight-bold">{{ sales.cliente }}</p>
                     <p>Teléfono: {{ sales.customer.phone ?? ' Sin Numero'}}</p>
-                    <p>Direccion: {{sales.customer.address}}</p>
+                    <p>Dirección: {{sales.customer.address}}</p>
                 </div>
             </div>
             <div class="col-md-12 my-3">

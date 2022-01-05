@@ -6,7 +6,7 @@
             </div>
             <div class="row form-group">
                 <div class="col-md-4">
-                    <label class="form-control-label" for="code">Codigo</label>
+                    <label class="form-control-label" for="code">Código</label>
                     <input type="text" name="code" class="form-control" placeholder="00000X" v-model="form.code">
                 </div>
                 <div class="col-md-8">

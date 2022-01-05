@@ -19,7 +19,7 @@
         <div class="row form-group">
             <div class="col-md-12">
                 <label class="ml-3 form-control-label" for="name">Dirección</label>
-                <input type="text" name="name" class="form-control bg-white" placeholder="Direccion del proveedor" disabled v-model="detailsSupplier.address">
+                <input type="text" name="name" class="form-control bg-white" placeholder="Dirección del proveedor" disabled v-model="detailsSupplier.address">
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <p>Información del Producto</p>
         <div class="row form-group">
             <div class="col-md-3">
-                <label class="ml-3 form-control-label" for="product">Buscar por Codigo</label>
+                <label class="ml-3 form-control-label" for="product">Buscar por Código</label>
                 <div class="d-flex">
                     <input type="text" name="product" id="txtpCode" class="form-control" placeholder="00000X + Enter" v-model.trim="search" @keydown.enter="search == null || search === '' ? modalProduct() : searchProd('code')" >
                     <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalProducto" id="modalProduct"><i class="icon-settings"></i></button>

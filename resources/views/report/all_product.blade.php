@@ -102,7 +102,7 @@
 <table class="tabla" id="products">
     <thead>
     <tr>
-        <th style="text-align: left">Codigo</th>
+        <th style="text-align: left">Código</th>
         <th style="text-align: left">Producto</th>
         <th style="text-align: center">Existencia</th>
         <th style="text-align: center">P.Compra</th>

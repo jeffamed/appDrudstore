@@ -27,7 +27,7 @@
                     <p class="font-weight-bold text-muted">Información del Proveedor</p>
                     <p class="font-weight-bold">R.U.C.: {{ orders.supplier.ruc }}</p>
                     <p class="font-lg">{{orders.supplier.name}} - {{orders.supplier.phone}}</p>
-                    <p><span class="font-weight-bold">Direccion: </span>{{orders.supplier.address}}</p>
+                    <p><span class="font-weight-bold">Dirección: </span>{{orders.supplier.address}}</p>
                 </div>
             </div>
             <div class="col-md-12 my-3">

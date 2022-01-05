@@ -10,7 +10,7 @@
                     <h4 class="font-weight-bold mr-5 text-center" v-text="product.name"> </h4>
                     <div class="row">
                         <div class="col-md-6">
-                            <p><span class="text-muted">Codigo # </span> {{ product.code }}</p>
+                            <p><span class="text-muted">Código # </span> {{ product.code }}</p>
                         </div>
                         <div class="col-md-6">
                             <p><span class="text-muted">Existencia Actual:</span> {{ product.stock }} </p>
@@ -47,14 +47,14 @@
                         </div>
                     </div>
                     <p><span class="text-muted">Nombre:</span> {{sup.name}}</p>
-                    <p><span class="text-muted">Direccion:</span> {{sup.address}}</p>
+                    <p><span class="text-muted">Dirección:</span> {{sup.address}}</p>
                 </div>
             </div>
             <div class="col-md-6 my-3">
                 <div class="border border-secondary p-1">
                     <p class="font-weight-bold">Información del Laboratorio</p>
                     <p><span class="text-muted">Nombre:</span> {{lab.name}}</p>
-                    <p><span class="text-muted">Direccion: </span> {{lab.address}}</p>
+                    <p><span class="text-muted">Dirección: </span> {{lab.address}}</p>
                     <p></p>
                 </div>
             </div>

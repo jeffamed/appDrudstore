@@ -38,7 +38,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['Codigo', 'Nombre','Precio','Costo', 'Existencia', 'Exist. Caja','Opciones']
+            default: ['Código', 'Nombre','Precio','Costo', 'Existencia', 'Exist. Caja','Opciones']
         }
     },
     setup(props, context)

@@ -23,7 +23,7 @@
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Agregar Laboratorios</h5>
+                    <h5 class="modal-title">Agregar Laboratorio</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -39,7 +39,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
                         <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Laboratorio" v-model="form.address">
+                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Laboratorio" v-model="form.address">
                             <span class="help-block text-danger" v-show="errors.address.length">(*) {{ errors.address }}</span>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
         <div class="modal-dialog modal-warning modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Actualizar Laboratorios</h5>
+                    <h5 class="modal-title">Actualizar Laboratorio</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -76,7 +76,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
                         <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Laboratorio" v-model="laboratory.address">
+                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Laboratorio" v-model="laboratory.address">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>

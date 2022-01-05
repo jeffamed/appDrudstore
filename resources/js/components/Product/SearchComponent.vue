@@ -22,7 +22,7 @@ export default {
             type: Object,
             default: {
                 name: 'Nombre',
-                code: 'Codigo',
+                code: 'Código',
             }
         }
     },

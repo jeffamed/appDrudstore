@@ -21,6 +21,7 @@ export default {
         options: {
             type: Object,
             default: {
+                document: 'Cédula',
                 name: 'Nombre',
                 last_name: 'Apellido',
                 address : 'Dirección',
@@ -30,7 +31,7 @@ export default {
     },
     setup(props, context){
         const search = ref('');
-        const condition = ref('name');
+        const condition = ref('document');
 
         const btnSearch = () => {
             context.emit('search', condition.value, search.value);
