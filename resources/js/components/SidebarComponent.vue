@@ -27,7 +27,7 @@
                             <router-link v-show="enableUsage" :to="{ name : 'usage' }" class="nav-link"><i class="icon-list"></i> Uso</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableLaboratory" :to="{ name : 'laboratory' }" class="nav-link"><i class="icon-chemistry"></i> Laboratorio</router-link>
+                            <router-link v-show="enableLaboratory" :to="{ name : 'laboratory' }" class="nav-link"><i class="icon-chemistry"></i> Laboratorios</router-link>
                         </li>
                     </ul>
                 </li>

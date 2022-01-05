@@ -23,7 +23,7 @@
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Agregar Tipo de Uso</h5>
+                    <h5 class="modal-title">Agregar Tipo de Producto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -32,7 +32,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del tipo de uso" v-model.trim="form.name">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del tipo de producto" v-model.trim="form.name">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
         <div class="modal-dialog modal-warning modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Agregar Tipo de Uso</h5>
+                    <h5 class="modal-title">Actualizar Tipo de Producto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -62,7 +62,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                         <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del tipo de uso" v-model="type.name">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del tipo de producto" v-model="type.name">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>

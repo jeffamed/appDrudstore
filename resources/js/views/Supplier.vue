@@ -44,7 +44,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
                         <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Proveedor" v-model="form.address">
+                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Proveedor" v-model="form.address">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -92,7 +92,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
                         <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Proveedor" v-model="supplier.address">
+                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Proveedor" v-model="supplier.address">
                         </div>
                     </div>
                     <div class="form-group row">

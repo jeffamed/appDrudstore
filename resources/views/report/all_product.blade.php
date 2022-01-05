@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Informe</title>
@@ -41,7 +39,6 @@
         h5{
             font-weight: normal;
             font-family: Arial;
-            text-transform: uppercase;
         }
         .bold{
             font-weight: bold
@@ -102,7 +99,7 @@
 <table class="tabla" id="products">
     <thead>
     <tr>
-        <th style="text-align: left">Codigo</th>
+        <th style="text-align: left">Código</th>
         <th style="text-align: left">Producto</th>
         <th style="text-align: center">Existencia</th>
         <th style="text-align: center">P.Compra</th>
