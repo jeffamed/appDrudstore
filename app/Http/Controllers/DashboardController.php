@@ -37,8 +37,7 @@ class DashboardController extends Controller
         $sales = DB::table('sales')
                     ->selectRaw('MONTHNAME(sales.created_at) as mes, count(id) as total')
                     ->whereYear('created_at',now())
-                    ->groupByRaw('mes DESC')
-                    ->orderByRaw('mes DESC')
+                    ->groupByRaw('mes desc')
                     ->get();
 
         foreach ($sales as $sale){

@@ -106,7 +106,7 @@ class OrderController extends Controller
             ->selectRaw('MONTHNAME(orders.created_at) as mes, sum(subtotal) as subTotal, sum(discount) as Descuento, sum(total) as Total')
             ->whereYear('created_at',now())
             ->groupByRaw('mes')
-            ->orderByRaw('mes DESC')
+            ->orderByRaw('mes desc')
             ->get();
         $orders_total = DB::table('orders')
             ->selectRaw('sum(subtotal) as subTotal, sum(discount) as Descuento, sum(total) as Total')

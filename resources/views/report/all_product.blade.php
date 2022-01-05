@@ -41,7 +41,6 @@
         h5{
             font-weight: normal;
             font-family: Arial;
-            text-transform: uppercase;
         }
         .bold{
             font-weight: bold
