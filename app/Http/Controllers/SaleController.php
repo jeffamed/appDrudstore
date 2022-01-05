@@ -111,7 +111,7 @@ class SaleController extends Controller
             ->selectRaw('MONTHNAME(sales.created_at) as mes, sum(subtotal) as subTotal, sum(discount) as Descuento, sum(total) as Total')
             ->whereYear('created_at',now())
             ->groupByRaw('mes')
-            ->orderByRaw('mes DESC')
+            ->orderByRaw('mes desc')
             ->get();
         $sales_total = DB::table('sales')
             ->selectRaw('sum(subtotal) as subTotal, sum(discount) as Descuento, sum(total) as Total')
