@@ -7,6 +7,7 @@
         </thead>
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
+            <td v-text="item.document"></td>
             <td v-text="item.full_name"></td>
             <td v-text="item.address"></td>
             <td v-text="item.phone"></td>
@@ -40,7 +41,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['Nombre', 'Dirección', 'Teléfono', 'Correo','Opciones']
+            default: ['Cédula','Nombre', 'Dirección', 'Teléfono', 'Correo','Opciones']
         }
     },
     setup(props, context)

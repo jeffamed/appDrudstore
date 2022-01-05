@@ -50,7 +50,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
                         <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Cliente" v-model="form.address">
+                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Cliente" v-model="form.address">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -80,7 +80,7 @@
 
     <!--Inicio del modal actualizar-->
     <div class="modal fade" id="modalActualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-dialog modal-warning modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Actualizar Clientes</h5>
@@ -110,7 +110,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
                         <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion del Cliente" v-model="customer.address">
+                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Cliente" v-model="customer.address">
                         </div>
                     </div>
                     <div class="form-group row">

@@ -63,7 +63,7 @@
                             <div>
                                 <div class="box" style="float: left; width: 50%; padding: 3px">
                                 <p><span>R.U.C.:</span>1709318115001</p>
-                                <p><span>Direccion:</span>Cdla Maldonado Toledo Calle Gatazo s/n y Saquisili</p>
+                                <p><span>Dirección:</span>Cdla Maldonado Toledo Calle Gatazo s/n y Saquisili</p>
                                 <p><span>Telefono:</span> (03) 2660 486 - Latacunga Ecuador</p>
                             </div>
                                 <div class="box" style="float: right; width: 45%">
@@ -144,7 +144,7 @@
                             <div>
                                 <div class="box" style="float: left; width: 50%; padding: 3px">
                                     <p><span>R.U.C.:</span>1709318115001</p>
-                                    <p><span>Direccion:</span>Cdla Maldonado Toledo Calle Gatazo s/n y Saquisili</p>
+                                    <p><span>Dirección:</span>Cdla Maldonado Toledo Calle Gatazo s/n y Saquisili</p>
                                     <p><span>Telefono:</span> (03) 2660 486 - Latacunga Ecuador</p>
                                 </div>
                                 <div class="box" style="float: right; width: 45%">

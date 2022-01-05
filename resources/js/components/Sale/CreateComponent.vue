@@ -35,16 +35,16 @@
         <p>Información del Producto</p>
         <div class="row form-group">
             <div class="col-md-3">
-                <label class="form-control-label" for="product">Buscar por Codigo</label>
+                <label class="form-control-label" for="product">Buscar por Código</label>
                 <div class="d-flex">
                     <input type="text" name="product" id="txtpCode" class="form-control" placeholder="00000X + Enter" v-model.trim="search" @keydown.enter="search == null || search === '' ? modalProduct() : searchProd('code')" >
                     <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalProducto" id="modalProduct"><i class="icon-settings"></i></button>
                 </div>
-                <span class="help-block text-danger" id="errorCode" style="display: none">(*) Busque un producto segun el codigo.</span>
+                <span class="help-block text-danger" id="errorCode" style="display: none">(*) Busque un producto segun el código.</span>
             </div>
             <div class="col-md-7">
                 <label class="form-control-label" for="product">Nombre</label>
-                <input type="text" name="product" id="txtPName" class="form-control bg-white" placeholder="Nombre del Producto * Presentacion" disabled>
+                <input type="text" name="product" id="txtPName" class="form-control bg-white" placeholder="Nombre del Producto * Presentación" disabled>
             </div>
             <div class="col-md-2">
                 <label class="form-control-label" for="txtStock">Stock Act.</label>
@@ -79,7 +79,7 @@
                     <thead>
                     <tr>
                         <th width="5%">Eliminar</th>
-                        <th>Cod</th>
+                        <th>Código</th>
                         <th>Producto</th>
                         <th class="text-center">Cantidad</th>
                         <th class="text-center">Precio</th>
@@ -242,7 +242,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="txtaddress">Dirección</label>
                         <div class="col-md-9">
-                            <input type="text" name="txtaddress" class="form-control" placeholder="Direccion del Cliente" v-model.trim="formCustomer.address">
+                            <input type="text" name="txtaddress" class="form-control" placeholder="Dirección del Cliente" v-model.trim="formCustomer.address">
                         </div>
                     </div>
                     <div class="form-group row">
