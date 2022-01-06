@@ -32,7 +32,7 @@ class CustomerRequest extends BaseRequest
     public function store()
     {
         return [
-            'document' => 'nullable|max:13',
+            'document' => 'required|max:13',
             'name' => 'required|max:250',
             'last_name' => 'nullable|max:250',
             'address' => 'nullable',
@@ -49,7 +49,7 @@ class CustomerRequest extends BaseRequest
     public function update()
     {
         return [
-            'document' => 'nullable|max:13',
+            'document' => 'required|max:13',
             'name' => 'required|max:250',
             'last_name' => 'nullable|max:250',
             'address' => 'nullable',
