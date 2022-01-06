@@ -13,33 +13,28 @@
         </div>
         <div class="row form-group">
             <div class="col-md-12">
-                <label class="ml-3 form-control-label" for="name">Nombre</label>
+                <label class="ml-3 form-control-label" for="name">Buscar Cliente (Nombre o Cédula)</label>
                 <Multiselect
                     v-model="customer"
                     placeholder="Seleccione al Cliente"
-                    :close-on-select="false"
                     :filter-results="false"
                     :min-chars="1"
                     valueProp="code"
+                    noOptionsText="La lista esta vacía"
                     :resolve-on-load="false"
                     :delay="0"
                     :searchable="true"
                     :options="async function(query) {
-                        return await fetchCustomer(query) // check JS block for implementation
+                        return await fetchCustomer(query)
                       }"
                 />
             </div>
-        </div>
-        <div class="row container d-flex justify-content-between" v-if="customer.full_name">
-            <div class="col-md-5 border border-secondary">
-                <label class="form-control-label font-weight-bold">Cedula:</label>
-                <p class="text-justify text-md-left text-muted" v-text="detailsCustomer.document"></p>
-                <label class="form-control-label font-weight-bold">Teléfono:</label>
-                <p class="text-justify text-md-left text-muted" v-text="detailsCustomer.phone"></p>
-            </div>
-            <div class="col-md-6 border border-secondary">
-                <label class="form-control-label font-weight-bold">Dirección:</label>
-                <p class="text-justify text-md-left text-muted" v-text="detailsCustomer.address"></p>
+            <div class="col-md-12 mt-3" v-if="customer.length">
+                <div class="border border-secondary">
+                    <p class="mb-1 ml-2"><label class="form-control-label font-weight-bold">Dirección:</label> {{detailsCustomer.address}}</p>
+                    <p class="mb-1 ml-2"><label class="form-control-label font-weight-bold">Teléfono:</label> {{detailsCustomer.phone}}</p>
+                    <p class="mb-1 ml-2"><label class="form-control-label font-weight-bold">Correo Electrónico:</label> {{detailsCustomer.email}}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -265,7 +260,7 @@
                         </div>
                     </div>
                 </div>
-                <span class="help-block text-danger" v-show="errorsC">(*) Debe de ingresar el nombre del cliente</span>
+                <span class="help-block text-danger" v-show="errorsC">(*) Debe de ingresar el nombre del cliente y su cédula</span>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" @click="saveC">Guardar</button>
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" id="btnCloseCust" @click="clearCustomer">Cerrar</button>
@@ -305,8 +300,7 @@ export default {
         const errorsC = ref(false);
         const detailsCustomer = reactive({
             phone: '',
-            address: '',
-            document: '',
+            email: '',
         })
         const customer = ref([]);
         const form = reactive({
@@ -373,8 +367,7 @@ export default {
         }
 
         const fetchCustomer = async(query) => {
-           let res = await axios.get(`/api/customer-all/${query}`);
-            console.log(res)
+           let res = await axios.get(`/api/select-customer/${query}`);
            return res.data;
 
         }
@@ -556,7 +549,7 @@ export default {
 
         const save = async () => {
             let user = JSON.parse(localStorage.getItem('user'));
-            sale.customer_id = customer.value.id;
+            sale.customer_id = customer.value;
             sale.total = totalSale.value.replace(',','');
             sale.discount = totalDiscount.value.replace(',','');
             sale.details = detailsSale.value;
@@ -582,10 +575,11 @@ export default {
 
         allUsages();
 
-        watch(customer, () => {
-            detailsCustomer.phone = customer.value.phone,
-            detailsCustomer.address = customer.value.address,
-            detailsCustomer.document = customer.value.document,
+        watch(customer, async () => {
+            let res = await axios.get(`/api/findcustomer/${customer.value}`);
+            detailsCustomer.phone = res.data.phone,
+            detailsCustomer.address = res.data.address,
+            detailsCustomer.email = res.data.email,
             $('#txtpCode').focus();
         });
 

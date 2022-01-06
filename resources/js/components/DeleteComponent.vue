@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Estas seguro de eliminar {{title.toLowerCase()}} {{data.name ?? data.description}}?</p>
+                    <p>¿Estás seguro de eliminar {{title.toLowerCase()}} {{data.name ?? data.description}}?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnClose">Cerrar</button>
