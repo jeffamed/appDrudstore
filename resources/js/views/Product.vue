@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <delete-component  title="Productos" :data="product" @delete="destroyProduct" />
+    <delete-component  title="Productos" body="el producto" :data="product" @delete="destroyProduct" />
 
 </template>
 

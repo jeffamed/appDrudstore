@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <delete-component title="Laboratorio" :data="laboratory" @delete="destroyLaboratory" />
+    <delete-component title="Laboratorio" body="el laboratorio" :data="laboratory" @delete="destroyLaboratory" />
 
     <!--Inicio del modal agregar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">

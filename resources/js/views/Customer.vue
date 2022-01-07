@@ -16,14 +16,14 @@
         </div>
     </div>
 
-    <delete-component title="Cliente" :data="customer" @delete="destroyCustomer" />
+    <delete-component title="Cliente" body="al cliente" :data="customer.full_name" @delete="destroyCustomer" />
 
     <!--Inicio del modal agregar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Agregar Clientes</h5>
+                    <h5 class="modal-title">Agregar Cliente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -62,7 +62,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Correo Electrónico</label>
                         <div class="col-md-9">
-                            <input type="email" name="email" class="form-control" placeholder="example@emial.com" v-model="form.email">
+                            <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
         <div class="modal-dialog modal-warning modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Actualizar Clientes</h5>
+                    <h5 class="modal-title">Actualizar Cliente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -122,7 +122,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Correo Electrónico</label>
                         <div class="col-md-9">
-                            <input type="email" name="email" class="form-control" placeholder="example@emial.com" v-model="customer.email">
+                            <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="customer.email">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
