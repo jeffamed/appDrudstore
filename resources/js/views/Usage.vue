@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <delete-component title="Uso del Producto" :data="usage" @delete="destroyUsage" />
+    <delete-component title="Uso del Producto" body="el uso" :data="usage" @delete="destroyUsage" />
 
     <!--Inicio del modal agregar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">

@@ -47,7 +47,8 @@ class Sale extends Model
 
     public function getCreatedAttribute()
     {
-        return Carbon::parse($this->created_at)->format('d/m/Y');
+        $date = Carbon::parse($this->created_at)->locale('es');
+        return $date->isoFormat('d/MMM/Y');
     }
 
     public function getClienteAttribute()

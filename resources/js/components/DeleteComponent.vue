@@ -3,13 +3,13 @@
         <div class="modal-dialog modal-danger" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Eliminar {{title}}</h4>
+                    <h4 class="modal-title">Eliminar {{ title }}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro de eliminar {{title.toLowerCase()}} {{data.name ?? data.description}}?</p>
+                    <p>¿Estás seguro de eliminar {{ body.length ? body : title.toLowerCase() }} {{ typeof data === 'string' ? data : data.name ?? data.description }}?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnClose">Cerrar</button>
@@ -24,7 +24,6 @@
 
 <script>
 import {reactive, inject} from "vue";
-
 export default {
     name: "DeleteComponent",
     props:{
@@ -32,8 +31,13 @@ export default {
             type: String,
             default: ''
         },
+        body: {
+            type: String,
+            default: '',
+        },
         data: {
-            type: Object
+            type: Object,
+            default: name
         },
     },
     setup(props,context){

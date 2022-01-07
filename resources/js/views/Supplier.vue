@@ -16,14 +16,14 @@
         </div>
     </div>
 
-    <delete-component title="Proveedor" :data="supplier" @delete="destroySupplier" />
+    <delete-component title="Proveedor" body="el proveedor" :data="supplier" @delete="destroySupplier" />
 
     <!--Inicio del modal agregar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Agregar Proveedores</h5>
+                    <h5 class="modal-title">Agregar Proveedor</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -71,7 +71,7 @@
         <div class="modal-dialog modal-warning modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Actualizar Proveedores</h5>
+                    <h5 class="modal-title">Actualizar Proveedor</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
