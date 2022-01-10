@@ -11,7 +11,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 form-control-label font-weight-bold" for="email">Email</label>
                                 <div class="col-md-12">
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="example@email.com" v-model="form.email">
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
                                 </div>
                             </div>
                         </div>
@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 form-control-label font-weight-bold" for="pass">Contraseña</label>
                                 <div class="col-md-12">
-                                    <input type="password" name="pass" id="pass" class="form-control" placeholder="******" v-model="form.password">
+                                    <input type="password" name="pass" id="pass" class="form-control" placeholder="******" v-model="form.password" @keyup.enter="login">
                                 </div>
                             </div>
                         </div>

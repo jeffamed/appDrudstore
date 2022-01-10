@@ -41,7 +41,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['#','Usuario', 'Proveedor','IVA','SubTotal','Descuento','Total', 'Registrado','Opc.']
+            default: ['#','Usuario', 'Proveedor','IVA','SubTotal $','Descuento','Total $', 'Registrado','Opc.']
         }
     },
     setup(props, context)

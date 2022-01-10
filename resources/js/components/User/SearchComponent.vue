@@ -23,8 +23,7 @@ export default {
             default: {
                 name: 'Nombre',
                 last_name: 'Apellido',
-                address : 'Dirección',
-                email: 'Email'
+                email: 'Correo'
             }
         }
     },

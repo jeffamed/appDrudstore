@@ -117,6 +117,10 @@ class PermissionSeeder extends Seeder
             'label' => 'Crear Ventas',
         ]);
         DB::table('permissions')->insert([
+            'name' => 'sale.create',
+            'label' => 'Crear Ventas',
+        ]);
+        DB::table('permissions')->insert([
             'name' => 'sale.delete',
             'label' => 'Eliminar Ventas',
 

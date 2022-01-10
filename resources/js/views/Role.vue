@@ -21,7 +21,7 @@
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Roles</h5>
+                    <h5 class="modal-title">Agregar Roles</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="name">Nombre</label>
                         <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del tipo de uso" v-model.trim="form.name">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del Rol" v-model.trim="form.name">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
         <div class="modal-dialog modal-warning modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Roles</h5>
+                    <h5 class="modal-title">Actualizar Roles</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -73,7 +73,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="txtname">Nombre</label>
                         <div class="col-md-9">
-                            <input type="text" id="txtname" name="name" class="form-control" placeholder="Nombre del tipo de uso" v-model="role.name">
+                            <input type="text" id="txtname" name="name" class="form-control" placeholder="Nombre del Rol" v-model="role.name">
                             <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                         </div>
                     </div>
@@ -86,6 +86,7 @@
                                 mode="tags"
                                 :searchable="true"
                                 :createTag="true"
+                                noResultsText="Resultados no encontrado"
                                 :options="permissions"
                             />
                         </div>

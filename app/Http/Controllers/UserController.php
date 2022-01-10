@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
+        $users = User::with('rol')->where($request->condition,'like','%'.$request->search.'%')->latest('id')->paginate(5);
         return response()->json($users);
     }
 
