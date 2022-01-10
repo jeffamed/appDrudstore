@@ -63,7 +63,7 @@ export default {
                     link.click();
                 });
         }
-        return { load, btnDelete, btnUpdate, download };
+        return { load, btnDelete, download };
     }
 }
 </script>
