@@ -49,7 +49,7 @@
                         <div class="col-md-6 form-group">
                             <label class="form-control-label">Roles</label>
                             <select v-model="form.rol_id" class="form-control">
-                                <option value="">Seleccione un Rol...</option>
+                                <option value="">Seleccione un Rol</option>
                                 <option :value="role.id" v-for="role in roles" :key="role.id" v-text="role.name"></option>
                             </select>
                         </div>

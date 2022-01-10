@@ -17,10 +17,10 @@ class DashboardController extends Controller
         $startWeek = $today->startOfWeek()->format('Y-m-d');
         $endWeek = $today->endOfWeek()->format('Y-m-d');
 
-        $day = DB::table('sales')->whereDate('created_at',now()->format('Y-m-d'))->count();
-        $order = DB::table('orders')->whereDate('created_at',now()->format('Y-m-d'))->count();
-        $money = DB::table('sales')->whereDate('created_at',now()->format('Y-m-d'))->sum('total');
-        $week = DB::table('sales')->whereBetween('created_at',[$startWeek, $endWeek])->count();
+        $day = DB::table('sales')->whereDate('created_at', now()->format('Y-m-d'))->count();
+        $order = DB::table('orders')->whereDate('created_at', now()->format('Y-m-d'))->count();
+        $money = DB::table('sales')->whereDate('created_at', now()->format('Y-m-d'))->sum('total');
+        $week = DB::table('sales')->whereBetween('created_at', [$startWeek, $endWeek])->sum('total');
         $top_product = DB::table('sale_details')
                     ->join('products','sale_details.product_id','=', 'products.id')
                     ->select('products.name as product', DB::raw('sum(orderQty) as total'))
