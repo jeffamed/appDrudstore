@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body p-1 text-center">
-                            <h3 class="card-title mb-1" v-text="moneySale"></h3>
+                            <h3 class="card-title mb-1">$ {{moneySale}}</h3>
                             <p class="text-muted mb-1 "><small class="font-weight-bold">Total del Día</small></p>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body p-1 text-center">
-                            <h3 class="card-title mb-1" v-text="weekSale"></h3>
+                            <h3 class="card-title mb-1">$ {{ weekSale }}</h3>
                             <p class="text-muted mb-1 "><small class="font-weight-bold">Ventas de la Semana</small></p>
                         </div>
                     </div>
@@ -102,6 +102,7 @@ export default {
           daySale.value = rsp.data.day;
           weekSale.value = rsp.data.week;
           dayOrder.value = rsp.data.order;
+          moneySale.value = rsp.data.money;
 
         }
 

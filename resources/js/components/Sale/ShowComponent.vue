@@ -10,24 +10,24 @@
                     <p class="font-weight-bold text-muted">Datos de Venta</p>
                     <div class="d-flex justify-content-between">
                         <p class="font-weight-bold font-lg mb-0 mr-5">Venta #  {{sales.id}}</p>
-                        <p class="text-muted">Fecha: {{sales.created}}</p>
+                        <p><span class="text-muted font-weight-bold">Fecha:</span> {{sales.created}}</p>
                     </div>
                     <div class="d-flex">
-                        <p class="w-25"><span class="text-muted">IVA: {{sales.iva}}</span> </p>
-                        <p class="w-25"><span class="text-muted">SubTotal:</span>$ {{sales.subtotal_format}}</p>
+                        <p class="w-25"><span class="text-muted font-weight-bold">IVA: </span> {{sales.iva}}</p>
+                        <p class="w-25"><span class="text-muted font-weight-bold">SubTotal: </span>$ {{sales.subtotal_format}}</p>
                     </div>
                     <div class="d-flex">
-                        <p class="w-25"><span class="text-muted">Descuento:</span> {{sales.discount_format}}</p>
-                        <p class="w-25"><span class="text-muted">Total:</span>$ {{sales.total_format}}</p>
+                        <p class="w-25"><span class="text-muted font-weight-bold">Descuento:</span> {{sales.discount_format}}</p>
+                        <p class="w-25"><span class="text-muted font-weight-bold">Total:</span>$ {{sales.total_format}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="border border-secondary p-1">
                     <p class="font-weight-bold text-muted">Información del Cliente</p>
-                    <p class="font-lg font-weight-bold">{{ sales.cliente }}</p>
-                    <p>Teléfono: {{ sales.customer.phone ?? ' Sin Numero'}}</p>
-                    <p>Dirección: {{sales.customer.address}}</p>
+                    <p><span class="font-lg font-weight-bold">Nombre: </span>{{ sales.cliente }}</p>
+                    <p><span class="font-lg font-weight-bold">Teléfono: </span>{{ sales.customer.phone ?? ' Sin Numero'}}</p>
+                    <p><span class="font-lg font-weight-bold">Dirección: </span>{{sales.customer.address}}</p>
                 </div>
             </div>
             <div class="col-md-12 my-3">
