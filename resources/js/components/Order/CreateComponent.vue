@@ -84,9 +84,9 @@
                             <th>Producto</th>
                             <th class="text-center">F.Venc</th>
                             <th class="text-center">Cantidad</th>
-                            <th class="text-center">Precio</th>
+                            <th class="text-center">Precio $</th>
                             <th class="text-center">Desc.</th>
-                            <th class="text-center">Total</th>
+                            <th class="text-center">Total $</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,7 +114,7 @@
                             <td class="text-center">{{ totalQty }}</td>
                             <td class="text-center"></td>
                             <td class="text-center">{{ totalDiscount }}</td>
-                            <td class="text-center font-weight-bold bg-success text-white">{{ totalOrder }}</td>
+                            <td class="text-center font-weight-bold bg-success text-white">$ {{ totalOrder }}</td>
                         </tr>
                     </tfoot>
                 </table>

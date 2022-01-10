@@ -53,7 +53,7 @@ class Order extends Model
     public function getCreatedAttribute()
     {
         $date = Carbon::parse($this->created_at)->locale('es');
-        return $date->isoFormat('d/MMM/Y');
+        return $date->isoFormat('D/MMM/Y');
     }
 
     public function getProveedorAttribute()

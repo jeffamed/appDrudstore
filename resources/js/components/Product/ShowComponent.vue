@@ -18,10 +18,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <p><span class="text-muted">Precio de Venta:</span> {{ product.price }} </p>
+                            <p><span class="text-muted">Precio de Venta :</span>$ {{ product.price }} </p>
                         </div>
                         <div class="col-md-6">
-                            <p><span class="text-muted">Precio de Compra:</span> {{ product.cost }} </p>
+                            <p><span class="text-muted">Precio de Compra:</span>$ {{ product.cost }} </p>
                         </div>
                     </div>
                     <div class="row">

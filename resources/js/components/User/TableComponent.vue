@@ -8,9 +8,8 @@
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
             <td v-text="item.full_name"></td>
-            <td v-text="item.address"></td>
-            <td v-text="item.phone"></td>
             <td v-text="item.email"></td>
+            <td v-text="item.rol.name"></td>
             <td class="text-center">
                 <button v-show="btnUpdate" type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalActualizar" @click="load(item)">
                     <i class="icon-pencil"></i>
@@ -39,7 +38,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['Nombre', 'Dirección', 'Teléfono', 'Correo','Opciones']
+            default: ['Nombre', 'Correo', 'Rol','Opciones']
         }
     },
     setup(props, context)

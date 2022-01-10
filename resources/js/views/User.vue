@@ -31,7 +31,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label class="col-md-3 form-control-label">Nombre</label>
+                            <label class="col-md-3 form-control-label p-0">Nombre</label>
                             <input type="text" name="name" class="form-control" placeholder="Nombre del Usuario" v-model="form.name">
                         </div>
                         <div class="col-md-6 form-group">
@@ -40,11 +40,11 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="form-control-label">Correo Electrónico</label>
-                            <input type="email" name="email" class="form-control" placeholder="example@emial.com" v-model="form.email">
+                            <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="form-control-label">Contraseña</label>
-                            <input type="password" name="password" class="form-control" placeholder="example" v-model="form.password">
+                            <input type="password" name="password" class="form-control" v-model="form.password">
                         </div>
                         <div class="col-md-6 form-group">
                             <label class="form-control-label">Roles</label>
@@ -73,7 +73,7 @@
 
     <!-- modal actualizar-->
     <div class="modal fade" id="modalActualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-dialog modal-warning modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Actualizar Usuario</h5>
@@ -84,7 +84,7 @@
                 <div class="modal-body">
                     <div class="row">
                     <div class="col-md-6 form-group">
-                        <label class="col-md-3 form-control-label">Nombre</label>
+                        <label class="col-md-3 form-control-label p-0">Nombre</label>
                         <input type="text" name="name" class="form-control" placeholder="Nombre del Usuario" v-model="user.name">
                     </div>
                     <div class="col-md-6 form-group">
@@ -93,16 +93,16 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label class="form-control-label">Correo Electrónico</label>
-                        <input type="email" name="email" class="form-control" placeholder="example@emial.com" v-model="user.email">
+                        <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="user.email">
                     </div>
                     <div class="col-md-6 form-group">
                         <label class="form-control-label">Contraseña</label>
-                        <input type="password" name="password" class="form-control" placeholder="example" v-model="user.password">
+                        <input type="password" name="password" class="form-control" v-model="user.password">
                     </div>
                     <div class="col-md-6 form-group">
                         <label class="form-control-label">Roles</label>
                         <select v-model="user.rol_id" class="form-control">
-                            <option value="">Seleccione un Rol...</option>
+                            <option value="">Seleccione un Rol</option>
                             <option :value="role.id" v-for="role in roles" :key="role.id" v-text="role.name"></option>
                         </select>
                     </div>

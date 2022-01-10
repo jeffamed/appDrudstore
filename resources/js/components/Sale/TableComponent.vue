@@ -19,7 +19,7 @@
                 <button v-show="btnDelete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
-                <router-link v-show="btnUpdate" :to="{ name:'sale.show', params: { id: item.id } }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
+                <router-link :to="{ name:'sale.show', params: { id: item.id } }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
                 <button class="btn btn-sm btn-success" @click="download(item.id,item.cliente)"><span class="icon-cloud-download"></span></button>
             </td>
         </tr>
@@ -47,7 +47,6 @@ export default {
     setup(props, context)
     {
       const permissions = localStorage.getItem('permissions');
-      const btnUpdate = computed(() => {return permissions.includes('sale.update')})
       const btnDelete = computed(() => {return permissions.includes('sale.delete')})
         const load = (data) => {
             context.emit('load', data);

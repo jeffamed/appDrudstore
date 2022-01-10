@@ -16,11 +16,11 @@
             </div>
             <div class="row form-group">
                 <div class="col-md-4">
-                    <label class="form-control-label" for="price">Precio Venta</label>
+                    <label class="form-control-label" for="price">Precio Venta $</label>
                     <input type="number" name="price" step=".01" min="0" class="form-control" placeholder="0.0" v-model="form.price">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-control-label" for="cost">Precio Compra</label>
+                    <label class="form-control-label" for="cost">Precio Compra $</label>
                     <input type="number" name="cost" step=".01" min="0" class="form-control" placeholder="0.0" v-model="form.cost">
                 </div>
                 <div class="col-md-4">

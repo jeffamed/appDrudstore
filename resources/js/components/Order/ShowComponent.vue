@@ -14,19 +14,20 @@
                     </div>
                     <div class="d-flex">
                         <p class="w-25"><span class="text-muted">IVA:</span> {{orders.iva}}</p>
-                        <p class="w-25"><span class="text-muted">SubTotal:</span> {{orders.subtotal_format}}</p>
+                        <p class="w-25"><span class="text-muted">SubTotal:</span>$ {{orders.subtotal_format}}</p>
                     </div>
                     <div class="d-flex">
                         <p class="w-25"><span class="text-muted">Descuento:</span> {{orders.discount_format}}</p>
-                        <p class="w-25"><span class="text-muted">Total:</span> {{orders.total_format}}</p>
+                        <p class="w-25"><span class="text-muted">Total:</span>$ {{orders.total_format}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="border border-secondary p-1">
                     <p class="font-weight-bold text-muted">Información del Proveedor</p>
-                    <p class="font-weight-bold">R.U.C.: {{ orders.supplier.ruc }}</p>
-                    <p class="font-lg">{{orders.supplier.name}} - {{orders.supplier.phone}}</p>
+                    <p><span class="font-weight-bold">R.U.C.:</span> {{ orders.supplier.ruc }}</p>
+                    <p class="font-lg"><span class="font-weight-bold">Proveedor: </span>{{orders.supplier.name}}</p>
+                    <p class="font-lg"><span class="font-weight-bold">Teléfono: </span>{{orders.supplier.phone}}</p>
                     <p><span class="font-weight-bold">Dirección: </span>{{orders.supplier.address}}</p>
                 </div>
             </div>
@@ -38,9 +39,9 @@
                             <th>Producto</th>
                             <th>F.Exp.</th>
                             <th>Cantidad</th>
-                            <th>Precio</th>
+                            <th>Precio $</th>
                             <th>Descuento</th>
-                            <th>Total</th>
+                            <th>Total $</th>
                         </tr>
                     </thead>
                     <tbody>

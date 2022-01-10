@@ -14,11 +14,11 @@
                     </div>
                     <div class="d-flex">
                         <p class="w-25"><span class="text-muted">IVA: {{sales.iva}}</span> </p>
-                        <p class="w-25"><span class="text-muted">SubTotal:</span> {{sales.subtotal_format}}</p>
+                        <p class="w-25"><span class="text-muted">SubTotal:</span>$ {{sales.subtotal_format}}</p>
                     </div>
                     <div class="d-flex">
                         <p class="w-25"><span class="text-muted">Descuento:</span> {{sales.discount_format}}</p>
-                        <p class="w-25"><span class="text-muted">Total:</span> {{sales.total_format}}</p>
+                        <p class="w-25"><span class="text-muted">Total:</span>$ {{sales.total_format}}</p>
                     </div>
                 </div>
             </div>
@@ -37,9 +37,9 @@
                         <th>#</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
-                        <th>Precio</th>
+                        <th>Precio $</th>
                         <th>Descuento</th>
-                        <th>Total</th>
+                        <th>Total $</th>
                     </tr>
                     </thead>
                     <tbody>

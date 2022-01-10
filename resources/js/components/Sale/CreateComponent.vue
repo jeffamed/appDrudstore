@@ -66,7 +66,7 @@
                 <span class="help-block text-danger" id="errorQty" style="display: none">(*) La cantidad no puede ser cero</span>
             </div>
             <div class="col-md-3">
-                <label class="form-control-label" for="txtPrice">Precio</label>
+                <label class="form-control-label" for="txtPrice">Precio $</label>
                 <input type="text" name="product" id="txtPrice" class="form-control bg-white" placeholder="00" disabled v-model="form.unitPrice">
             </div>
             <div class="col-md-3">
@@ -90,9 +90,9 @@
                         <th>Código</th>
                         <th>Producto</th>
                         <th class="text-center">Cantidad</th>
-                        <th class="text-center">Precio</th>
+                        <th class="text-center">Precio $</th>
                         <th class="text-center">Desc.</th>
-                        <th class="text-center">Total</th>
+                        <th class="text-center">Total $</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -119,7 +119,7 @@
                         <td class="text-center">{{ totalQty }}</td>
                         <td class="text-center"></td>
                         <td class="text-center">{{ totalDiscount }}</td>
-                        <td class="text-center font-weight-bold bg-success text-white">{{ totalSale }}</td>
+                        <td class="text-center font-weight-bold bg-success text-white">$ {{ totalSale }}</td>
                     </tr>
                     </tfoot>
                 </table>
