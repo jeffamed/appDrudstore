@@ -20049,11 +20049,9 @@ var routes = [{
   }]
 }, {
   path: '/:pathMatch(.*)*',
-  name: 'page-not-authorized',
-  meta: {
-    requiresAuth: false
-  },
-  component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/404 */ "./resources/js/views/404.vue"))
+  redirect: {
+    name: 'login'
+  }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createWebHistory)(),

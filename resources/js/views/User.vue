@@ -28,42 +28,44 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class="col-md-3 form-control-label p-0">Nombre</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nombre del Usuario" v-model="form.name">
+                <form @submit.prevent="save">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="col-md-3 form-control-label p-0">Nombre</label>
+                                <input type="text" name="name" class="form-control" placeholder="Nombre del Usuario" v-model="form.name">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="form-control-label">Apellido</label>
+                                <input type="text" name="name" class="form-control" placeholder="Apellido del Usuario" v-model="form.last_name">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="form-control-label">Correo Electrónico</label>
+                                <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="form-control-label">Contraseña</label>
+                                <input type="password" name="password" class="form-control" v-model="form.password">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="form-control-label">Roles</label>
+                                <select v-model="form.rol_id" class="form-control">
+                                    <option value="">Seleccione un Rol</option>
+                                    <option :value="role.id" v-for="role in roles" :key="role.id" v-text="role.name"></option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label class="form-control-label">Apellido</label>
-                            <input type="text" name="name" class="form-control" placeholder="Apellido del Usuario" v-model="form.last_name">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="form-control-label">Correo Electrónico</label>
-                            <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="form-control-label">Contraseña</label>
-                            <input type="password" name="password" class="form-control" v-model="form.password">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="form-control-label">Roles</label>
-                            <select v-model="form.rol_id" class="form-control">
-                                <option value="">Seleccione un Rol</option>
-                                <option :value="role.id" v-for="role in roles" :key="role.id" v-text="role.name"></option>
-                            </select>
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-9">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="save">Guardar</button>
-                </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -81,42 +83,44 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label class="col-md-3 form-control-label p-0">Nombre</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nombre del Usuario" v-model="user.name">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-control-label">Apellido</label>
-                        <input type="text" name="name" class="form-control" placeholder="Apellido del Usuario" v-model="user.last_name">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-control-label">Correo Electrónico</label>
-                        <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="user.email">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-control-label">Contraseña</label>
-                        <input type="password" name="password" class="form-control" v-model="user.password">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="form-control-label">Roles</label>
-                        <select v-model="user.rol_id" class="form-control">
-                            <option value="">Seleccione un Rol</option>
-                            <option :value="role.id" v-for="role in roles" :key="role.id" v-text="role.name"></option>
-                        </select>
-                    </div>
-                </div>
-                    <div class="form-group row">
-                        <div class="col-md-9">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                <form @submit.prevent="updatingUser">
+                    <div class="modal-body">
+                        <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="col-md-3 form-control-label p-0">Nombre</label>
+                            <input type="text" name="name" class="form-control" placeholder="Nombre del Usuario" v-model="user.name">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Apellido</label>
+                            <input type="text" name="name" class="form-control" placeholder="Apellido del Usuario" v-model="user.last_name">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Correo Electrónico</label>
+                            <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="user.email">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Contraseña</label>
+                            <input type="password" name="password" class="form-control" v-model="user.password">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-control-label">Roles</label>
+                            <select v-model="user.rol_id" class="form-control">
+                                <option value="">Seleccione un Rol</option>
+                                <option :value="role.id" v-for="role in roles" :key="role.id" v-text="role.name"></option>
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="updatingUser">Guardar</button>
-                </div>
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
+                        <button type="button" class="btn btn-primary" @click="updatingUser">Guardar</button>
+                    </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>

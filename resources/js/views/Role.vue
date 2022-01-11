@@ -26,32 +26,34 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="name">Nombre</label>
-                        <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del Rol" v-model.trim="form.name">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                <form @submit.prevent="save">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="name">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del Rol" v-model.trim="form.name">
+                                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" >Permisos</label>
+                            <div class="col-md-9">
+                                <Multiselect
+                                    valueProp="id"
+                                    v-model="form.permission_id"
+                                     mode="tags"
+                                     :searchable="true"
+                                     :createTag="true"
+                                    :options="permissions"
+                                />
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" >Permisos</label>
-                        <div class="col-md-9">
-                            <Multiselect
-                                valueProp="id"
-                                v-model="form.permission_id"
-                                 mode="tags"
-                                 :searchable="true"
-                                 :createTag="true"
-                                :options="permissions"
-                            />
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="save">Guardar</button>
-                </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -69,6 +71,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+                <form @submit.prevent="updatingRole">
                 <div class="modal-body">
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="txtname">Nombre</label>
@@ -94,8 +97,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="btnCloseUpdate" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="updatingRole">Actualizar</button>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
                 </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
