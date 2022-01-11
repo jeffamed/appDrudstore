@@ -28,26 +28,28 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Nombre del Laboratorio" v-model="form.name">
-                            <span class="help-block text-danger" v-show="errors.name.length">(*) {{ errors.name }}</span>
+                <form @submit.prevent="save">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" class="form-control" placeholder="Nombre del Laboratorio" v-model="form.name">
+                                <span class="help-block text-danger" v-show="errors.name.length">(*) {{ errors.name }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
+                            <div class="col-md-9">
+                                <input type="text" name="direccion" class="form-control" placeholder="Dirección del Laboratorio" v-model="form.address">
+                                <span class="help-block text-danger" v-show="errors.address.length">(*) {{ errors.address }}</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Laboratorio" v-model="form.address">
-                            <span class="help-block text-danger" v-show="errors.address.length">(*) {{ errors.address }}</span>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="save">Guardar</button>
-                </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -65,26 +67,28 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Nombre del Laboratorio" v-model="laboratory.name">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                <form @submit.prevent="updatingLaboratory">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" class="form-control" placeholder="Nombre del Laboratorio" v-model="laboratory.name">
+                                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
+                            <div class="col-md-9">
+                                <input type="text" name="direccion" class="form-control" placeholder="Dirección del Laboratorio" v-model="laboratory.address">
+                                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Laboratorio" v-model="laboratory.address">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="btnCloseUpdate" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="btnCloseUpdate" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="updatingLaboratory">Actualizar</button>
-                </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>

@@ -27,6 +27,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+                <form @submit.prevent="save">
                 <div class="modal-body">
                     <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
@@ -38,8 +39,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="save">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -57,19 +59,21 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                        <div class="col-md-9">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de ubicación" v-model="location.name">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors.replace('name', 'nombre') }}</span>
+                <form @submit.prevent="updatingLocation">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de ubicación" v-model="location.name">
+                                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors.replace('name', 'nombre') }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="btnCloseUpdate" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="updatingLocation">Actualizar</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="btnCloseUpdate" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>

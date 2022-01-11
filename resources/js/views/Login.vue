@@ -5,7 +5,8 @@
                 <div class="card-header text-center  border-primary" style="background: transparent">
                     <h3>Iniciar Sesión</h3>
                 </div>
-                <div class="card-body">
+                <form @submit.prevent="login">
+                    <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -26,9 +27,10 @@
                     </div>
                     <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-success" @click="login">Acceder</button>
+                        <button type="submit" class="btn btn-success">Acceder</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

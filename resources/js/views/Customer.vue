@@ -28,49 +28,51 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Cédula</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="form.document">
+                <form @submit.prevent="save">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Cédula</label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="form.document">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="form.name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Apellido</label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="form.last_name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
+                            <div class="col-md-9">
+                                <input type="text" name="direccion" class="form-control" placeholder="Dirección del Cliente" v-model="form.address">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Teléfono</label>
+                            <div class="col-md-9">
+                                <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="form.phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Correo Electrónico</label>
+                            <div class="col-md-9">
+                                <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
+                                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="form.name">
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Apellido</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="form.last_name">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Cliente" v-model="form.address">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Teléfono</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="form.phone">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Correo Electrónico</label>
-                        <div class="col-md-9">
-                            <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="save">Guardar</button>
-                </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -88,49 +90,51 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Cédula</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="customer.document">
+                <form @submit.prevent="updatingCustomer">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Cédula</label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" class="form-control" placeholder="Cédula" v-model="customer.document">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="customer.name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Apellido</label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="customer.last_name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
+                            <div class="col-md-9">
+                                <input type="text" name="direccion" class="form-control" placeholder="Dirección del Cliente" v-model="customer.address">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Teléfono</label>
+                            <div class="col-md-9">
+                                <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="customer.phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label" for="text-input">Correo Electrónico</label>
+                            <div class="col-md-9">
+                                <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="customer.email">
+                                <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Nombre del Cliente" v-model="customer.name">
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Apellido</label>
-                        <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" placeholder="Apellido del Cliente" v-model="customer.last_name">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Dirección</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Dirección del Cliente" v-model="customer.address">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Teléfono</label>
-                        <div class="col-md-9">
-                            <input type="text" name="direccion" class="form-control" placeholder="Teléfono del Cliente" v-model="customer.phone">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 form-control-label" for="text-input">Correo Electrónico</label>
-                        <div class="col-md-9">
-                            <input type="email" name="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="customer.email">
-                            <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear">Cerrar</button>
-                    <button type="button" class="btn btn-primary" @click="updatingCustomer">Guardar</button>
-                </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
