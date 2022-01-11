@@ -145,9 +145,7 @@ const routes = [
     },
     {
         path:'/:pathMatch(.*)*',
-        name:'page-not-authorized',
-        meta : { requiresAuth: false },
-        component : import(/* webpackChunkName: "routes"*/'../views/404')
+        redirect: { name : 'login'}
     },
 ];
 

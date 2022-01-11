@@ -1,5 +1,5 @@
 <template>
-    <breadcrumb-component folder="Compras" subfolder="Ingresos"/>
+    <breadcrumb-component folder="Compras" subfolder="Compras"/>
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
