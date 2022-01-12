@@ -51,10 +51,6 @@
                     <label class="form-control-label" for="type">Tipo</label>
                     <vue-select v-model="form.type_id" :options="types" label-by="name" value-by="id" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
                 </div>
-                <div class="col-md-4">
-                    <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
-                    <input type="date" name="expire_at" class="form-control" v-model="form.expire_at">
-                </div>
             </div>
             <div class="row form-group">
                 <hr>

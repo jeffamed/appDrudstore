@@ -33,7 +33,7 @@
                     <input type="text" name="product" id="txtpCode" class="form-control" placeholder="00000X + Enter" v-model.trim="search" @keydown.enter="search == null || search === '' ? modalProduct() : searchProd('code')" >
                     <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalProducto" id="modalProduct"><i class="icon-settings"></i></button>
                 </div>
-                <span class="help-block text-danger" id="errorCode" style="display: none">(*) Busque un producto segun el codigo.</span>
+                <span class="help-block text-danger" id="errorCode" style="display: none">(*) Busque un producto según el codigo.</span>
             </div>
             <div class="col-md-7">
                 <label class="ml-3 form-control-label" for="product">Nombre</label>
@@ -59,13 +59,13 @@
                 <span class="help-block text-danger" id="errorQty" style="display: none">(*) La cantidad no puede ser cero</span>
             </div>
             <div class="col-md-4">
-                <label class="ml-3 form-control-label" for="cost">Precio</label>
-                <input type="number" name="cost" id="cost" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.unitPrice">
+                <label class="ml-3 form-control-label" for="cost">Precio Compra $</label>
+                <input type="number" name="cost" id="cost" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.unitPrice" disabled>
                 <span class="help-block text-danger" id="errorPrice" style="display: none">(*) La precio no puede ser cero</span>
             </div>
             <div class="col-md-2">
-                <label class="ml-3 form-control-label" for="price">Precio Sugerido</label>
-                <input type="number" name="comprada" id="price" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.priceSuggest">
+                <label class="ml-3 form-control-label" for="price">Precio Venta $</label>
+                <input type="number" name="comprada" id="price" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.priceSuggest" disabled>
             </div>
             <div class="col-md-3 mt-2">
                 <label class="ml-3 form-control-label" for="descuento">Descuento</label>

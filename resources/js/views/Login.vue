@@ -2,34 +2,37 @@
     <div class="container">
         <div class="d-flex justify-content-center align-items-center h-100vh">
             <div class="card border border-primary rounded rounded-lg">
+            <div class="py-4" style="background-color: #0082ca; background-image: url('./img/LogoFarma.png'); background-position: center; background-repeat: no-repeat"></div>
                 <div class="card-header text-center  border-primary" style="background: transparent">
                     <h3>Iniciar Sesión</h3>
                 </div>
                 <form @submit.prevent="login">
                     <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-md-3 form-control-label font-weight-bold" for="email">Email</label>
-                                <div class="col-md-12">
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 form-control-label font-weight-bold" for="email">Email</label>
+                                    <div class="col-md-12">
+                                        <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 form-control-label font-weight-bold" for="pass">Contraseña</label>
+                                    <div class="col-md-12">
+                                        <input type="password" name="pass" id="pass" class="form-control" placeholder="******" v-model="form.password" @keyup.enter="login">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-md-3 form-control-label font-weight-bold" for="pass">Contraseña</label>
-                                <div class="col-md-12">
-                                    <input type="password" name="pass" id="pass" class="form-control" placeholder="******" v-model="form.password" @keyup.enter="login">
-                                </div>
-                            </div>
+                        <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success">Acceder</button>
                         </div>
                     </div>
-                    <span class="help-block text-danger" v-show="errors.length">(*) {{ errors }}</span>
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success">Acceder</button>
+                    <div class="card-footer py-4" style="background-color: #0082ca; background-image: url('./img/LogoFarma.png'); background-position: center; background-repeat: no-repeat">
                     </div>
-                </div>
                 </form>
             </div>
         </div>
