@@ -13,16 +13,14 @@
             <td v-text="item.cost"></td>
             <td v-text="item.stock"></td>
             <td v-text="item.box_stock"></td>
-            <td v-text="item.expire_at"></td>
+            <td>{{ moment(item.expire_at).format('DD/MM/Y') }}</td>
             <td class="text-center">
                 <router-link v-show="btnUpdate" class="btn btn-warning btn-sm" :to="{ name: 'product.update', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
                 <button v-show="btnDelete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
                 <router-link class="btn btn-info btn-sm" :to="{ name: 'product.show', params: { id: item.id } }"><i class="icon-eye"></i></router-link>
-                <button type="button" class="btn btn-secondary btn-sm">
-                    <i class="icon-plus"></i>
-                </button>
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalBonificacion" @click="load(item)"><i class="icon-plus"></i></button>
             </td>
         </tr>
         <tr v-else>
@@ -33,6 +31,7 @@
 </template>
 <script>
 import {computed} from "vue";
+import moment from 'moment'
 export default {
     name: "TableComponent",
     props: {
@@ -44,6 +43,9 @@ export default {
             type: Array,
             default: ['Código', 'Nombre','Precio','Costo', 'Existencia', 'Exist. Caja', 'F. Expiración', 'Opciones']
         }
+    },
+    created: function () {
+        this.moment = moment;
     },
     setup(props, context)
     {

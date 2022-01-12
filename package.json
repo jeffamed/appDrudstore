@@ -19,6 +19,7 @@
     "dependencies": {
         "@vueform/multiselect": "^2.3.1",
         "chart.js": "^3.7.0",
+        "moment": "^2.29.1",
         "vue": "^3.2.20",
         "vue-chart-3": "^3.0.4",
         "vue-next-select": "^2.10.1",
