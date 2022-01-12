@@ -20,9 +20,7 @@
                     <i class="icon-trash"></i>
                 </button>
                 <router-link class="btn btn-info btn-sm" :to="{ name: 'product.show', params: { id: item.id } }"><i class="icon-eye"></i></router-link>
-                <button type="button" class="btn btn-secondary btn-sm">
-                    <i class="icon-plus"></i>
-                </button>
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalBonificacion" @click="load(item)"><i class="icon-plus"></i></button>
             </td>
         </tr>
         <tr v-else>

@@ -17,6 +17,42 @@
 
     <delete-component  title="Productos" body="el producto" :data="product" @delete="destroyProduct" />
 
+    <!--Inicio del modal bonificaciones-->
+    <div class="modal fade" id="modalBonificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-secondary modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Bonificación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form @submit.prevent="addBonus">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <p>El producto <b>{{ product.name }}</b> recibira bonificación</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 form-control-label" for="bonus">Cantidad: </label>
+                            <div class="col-md-9">
+                                <input type="number" name="bonus" class="form-control" placeholder="00" v-model="bonus">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="modalClose" data-dismiss="modal" @click="clear">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--Fin del modal-->
+
 </template>
 
 <script>
@@ -33,6 +69,7 @@ export default {
     },
     setup(){
         const product = ref([]);
+        const bonus = ref(0);
         const {getProducts, products, pagination, deleteProduct, route} = useProducts();
         const {successToast} = useToast();
         const permissions = localStorage.getItem('permissions');
@@ -64,13 +101,26 @@ export default {
             });
         }
 
+        const addBonus = () => {
+            let bonif = {
+                cantidad : bonus.value
+            }
+            axios.put(`api/bonus/${product.value.id}`, bonif).
+            then(async (response) => {
+                 await getProducts();
+                 bonus.value = 0;
+                 await successToast('Bonificación agregada');
+                 $('#modalClose').click();
+            })
+        }
+
         watch( () => route.query.page, ()=>{
             getProducts();
         });
 
         onMounted(getProducts);
 
-        return {products, pagination, product, loadProduct, destroyProduct, findProduct, btnCreate, download}
+        return {products, bonus, pagination, product, loadProduct, destroyProduct, findProduct, btnCreate, download, addBonus}
     }
 }
 </script>

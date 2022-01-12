@@ -36,6 +36,7 @@ Route::get('type-all', 'TypeController@getAll');
 Route::get('usage-all', 'UsageController@getAll');
 Route::get('product-search', 'ProductController@search');
 Route::get('all_product', 'ProductController@reportAll');
+Route::put('bonus/{product}', 'ProductController@addBonus');
 Route::get('invoice/{sale}/{type?}', 'SaleController@invoice')->name('invoice');
 Route::get('permissions', function (){return \App\Models\Permission::all('id', 'label');});
 Route::get('dashboard', 'DashboardController@index');

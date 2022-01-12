@@ -8,6 +8,7 @@ use App\Models\Usage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -125,5 +126,14 @@ class ProductController extends Controller
         $pdf = \PDF::loadView('report.all_product', compact('products'));
 
         return $pdf->download('inventario.pdf');
+    }
+
+    public function addBonus(Request $request,  Product $product)
+    {
+        Log::info($request);
+        $product->stock = $product->stock + $request->cantidad;
+        $product->save();
+
+        return response()->json('Aumento stock', 200);
     }
 }
