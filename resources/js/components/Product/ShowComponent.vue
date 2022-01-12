@@ -37,7 +37,7 @@
                             <p><span class="text-muted">Tipo:</span> {{product.tipo}}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><span class="text-muted">Fecha Expiración:</span> {{product.expire_at}}</p>
+                            <p><span class="text-muted">Fecha Expiración:</span> {{moment(product.expire_at).format('DD/MM/Y')}}</p>
                         </div>
                     </div>
                 </div>
@@ -85,6 +85,7 @@
 <script>
 import {useProducts} from "../../composables/useProducts";
 import {computed, ref, watch} from "vue";
+import moment from 'moment';
 
 export default {
     name: "ShowComponent",
@@ -93,6 +94,9 @@ export default {
             required: true,
             type: Number
         }
+    },
+    created: function () {
+        this.moment = moment;
     },
     setup(props){
         const {product, lab, sup, getProduct} = useProducts();
