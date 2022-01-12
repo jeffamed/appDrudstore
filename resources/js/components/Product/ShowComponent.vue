@@ -32,7 +32,14 @@
                             <p><span class="text-muted">Presentación:</span> {{product.presentacion}}</p>
                         </div>
                     </div>
-                    <p><span class="text-muted">Tipo:</span> {{product.tipo}}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><span class="text-muted">Tipo:</span> {{product.tipo}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><span class="text-muted">Fecha Expiración:</span> {{product.expire_at}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 my-3">
