@@ -141,6 +141,25 @@ const routes = [
                 component : import(/* webpackChunkName: "routes"*/'../views/Role'),
                 meta : { requiresAuth: true },
             },
+            {
+                path:'/devolucion',
+                name:'reimbursement',
+                component : import(/* webpackChunkName: "routes"*/'../views/Reimbursement'),
+                meta : { requiresAuth: false },
+            },
+            {
+                path:'/devolucion/crear',
+                name:'reimbursement.create',
+                component : import(/* webpackChunkName: "routes"*/'../components/Reimbursement/CreateComponent'),
+                meta : { requiresAuth: false },
+            },
+            {
+                path:'/devolucion/:id',
+                name:'reimbursement.show',
+                props: true,
+                component : import(/* webpackChunkName: "routes"*/'../components/Reimbursement/ShowComponent'),
+                meta : { requiresAuth: false },
+            },
         ]
     },
     {

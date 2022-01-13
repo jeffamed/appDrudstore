@@ -20046,6 +20046,28 @@ var routes = [{
     meta: {
       requiresAuth: true
     }
+  }, {
+    path: '/devolucion',
+    name: 'reimbursement',
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Reimbursement */ "./resources/js/views/Reimbursement.vue")),
+    meta: {
+      requiresAuth: false
+    }
+  }, {
+    path: '/devolucion/crear',
+    name: 'reimbursement.create',
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Reimbursement/CreateComponent */ "./resources/js/components/Reimbursement/CreateComponent.vue")),
+    meta: {
+      requiresAuth: false
+    }
+  }, {
+    path: '/devolucion/:id',
+    name: 'reimbursement.show',
+    props: true,
+    component: __webpack_require__.e(/*! import() | routes */ "routes").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Reimbursement/ShowComponent */ "./resources/js/components/Reimbursement/ShowComponent.vue")),
+    meta: {
+      requiresAuth: false
+    }
   }]
 }, {
   path: '/:pathMatch(.*)*',

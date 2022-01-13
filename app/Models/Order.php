@@ -35,6 +35,11 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function reimbursement()
+    {
+        return $this->hasMany(Reimbursement::class);
+    }
+
     public function getTotalFormatAttribute()
     {
         return number_format($this->total, 2);
