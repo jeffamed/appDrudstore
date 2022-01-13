@@ -21,4 +21,9 @@ class Supplier extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function reimbursement()
+    {
+        return $this->hasMany(Reimbursement::class);
+    }
 }

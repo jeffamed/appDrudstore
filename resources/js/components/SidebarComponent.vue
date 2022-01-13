@@ -40,6 +40,9 @@
                         <li class="nav-item">
                             <router-link v-show="enableSupplier" :to="{ name : 'supplier' }" class="nav-link"><i class="icon-notebook"></i> Proveedores</router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link :to="{ name : 'reimbursement' }" class="nav-link"><i class="icon-notebook"></i> Devoluciones</router-link>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item nav-dropdown" id="ddVentas" @click="openVentas">

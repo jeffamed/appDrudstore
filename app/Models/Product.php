@@ -51,4 +51,9 @@ class Product extends Model
     {
         return $this->hasMany(OrderDetails::class);
     }
+
+    public function detailReimbursement()
+    {
+        return $this->hasMany(ReimbursementDetails::class);
+    }
 }
