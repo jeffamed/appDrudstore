@@ -21,10 +21,10 @@
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import TableComponent from "../components/Order/TableComponent";
 import DeleteComponent from "../components/Order/DeleteComponent";
+import SearchComponent from "../components/Order/SearchComponent";
 import {useOrder} from "../composables/useOrder";
 import {computed, ref, watch} from "vue";
 import {useToast} from "../composables/useToast";
-import SearchComponent from "../components/Order/SearchComponent";
 export default {
     name: "Order",
     components: {
