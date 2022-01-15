@@ -92,8 +92,8 @@
 </head>
 <body>
 <div>
-    <div style="text-align: center; margin-bottom: 20px">
-        <h2 class="bold text-center">FARMACIA FARMAREDS</h2>
+    <div style="text-align: center; margin-bottom: 40px">
+        <h2 class="bold text-center">FARMACIA FARMARED'S</h2>
         <h4>LISTADO DE PRODUCTO EXISTENTE Y PRECIO</h4>
     </div>
 </div>

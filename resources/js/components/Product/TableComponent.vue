@@ -41,7 +41,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['Código', 'Nombre','Precio','Costo', 'Existencia', 'Exist. Caja', 'F. Expiración', 'Opciones']
+            default: ['Código', 'Nombre','Precio Venta','Precio Compra', 'Existencia', 'Exist. Caja', 'F. Expiración', 'Opciones']
         }
     },
     created: function () {

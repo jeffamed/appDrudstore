@@ -12,6 +12,8 @@ class Reimbursement extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['total_format', 'proveedor'];
+
     public function details()
     {
         return $this->hasMany(ReimbursementDetails::class);
@@ -26,4 +28,15 @@ class Reimbursement extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function getTotalFormatAttribute()
+    {
+        return number_format($this->total, 2);
+    }
+
+    public function getProveedorAttribute()
+    {
+        return $this->supplier->name;
+    }
+
 }

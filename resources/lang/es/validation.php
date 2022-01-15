@@ -125,6 +125,7 @@ return [
         'type_id' => 'tipo de producto',
         'location_id' => 'ubicación',
         'supplier_id' => 'proveedor',
+        'order_id' => 'compra',
         'iva' => 'IVA',
         'password' => 'contraseña'
     ],

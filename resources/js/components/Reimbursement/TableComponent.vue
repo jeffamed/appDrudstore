@@ -8,10 +8,10 @@
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
             <td class="text-center" v-text="item.id"></td>
-            <td v-text="item.proveedor"></td>
-            <td v-text="item.proveedor"></td>
+            <td v-text="item.supplier.name"></td>
+            <td v-text="item.supplier.name"></td>
             <td class="text-center" v-text="item.total_format"></td>
-            <td class="text-center" v-text="item.created"></td>
+            <td class="text-center">{{ moment(item.created_at).format('DD/MM/Y') }}</td>
             <td class="text-center">
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
@@ -28,7 +28,7 @@
 
 <script>
 import {computed} from "vue";
-
+import moment from 'moment'
 export default {
     name: "TableComponent",
     props: {
@@ -40,6 +40,9 @@ export default {
             type: Array,
             default: ['#','Proveedor','# Compra','Total $', 'Registrado','Opc.']
         }
+    },
+    created: function () {
+        this.moment = moment;
     },
     setup(props, context)
     {

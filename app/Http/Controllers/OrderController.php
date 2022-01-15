@@ -118,12 +118,14 @@ class OrderController extends Controller
 
     public function findSupplier($supplier)
     {
-        $orders = DB::table('orders')
+        $orders = collect(DB::table('orders')
             ->join('suppliers', 'orders.supplier_id','=', 'suppliers.id')
             //->where('numOrder','like',$customer.'%')
             ->where('suppliers.id', $supplier)
-            ->latest('orders.id')->pluck('orders.total','orders.id')
-            ->take(50);
+            ->latest('orders.id')
+            ->select( 'orders.id', 'orders.total', 'orders.created_at')
+            ->take(50)
+            ->get());
 
         return response()->json($orders);
     }

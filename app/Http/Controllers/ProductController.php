@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\OrderDetails;
 use App\Models\Product;
 use App\Models\Usage;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\PDF;
@@ -108,6 +110,19 @@ class ProductController extends Controller
              }
              return response()->json($products);
           }
+          elseif ($request->condition === 'order')
+          {
+              $order = OrderDetails::with('product.presentation')->where('order_id', '=', $request->search)->get();
+              $products = collect();
+              foreach ($order as $item){
+                  $item->product->reimbursement = 0;
+                  $item->product->order = $item->orderQty;
+                  $item->product->expire = $item->expire_at;
+                  $item->product->unitPrice = $item->unitPrice;
+                  $products->push($item->product);
+              }
+              return response()->json($products);
+          }
           else{
               $products = Product::with('presentation')
                         ->select()
@@ -130,7 +145,6 @@ class ProductController extends Controller
 
     public function addBonus(Request $request,  Product $product)
     {
-        Log::info($request);
         $product->stock = $product->stock + $request->cantidad;
         $product->save();
 
