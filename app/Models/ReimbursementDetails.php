@@ -11,6 +11,8 @@ class ReimbursementDetails extends Model
 
     protected $guarded = [];
 
+    public $timestamps = false;
+
     public function reimbursement()
     {
         return $this->belongsTo(Reimbursement::class);

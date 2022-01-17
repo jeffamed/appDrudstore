@@ -21,6 +21,11 @@ export function useOrder(){
         orders.value = res.data;
     }
 
+    const getOrderSupplier = async(data) => {
+        let res = await axios.get(`/api/find-orders/${data}`);
+        orders.value = res.data;
+    }
+
     const saveOrder = async (data) => {
         errors.value = '';
         try {
@@ -40,5 +45,5 @@ export function useOrder(){
         await axios.delete(`/api/order/${data}`);
     }
 
-    return { orders, pagination, route, getOrders, saveOrder, deleteOrder, errors, getOrder };
+    return { orders, pagination, route, getOrders, saveOrder, deleteOrder, errors, getOrder, getOrderSupplier };
 }

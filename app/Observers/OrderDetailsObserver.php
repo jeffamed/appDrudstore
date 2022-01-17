@@ -17,8 +17,6 @@ class OrderDetailsObserver
     {
         $product = Product::find($orderDetails->product_id);
         $product->stock = $product->stock + $orderDetails->orderQty;
-        $product->costPrev = $product->cost;
-        $product->cost = $orderDetails->unitPrice;
         $product->expire_at = $orderDetails->expire_at;
         $product->save();
     }

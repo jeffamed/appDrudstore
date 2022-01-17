@@ -11,7 +11,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-md-3 form-control-label font-weight-bold" for="email">Email</label>
+                                    <label class="col-md-6 form-control-label font-weight-bold" for="email">Correo electrónico</label>
                                     <div class="col-md-12">
                                         <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@hotmail.com" v-model="form.email">
                                     </div>
@@ -67,7 +67,6 @@ export default {
                     localStorage.setItem('user', JSON.stringify(rsp.data));
                     localStorage.setItem('permissions', JSON.stringify(rsp.data.permissions));
                     router.push({ name: 'dashboard'})
-                    $('#app').removeClass('bg-login');
                 }).catch(e => {
                     if (e.response.status == 422){
                         for (const key in e.response.data.errors) {

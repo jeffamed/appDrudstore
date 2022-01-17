@@ -58,7 +58,7 @@
                     <div>
                         <div class="encabezado">
                             <div class="titulo">
-                                <h3>FARMAREDS</h3>
+                                <h3>FARMARED'S</h3>
                             </div>
                             <div>
                                 <div class="box" style="float: left; width: 50%; padding: 3px">

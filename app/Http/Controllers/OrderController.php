@@ -115,4 +115,18 @@ class OrderController extends Controller
         $pdf = \PDF::loadView('report.orders', compact('orders','orders_total'))->setPaper('letter', 'portrait');
         return $pdf->download('compras_segun_meses.pdf');
     }
+
+    public function findSupplier($supplier)
+    {
+        $orders = collect(DB::table('orders')
+            ->join('suppliers', 'orders.supplier_id','=', 'suppliers.id')
+            //->where('numOrder','like',$customer.'%')
+            ->where('suppliers.id', $supplier)
+            ->latest('orders.id')
+            ->select( 'orders.id', 'orders.total', 'orders.created_at')
+            ->take(50)
+            ->get());
+
+        return response()->json($orders);
+    }
 }

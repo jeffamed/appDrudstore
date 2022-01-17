@@ -1,5 +1,5 @@
 <template>
-    <breadcrumb-component folder="Almacén" subfolder="Compras   /   Detalles"/>
+    <breadcrumb-component folder="Ventas" subfolder="Ventas   /   Detalles"/>
     <div class="row col-md-12 justify-content-center">
         <h5>Detalle de Venta</h5>
     </div>

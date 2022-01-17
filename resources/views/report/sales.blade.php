@@ -82,10 +82,10 @@
 </head>
 <body>
 <div  style="margin-bottom: 30px">
-    <div style="text-align: center">
-        <h2 class="bold text-center">FARMACIA FARMAREDS</h2>
+    <div style="text-align: center; margin-bottom: 55px">
+        <h2 class="bold text-center">FARMACIA FARMARED'S</h2>
     </div>
-    <div style="margin-bottom: 40px; border: 1px solid; padding: 5px">
+    <div style="margin-bottom: 20px; border: 1px solid; padding: 5px">
         <table width="100%">
             <tr>
                 <td style="width: 80%">

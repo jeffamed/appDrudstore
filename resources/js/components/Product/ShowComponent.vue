@@ -1,5 +1,5 @@
 <template>
-    <breadcrumb-component folder="Almacén" subfolder="Compras   /   Detalles"/>
+    <breadcrumb-component folder="Almacén" subfolder="Productos   /   Detalles"/>
     <div class="row col-md-12 justify-content-center">
         <h5>Información del Producto</h5>
     </div>
@@ -50,7 +50,7 @@
                             <p><span class="text-muted">R.U.C.:</span> {{sup.ruc}} </p>
                         </div>
                         <div class="col-md-6">
-                            <p><span class="text-muted">Telefono:</span> {{sup.phone}}</p>
+                            <p><span class="text-muted">Teléfono:</span> {{sup.phone}}</p>
                         </div>
                     </div>
                     <p><span class="text-muted">Nombre:</span> {{sup.name}}</p>
