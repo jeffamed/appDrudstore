@@ -11,12 +11,13 @@
             <td v-text="item.supplier.name"></td>
             <td v-text="item.supplier.name"></td>
             <td class="text-center" v-text="item.total_format"></td>
+            <td class="text-center" v-text="item.status"></td>
             <td class="text-center">{{ moment(item.created_at).format('DD/MM/Y') }}</td>
             <td class="text-center">
                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
-                <router-link :to="{name:'reimbursement.show', params: { id: item.id } }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
+                <router-link :to="{ name:'reimbursement.show', params: { id: item.id } }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
             </td>
         </tr>
         <tr v-else>
@@ -38,7 +39,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['#','Proveedor','# Compra','Total $', 'Registrado','Opc.']
+            default: ['#','Proveedor','# Compra','Total $', 'Estado', 'Registrado','Opc.']
         }
     },
     created: function () {

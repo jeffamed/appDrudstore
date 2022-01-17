@@ -4,12 +4,14 @@ namespace App\Providers;
 
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Reimbursement;
 use App\Models\ReimbursementDetails;
 use App\Models\Sale;
 use App\Models\SaleDetails;
 use App\Observers\OrderDetailsObserver;
 use App\Observers\OrderObserve;
 use App\Observers\ReimbursementDetailsObserver;
+use App\Observers\ReimbursementObserver;
 use App\Observers\SaleDetailsObserver;
 use App\Observers\SaleObserver;
 use Illuminate\Auth\Events\Registered;
@@ -42,5 +44,6 @@ class EventServiceProvider extends ServiceProvider
         SaleDetails::observe(SaleDetailsObserver::class);
         Sale::observe(SaleObserver::class);
         ReimbursementDetails::observe(ReimbursementDetailsObserver::class);
+        Reimbursement::observe(ReimbursementObserver::class);
     }
 }

@@ -62,7 +62,26 @@ class ReimbursementController extends Controller
      */
     public function show(Reimbursement $reimbursement)
     {
-        //
+        $details = $reimbursement->details;
+        foreach ($details as $detail){
+            $detail->product;
+        }
+
+        $data = collect([
+            'supplier' => $reimbursement->supplier->name,
+            'ruc' => $reimbursement->supplier->ruc,
+            'phone' => $reimbursement->supplier->phone,
+            'address' => $reimbursement->supplier->address,
+            'id' => $reimbursement->id,
+            'total' => $reimbursement->total_format,
+            'status' => $reimbursement->status,
+            'created' => $reimbursement->created_at,
+            'observation' => $reimbursement->observation,
+            'order' => $reimbursement->order_id,
+            'details' => $details,
+        ]);
+
+        return response()->json($data, 200);
     }
 
     /**
