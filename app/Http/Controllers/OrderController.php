@@ -123,7 +123,7 @@ class OrderController extends Controller
             //->where('numOrder','like',$customer.'%')
             ->where('suppliers.id', $supplier)
             ->latest('orders.id')
-            ->select( 'orders.id', 'orders.total', 'orders.created_at')
+            ->select( 'orders.id', 'orders.total', 'orders.num_order')
             ->take(50)
             ->get());
 

@@ -8,15 +8,15 @@
     <link rel="shortcut icon" href="img/favicon.png">
     <title>Farmacia - LaravelVue</title>
     <!-- Main styles for this application -->
-    <link href="{{ secure_asset('css/coreui.css') }}" rel="stylesheet">
+    <link href="{{ config('app.env') === 'production' ? secure_asset('css/coreui.css') : asset('css/coreui.css') }}" rel="stylesheet">
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
 <div id="app" class="bg-login">
 </div>
 <!-- Bootstrap and necessary plugins -->
-<script src="{{ secure_asset('js/app.js') }}"></script>
-<script src="{{ secure_asset('js/coreui.js') }}"></script>
+<script src="{{ config('app.env') === 'production' ? secure_asset('js/app.js') : asset('js/app.js') }}"></script>
+<script src="{{ config('app.env') === 'production' ? secure_asset('js/coreui.js') : asset('js/coreui.js') }}"></script>
 </body>
 
 </html>
