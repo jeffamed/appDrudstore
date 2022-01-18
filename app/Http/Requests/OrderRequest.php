@@ -33,6 +33,7 @@ class OrderRequest extends BaseRequest
     {
         return [
             'supplier_id' => 'required',
+            'num_order' => 'required',
             'subtotal' => 'required|numeric',
             'total' => 'required|numeric|not_in:0',
             'iva' => 'required|numeric',
@@ -43,6 +44,7 @@ class OrderRequest extends BaseRequest
     public function messages()
     {
         return [
+            'num_order.required' => 'Ingrese el número de la factura',
             'supplier_id.required' => 'Seleccione el proveedor de la compra',
             'total.not_in' => 'Ingrese al menos un producto a sus compra',
         ];

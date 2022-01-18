@@ -25,8 +25,8 @@
                         :delay="0"
                         :searchable="true"
                         :options="orders"
-                        trackBy="created_at"
-                        label="created_at"
+                        trackBy="num_order"
+                        label="num_order"
                     />
                 </div>
                 <div class="col-md-4">

@@ -7,6 +7,12 @@
     <div class="container pb-1 pt-2 shadow b-white">
         <p>Información del Proveedor</p>
         <div class="row form-group">
+            <div class="col-md-12">
+                <label class="ml-3 form-control-label" for="name">Número de Factura</label>
+                <input type="text" class="form-control" placeholder="00000000X" v-model="form.numOrder">
+            </div>
+        </div>
+        <div class="row form-group">
             <div class="col-md-8">
                 <label class="ml-3 form-control-label" for="name">Nombre</label>
                 <vue-select v-model="supplier" :options="suppliers" label-by="name" placeholder="Seleccione el proveedor" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
@@ -68,8 +74,8 @@
                 <input type="number" name="comprada" id="price" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.priceSuggest" disabled>
             </div>
             <div class="col-md-3 mt-2">
-                <label class="ml-3 form-control-label" for="descuento">Descuento</label>
-                <input type="number" name="descuento" id="descuento" step="0.01" class="form-control" placeholder="00.00" v-model.number="form.discount">
+                <label class="ml-3 form-control-label" for="descuento">Descuento %</label>
+                <input type="number" name="descuento" id="descuento" step="0.01" max="100" min="0" class="form-control" placeholder="00.00" v-model.number="form.discount">
             </div>
             <div class="col-md-1 d-flex align-items-end">
                 <button class="btn btn-success" @click="addDetails">Agregar</button>
@@ -80,12 +86,12 @@
                     <thead>
                         <tr>
                             <th width="5%">Eliminar</th>
-                            <th>Cod</th>
+                            <th class="text-center">Código</th>
                             <th>Producto</th>
                             <th class="text-center">F.Venc</th>
                             <th class="text-center">Cantidad</th>
                             <th class="text-center">Precio $</th>
-                            <th class="text-center">Desc.</th>
+                            <th class="text-center">Desc. %</th>
                             <th class="text-center">Total $</th>
                         </tr>
                     </thead>
@@ -96,13 +102,13 @@
                                     <i class="icon-close"></i>
                                 </button>
                             </td>
-                            <td>{{ detail.code }}</td>
+                            <td class="text-center">{{ detail.code }}</td>
                             <td width="40%">{{ detail.product }}</td>
-                            <td>{{ detail.expire_at }}</td>
-                            <td class="text-center" >{{ detail.orderQty }}</td>
-                            <td class="text-center" > {{ detail.unitPrice }}</td>
-                            <td class="text-center" >{{ detail.discount }}</td>
-                            <td class="text-center" > {{ (detail.unitPrice * detail.orderQty) - detail.discount }}</td>
+                            <td class="text-center">{{ detail.expire_at }}</td>
+                            <td class="text-center">{{ detail.orderQty }}</td>
+                            <td class="text-center"> {{ detail.unitPrice }}</td>
+                            <td class="text-center">{{ detail.discount }}</td>
+                            <td class="text-center"> {{ (detail.unitPrice * detail.orderQty) - ((detail.unitPrice * detail.orderQty) * (detail.discount/100)) }}</td>
                         </tr>
                         <tr v-else>
                             <td colspan="8" class="text-center">No se ha registrado ningun producto...</td>
@@ -110,10 +116,9 @@
                     </tbody>
                     <tfoot class="border-top">
                         <tr v-show="detailsOrder.length">
-                            <td colspan="4" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
+                            <td colspan="5" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
                             <td class="text-center">{{ totalQty }}</td>
                             <td class="text-center"></td>
-                            <td class="text-center">{{ totalDiscount }}</td>
                             <td class="text-center font-weight-bold bg-success text-white">$ {{ totalOrder }}</td>
                         </tr>
                     </tfoot>
@@ -208,6 +213,7 @@ export default {
     },
     setup(){
         const form = reactive({
+            numOrder: '',
             orderQty: 0,
             unitPrice: 0,
             discount: 0,
@@ -215,6 +221,7 @@ export default {
             priceSuggest: 0,
         });
         const order = reactive({
+            num_order: '',
             supplier_id : 0,
             iva : 0,
             subtotal : 0,
@@ -249,13 +256,6 @@ export default {
             }
             return sum.toFixed(2);
         });
-        const totalDiscount = computed(() => {
-            let sum = 0;
-            for (let i = 0; i < detailsOrder.value.length; i++) {
-                sum = parseFloat(sum) + parseFloat(detailsOrder.value[i].discount);
-            }
-            return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-        });
 
         const {allSuppliers, suppliers} = useSuppliers();
         const {searchProduct, products} = useProducts();
@@ -276,6 +276,8 @@ export default {
                 if (products.value["code"] !== undefined){
                     $("#txtPName").val(products.value.name+" *  "+ products.value.presentacion);
                     $("#txtPStock").val(products.value.stock);
+                    form.unitPrice = products.value.cost;
+                    form.priceSuggest = products.value.price;
                     $("#txtExpire").focus().select();
                 }else{
                     Swal.fire({
@@ -428,9 +430,10 @@ export default {
         const save = async () => {
             let user = JSON.parse(localStorage.getItem('user'));
             if (errors.value.length === 0){
+                order.num_order = form.numOrder;
                 order.supplier_id = supplier.value.id;
                 order.total = totalOrder.value.replace(',','');
-                order.discount = totalDiscount.value.replace(',','');
+                order.discount = 0;
                 order.details = detailsOrder.value;
                 order.user_id = user.id;
                 await saveOrder(order);
@@ -449,7 +452,7 @@ export default {
             $('#txtpCode').focus();
         });
 
-        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, totalDiscount, total, errors, save }
+        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, total, errors, save }
 
     }
 }

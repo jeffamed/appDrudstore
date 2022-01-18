@@ -21,13 +21,11 @@ class ReimbursementController extends Controller
     {
         if ($request->condition === 'supplier')
         {
-            $suppliers = Supplier::where('name', 'like', '%'.$request->search.'%')->get();
-            $ids = [];
-            foreach ($suppliers as $supplier){ $ids[] = $supplier->id; }
-            $reimbursements = Reimbursement::with('supplier')->whereIn('supplier_id',$ids)->latest('id')->paginate(6);
+            $suppliers = Supplier::where('name', 'like', '%'.$request->search.'%')->pluck('id');
+            $reimbursements = Reimbursement::with('supplier', 'order')->whereIn('supplier_id', $suppliers)->latest('id')->paginate(6);
         }
         else{
-            $reimbursements = Reimbursement::with('supplier')->latest('id')->paginate(6);
+            $reimbursements = Reimbursement::with('supplier', 'order')->latest('id')->paginate(6);
         }
 
         return response()->json($reimbursements);

@@ -9,7 +9,7 @@ export function useReimbursement(){
     const route = useRoute();
     const {successToast, errorToast} = useToast();
 
-    const getReimbursements = async (search = '', condition = 'supplier') => {
+    const getReimbursements = async (search = '', condition = 'reimbursement') => {
         let res = await axios.get(`/api/reimbursement?page=${ route.query.page || 1}&search=${ search } &condition=${ condition }`);
         reimbursements.value = res.data.data;
         pagination.value = res.data;
