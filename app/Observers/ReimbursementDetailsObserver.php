@@ -16,7 +16,8 @@ class ReimbursementDetailsObserver
     public function created(ReimbursementDetails $reimbursementDetails)
     {
         $product = Product::find($reimbursementDetails->product_id);
-        $product->stock = $product->stock - $reimbursementDetails->qty;
+        $product->box_stock = $product->box_stock - $reimbursementDetails->qty;
+        $product->stock = $product->box_stock * $product->unit_box;
         $product->save();
     }
 

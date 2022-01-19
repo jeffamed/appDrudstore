@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-7">
                 <label class="ml-3 form-control-label" for="product">Nombre</label>
-                <input type="text" name="product" id="txtPName" class="form-control bg-white" placeholder="Nombre del Producto + Presentacion" disabled>
+                <input type="text" name="product" id="txtPName" class="form-control bg-white" placeholder="Nombre del Producto * Presentación" disabled>
             </div>
             <div class="col-md-2">
                 <label class="ml-3 form-control-label" for="product">Stock Act.</label>
@@ -108,17 +108,28 @@
                             <td class="text-center">{{ detail.orderQty }}</td>
                             <td class="text-center"> {{ detail.unitPrice }}</td>
                             <td class="text-center">{{ detail.discount }}</td>
-                            <td class="text-center"> {{ (detail.unitPrice * detail.orderQty) - ((detail.unitPrice * detail.orderQty) * (detail.discount/100)) }}</td>
+                            <td class="text-center"> {{ parseFloat((detail.unitPrice * detail.orderQty) - ((detail.unitPrice * detail.orderQty) * (detail.discount/100))).toFixed(2) }}</td>
                         </tr>
                         <tr v-else>
                             <td colspan="8" class="text-center">No se ha registrado ningun producto...</td>
                         </tr>
                     </tbody>
-                    <tfoot class="border-top">
-                        <tr v-show="detailsOrder.length">
-                            <td colspan="5" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
+                    <tfoot class="border-top" v-show="detailsOrder.length">
+                        <tr >
+                            <td colspan="4" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
                             <td class="text-center">{{ totalQty }}</td>
                             <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center font-weight-bold">$ {{ subtotalOrder }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="7" class="text-right">
+                                <input type="checkbox" id="checkbox" v-model.number="form.iva" class="form-check-input" true-value="12" false-value="0">
+                                <label class="form-check-label pl-1" for="checkbox">IVA {{ form.iva }}%: </label>
+                            </td>
+                            <td class="text-center">$ {{ calcIva }}</td>
+                        </tr>
+                        <tr><td colspan="7" class="text-right font-weight-bold">Total:</td>
                             <td class="text-center font-weight-bold bg-success text-white">$ {{ totalOrder }}</td>
                         </tr>
                     </tfoot>
@@ -219,6 +230,7 @@ export default {
             discount: 0,
             expire_at: '',
             priceSuggest: 0,
+            iva: 0,
         });
         const order = reactive({
             num_order: '',
@@ -239,15 +251,33 @@ export default {
         const total = computed(()=>{
             let sum = 0;
             sum = sum + detailsOrder.value.length;
-
             return sum;
+        });
+        const subtotalOrder = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsOrder.value.length; i++) {
+                sum = parseFloat(sum) + (parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice) - detailsOrder.value[i].discount );
+            }
+            return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        });
+        const calcIva = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsOrder.value.length; i++) {
+                sum = parseFloat(sum) + (parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice) - detailsOrder.value[i].discount );
+            }
+            let iva = sum * (parseInt(form.iva) / 100);
+
+            return iva.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
         const totalOrder = computed(() => {
             let sum = 0;
             for (let i = 0; i < detailsOrder.value.length; i++) {
                 sum = parseFloat(sum) + (parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice) - detailsOrder.value[i].discount );
             }
-            return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            let iva = sum * (parseInt(form.iva) / 100);
+            let total = sum + iva;
+
+            return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
         const totalQty = computed(() => {
             let sum = 0;
@@ -429,15 +459,17 @@ export default {
 
         const save = async () => {
             let user = JSON.parse(localStorage.getItem('user'));
+            order.num_order = form.numOrder;
+            order.supplier_id = supplier.value.id;
+            order.subtotal = subtotalOrder.value.replace(',','');
+            order.total = totalOrder.value.replace(',','');
+            order.iva = calcIva.value.replace(',','');
+            order.discount = 0;
+            order.details = detailsOrder.value;
+            order.user_id = user.id;
+            await saveOrder(order);
+            await errors;
             if (errors.value.length === 0){
-                order.num_order = form.numOrder;
-                order.supplier_id = supplier.value.id;
-                order.total = totalOrder.value.replace(',','');
-                order.discount = 0;
-                order.details = detailsOrder.value;
-                order.user_id = user.id;
-                await saveOrder(order);
-                await errors;
                 detailsOrder.value = [];
                 supplier.value = [];
                 clearProduct();
@@ -452,7 +484,7 @@ export default {
             $('#txtpCode').focus();
         });
 
-        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, total, errors, save }
+        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, subtotalOrder, totalQty, total, errors, save, calcIva, totalOrder }
 
     }
 }

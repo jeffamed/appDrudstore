@@ -16,7 +16,8 @@ class OrderDetailsObserver
     public function created(OrderDetails $orderDetails)
     {
         $product = Product::find($orderDetails->product_id);
-        $product->stock = $product->stock + $orderDetails->orderQty;
+        $product->box_stock = $product->box_stock + $orderDetails->orderQty;
+        $product->stock = $product->box_stock * $product->unit_box;
         $product->expire_at = $orderDetails->expire_at;
         $product->save();
     }

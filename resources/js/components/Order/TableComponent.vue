@@ -13,7 +13,6 @@
             <td v-text="item.proveedor"></td>
             <td class="text-center" v-text="item.iva"></td>
             <td class="text-center" v-text="item.subtotal_format"></td>
-            <td class="text-center" v-text="item.discount_format"></td>
             <td class="text-center" v-text="item.total_format"></td>
             <td class="text-center" v-text="item.created"></td>
             <td class="text-center">
@@ -42,7 +41,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['#','# Factura','Usuario', 'Proveedor','IVA','SubTotal $','Descuento','Total $', 'Registrado','Opc.']
+            default: ['#','# Factura','Usuario', 'Proveedor','IVA','SubTotal $','Total $', 'Registrado','Opc.']
         }
     },
     setup(props, context)

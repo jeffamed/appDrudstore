@@ -16,7 +16,8 @@ class SaleDetailsObserver
     public function created(SaleDetails $saleDetails)
     {
         $product = Product::find($saleDetails->product_id);
-        $product->stock = $product->stock - $saleDetails->orderQty;
+        $product->box_stock = $product->box_stock - $saleDetails->orderQty;
+        $product->stock = $product->box_stock * $product->unit_box;
         $product->save();
     }
 
