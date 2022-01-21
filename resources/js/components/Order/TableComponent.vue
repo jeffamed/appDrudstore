@@ -11,8 +11,8 @@
             <td class="text-center" v-text="item.num_order"></td>
             <td v-text="item.user.name"></td>
             <td v-text="item.proveedor"></td>
-            <td class="text-center" v-text="item.iva"></td>
             <td class="text-center" v-text="item.subtotal_format"></td>
+            <td class="text-center">{{ parseFloat(item.iva).toFixed(2) }}</td>
             <td class="text-center" v-text="item.total_format"></td>
             <td class="text-center" v-text="item.created"></td>
             <td class="text-center">
@@ -41,7 +41,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['#','# Factura','Usuario', 'Proveedor','IVA','SubTotal $','Total $', 'Registrado','Opc.']
+            default: ['#','# Factura','Usuario', 'Proveedor','SubTotal $','IVA $','Total $', 'Registrado','Opc.']
         }
     },
     setup(props, context)

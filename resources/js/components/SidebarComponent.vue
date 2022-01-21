@@ -3,7 +3,7 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <router-link :to="{ name : 'dashboard' }" class="nav-link active" ><i class="icon-speedometer"></i> Escritorio</router-link>
+                    <router-link :to="{ name : 'dashboard' }" class="nav-link active" ><i class="icon-speedometer"></i> Dashboard</router-link>
                 </li>
                 <li class="nav-title">
                     Mantenimiento
@@ -24,7 +24,7 @@
                             <router-link v-show="enablePresentation" :to="{ name : 'presentation' }" class="nav-link"><i class="icon-present"></i> Presentación</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableUsage" :to="{ name : 'usage' }" class="nav-link"><i class="icon-list"></i> Uso</router-link>
+                            <router-link v-show="enableUsage" :to="{ name : 'usage' }" class="nav-link"><i class="icon-list"></i> Usos</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link v-show="enableLaboratory" :to="{ name : 'laboratory' }" class="nav-link"><i class="icon-chemistry"></i> Laboratorios</router-link>
@@ -41,7 +41,7 @@
                             <router-link v-show="enableSupplier" :to="{ name : 'supplier' }" class="nav-link"><i class="icon-notebook"></i> Proveedores</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'reimbursement' }" class="nav-link"><i class="icon-notebook"></i> Devoluciones</router-link>
+                            <router-link :to="{ name : 'reimbursement' }" class="nav-link"><i class="icon-tag"></i> Devoluciones</router-link>
                         </li>
                     </ul>
                 </li>

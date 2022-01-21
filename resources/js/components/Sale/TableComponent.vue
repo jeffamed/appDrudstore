@@ -10,8 +10,8 @@
             <td class="text-center" v-text="item.id"></td>
             <td v-text="item.user.name"></td>
             <td v-text="item.cliente"></td>
-            <td class="text-center" v-text="item.iva"></td>
             <td class="text-center" v-text="item.subtotal_format"></td>
+            <td class="text-center" v-text="item.iva"></td>
             <td class="text-center" v-text="item.discount_format"></td>
             <td class="text-center" v-text="item.total_format"></td>
             <td class="text-center" v-text="item.created"></td>
@@ -41,7 +41,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['#','Usuario', 'Cliente','IVA','SubTotal','Descuento','Total', 'Registrado','Opc.']
+            default: ['#','Usuario', 'Cliente','SubTotal $','IVA $','Descuento $','Total $', 'Registrado','Opc.']
         }
     },
     setup(props, context)

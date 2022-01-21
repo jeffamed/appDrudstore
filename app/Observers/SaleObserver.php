@@ -43,8 +43,8 @@ class SaleObserver
         if($details){
             foreach ($details as $detail){
                 $product = Product::find($detail->product_id);
-                $product->box_stock = $product->box_stock + $detail->orderQty;
-                $product->stock = $product->box_stock * $product->unit_box;
+                $product->stock = $product->stock + $detail->orderQty;
+                $product->box_stock = $product->stock / $product->unit_box;
                 $product->save();
             }
         }

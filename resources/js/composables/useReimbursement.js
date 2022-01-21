@@ -21,6 +21,11 @@ export function useReimbursement(){
         reimbursements.value = res.data;
     }
 
+    const getReimbursementSupplier = async(data) => {
+        let res = await axios.get(`/api/find-reimbursements/${data}`);
+        reimbursements.value = res.data;
+    }
+
     const saveReimbursement = async (data) => {
         errors.value = '';
         try {
@@ -40,5 +45,5 @@ export function useReimbursement(){
         await axios.delete(`/api/reimbursement/${data}`);
     }
 
-    return { reimbursements, pagination, route, getReimbursements, saveReimbursement, deleteReimbursement, errors, getReimbursement };
+    return { reimbursements, pagination, route, getReimbursements, saveReimbursement, deleteReimbursement, errors, getReimbursement, getReimbursementSupplier };
 }

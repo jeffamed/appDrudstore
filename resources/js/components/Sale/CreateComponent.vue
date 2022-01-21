@@ -70,7 +70,7 @@
                 <input type="text" name="product" id="txtPrice" class="form-control bg-white" placeholder="00" disabled v-model="form.unitPrice">
             </div>
             <div class="col-md-3">
-                <label class="form-control-label" for="txtDiscount">Descuento</label>
+                <label class="form-control-label" for="txtDiscount">Descuento $</label>
                 <input type="text" name="discount" id="txtDiscount" class="form-control bg-white" placeholder="00" v-model="form.discount">
             </div>
             <div class="d-flex align-items-end">
@@ -91,7 +91,7 @@
                         <th>Producto</th>
                         <th class="text-center">Cantidad</th>
                         <th class="text-center">Precio $</th>
-                        <th class="text-center">Desc.</th>
+                        <th class="text-center">Desc. $</th>
                         <th class="text-center">Total $</th>
                     </tr>
                     </thead>

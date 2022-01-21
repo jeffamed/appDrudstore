@@ -28,6 +28,13 @@
                 <input type="text" name="name" class="form-control bg-white" placeholder="Dirección del proveedor" disabled v-model="detailsSupplier.address">
             </div>
         </div>
+        <div v-show="">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <label class="ml-3 form-control-label" for="name">Compras</label>
+                </div>
+            </div>
+        </div>
     </div>
     <!--Formulario de producto-->
     <div class="container pb-1 pt-2 mb-3 shadow mt-1 bg-white">
@@ -82,7 +89,7 @@
             </div>
             <!--table-->
             <div class="col-md-12 mt-3">
-                <table class="table table-bordered table-striped table-sm">
+                <table class="table table-bordered table-striped table-sm m-0">
                     <thead>
                         <tr>
                             <th width="5%">Eliminar</th>
@@ -122,17 +129,26 @@
                             <td class="text-center"></td>
                             <td class="text-center font-weight-bold">$ {{ subtotalOrder }}</td>
                         </tr>
-                        <tr>
-                            <td colspan="7" class="text-right">
-                                <input type="checkbox" id="checkbox" v-model.number="form.iva" class="form-check-input" true-value="12" false-value="0">
-                                <label class="form-check-label pl-1" for="checkbox">IVA {{ form.iva }}%: </label>
-                            </td>
-                            <td class="text-center">$ {{ calcIva }}</td>
-                        </tr>
-                        <tr><td colspan="7" class="text-right font-weight-bold">Total:</td>
-                            <td class="text-center font-weight-bold bg-success text-white">$ {{ totalOrder }}</td>
-                        </tr>
                     </tfoot>
+                </table>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-4" v-show="detailsOrder.length">
+                <table class="table table-bordered table-striped table-sm">
+                    <tr>
+                        <td colspan="7" class="text-center font-weight-bold">SubTotal: </td>
+                        <td class="text-center font-weight-bold">$ {{ subtotalOrder }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <input type="checkbox" id="checkbox" v-model.number="form.iva" class="form-check-input" true-value="12" false-value="0">
+                            <label class="form-check-label pl-1" for="checkbox">IVA {{ form.iva }}%: </label>
+                        </td>
+                        <td class="text-center">$ {{ calcIva }}</td>
+                    </tr>
+                    <tr><td colspan="7" class="text-center font-weight-bold">Total:</td>
+                        <td class="text-center font-weight-bold bg-success text-white">$ {{ totalOrder }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -217,6 +233,7 @@ import {useSuppliers} from "../../composables/useSuppliers";
 import {useProducts} from "../../composables/useProducts";
 import {useToast} from "../../composables/useToast";
 import {useOrder} from "../../composables/useOrder";
+import {useReimbursement} from "../../composables/useReimbursement";
 export default {
     name: "CreateComponent",
     components:{
@@ -284,11 +301,12 @@ export default {
             for (let i = 0; i < detailsOrder.value.length; i++) {
                 sum = parseFloat(sum) + parseFloat(detailsOrder.value[i].orderQty);
             }
-            return sum.toFixed(2);
+            return sum;
         });
 
         const {allSuppliers, suppliers} = useSuppliers();
         const {searchProduct, products} = useProducts();
+        const {getReimbursementSupplier, reimbursements} = useReimbursement();
         const {errors, saveOrder} = useOrder();
         const {errorToast} = useToast();
 
