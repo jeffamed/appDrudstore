@@ -1,5 +1,5 @@
 import {ref} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useToast} from "./useToast";
 
 export function useReimbursement(){
@@ -7,6 +7,7 @@ export function useReimbursement(){
     const reimbursements = ref([]);
     const pagination = ref([]);
     const route = useRoute();
+    const router = useRouter();
     const {successToast, errorToast} = useToast();
 
     const getReimbursements = async (search = '', condition = 'reimbursement') => {
@@ -30,7 +31,8 @@ export function useReimbursement(){
         errors.value = '';
         try {
             await axios.post('/api/reimbursement', data);
-            await successToast('Registrado')
+            await successToast('Registrado');
+            await router.push({name: 'reimbursement'});
         }catch (e) {
             errorToast();
             if (e.response.status == 422){

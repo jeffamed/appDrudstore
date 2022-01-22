@@ -123,6 +123,19 @@ class ProductController extends Controller
               }
               return response()->json($products);
           }
+          elseif ($request->condition === 'reimbursement')
+          {
+              $order = OrderDetails::with('product.presentation')->where('order_id', '=', $request->search)->get();
+              $products = collect();
+              foreach ($order as $item){
+                  $item->product->reimbursement = 0;
+                  $item->product->order = $item->orderQty;
+                  $item->product->unitPrice = $item->unitPrice;
+                  $item->product->discountOrder = $item->discount;
+                  $products->push($item->product);
+              }
+              return response()->json($products);
+          }
           else{
               $products = Product::with('presentation')
                         ->select()

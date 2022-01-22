@@ -196,8 +196,8 @@
                                     <th>Producto</th>
                                     <th class="text-center">F.Venc</th>
                                     <th class="text-center">Cant.</th>
-                                    <th class="text-center">Precio</th>
-                                    <th class="text-center">P.Sug</th>
+                                    <th class="text-center">P.Vnt</th>
+                                    <th class="text-center">P.Comp</th>
                                     <th class="text-center">Desc.</th>
                                     <th class="text-center">Agr.</th>
                                 </tr>
@@ -208,8 +208,8 @@
                                         <td width="40%">{{ product.name }} * {{ product.presentation.name }}</td>
                                         <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="date" v-model="product.expireOrder"> </td>
                                         <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.qtyOrder"></td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.costOrder"> </td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.pvp"> </td>
+                                        <td width="10%" height="42px" class="p-0"> {{ parseFloat(product.cost).toFixed(2) }} </td>
+                                        <td width="10%" height="42px" class="p-0" > {{ parseFloat(product.price).toFixed(2) }} </td>
                                         <td width="5%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.discountOrder"></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-success btn-sm" @click="addProd(product)">
@@ -223,7 +223,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <span class="help-block text-danger" id="errorTable" style="display: none">(*) La cantidad o el precio del producto que desea registrar no puede estar en cero</span>
+                        <span class="help-block text-danger" id="errorTable" style="display: none">(*) La cantidad y/o fecha de expiración del producto que desea registrar no puede estar vacío.</span>
                     </div>
                 </div>
             </div>
@@ -268,6 +268,7 @@ export default {
             subtotal : 0,
             total : 0,
             discount : 0,
+            reimbursement : 0
         });
         const detailsSupplier = reactive({
             phone: '',
@@ -285,14 +286,18 @@ export default {
         const subtotalOrder = computed(() => {
             let sum = 0;
             for (let i = 0; i < detailsOrder.value.length; i++) {
-                sum = parseFloat(sum) + (parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice) - detailsOrder.value[i].discount );
+                let calc = parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice).toFixed(2)
+                let desc = parseFloat((detailsOrder.value[i].discount/100) * calc);
+                sum += parseFloat(calc) - parseFloat(desc);
             }
             return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
         const calcIva = computed(() => {
             let sum = 0;
             for (let i = 0; i < detailsOrder.value.length; i++) {
-                sum = parseFloat(sum) + (parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice) - detailsOrder.value[i].discount );
+                let calc = parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice).toFixed(2)
+                let desc = parseFloat((detailsOrder.value[i].discount/100) * calc);
+                sum += parseFloat(calc) - parseFloat(desc);
             }
             let iva = sum * (parseInt(form.iva) / 100);
 
@@ -301,12 +306,14 @@ export default {
         const totalOrder = computed(() => {
             let sum = 0;
             for (let i = 0; i < detailsOrder.value.length; i++) {
-                sum = parseFloat(sum) + (parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice) - detailsOrder.value[i].discount );
+                let calc = parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice).toFixed(2)
+                let desc = parseFloat((detailsOrder.value[i].discount/100) * calc);
+                sum += parseFloat(calc) - parseFloat(desc);
             }
             let iva = sum * (parseInt(form.iva) / 100);
-            let total = sum + iva;
+            let total = parseFloat(sum + iva);
 
-            return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            return parseFloat(total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
         const totalQty = computed(() => {
             let sum = 0;
@@ -378,7 +385,7 @@ export default {
         const addProd = (product) => {
             $("#errorTable").hide();
 
-            if(product.qtyOrder === 0 || product.costOrder === 0){
+            if(product.qtyOrder === 0 || product.expireOrder === ''){
                 $("#errorTable").show();
                 return;
             }
@@ -397,8 +404,8 @@ export default {
                     'code' : product.code,
                     'discount' : product.discountOrder,
                     'orderQty' : product.qtyOrder,
-                    'unitPrice' : product.costOrder,
-                    'priceSuggest' : product.pvp,
+                    'unitPrice' : product.cost,
+                    'priceSuggest' : product.price,
                     'expire_at': product.expireOrder,
                     'product' : product.name + " * " + product.presentation.name
                 };
@@ -439,6 +446,8 @@ export default {
             form.discount = 0;
             form.priceSuggest = 0;
             form.expire_at = '';
+            form.numOrder = '';
+            form.reimbursement = 0;
             $("#txtPName").val('');
             $("#txtPStock").val('');
         }
@@ -514,12 +523,13 @@ export default {
             let user = JSON.parse(localStorage.getItem('user'));
             order.num_order = form.numOrder;
             order.supplier_id = supplier.value.id;
-            order.subtotal = subtotalOrder.value.replace(',','');
-            order.total = totalOrder.value.replace(',','');
-            order.iva = calcIva.value.replace(',','');
+            order.subtotal = parseFloat(subtotalOrder.value.replace(',','')).toFixed(2);
+            order.total = parseFloat(totalOrder.value.replace(',','')).toFixed(2);
+            order.iva = parseFloat(calcIva.value.replace(',','')).toFixed(2);
             order.discount = 0;
             order.details = detailsOrder.value;
             order.user_id = user.id;
+            order.reimbursement = form.reimbursement;
             if(validationReimbursement()){
                 await saveOrder(order);
                 await errors;
