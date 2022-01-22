@@ -28,10 +28,22 @@
                 <input type="text" name="name" class="form-control bg-white" placeholder="Dirección del proveedor" disabled v-model="detailsSupplier.address">
             </div>
         </div>
-        <div v-show="">
+        <div v-show="reimbursements.length">
             <div class="row form-group">
                 <div class="col-md-8">
-                    <label class="ml-3 form-control-label" for="name">Compras</label>
+                    <label class="ml-3 form-control-label" for="name">Nota de Crédito (Devolución) $</label>
+                </div>
+                <div class="col-md-12">
+                    <Multiselect
+                        v-model="form.reimbursement"
+                        placeholder="Seleccione una opción"
+                        valueProp="id"
+                        noOptionsText="La lista esta vacía"
+                        :searchable="true"
+                        :options="reimbursements"
+                        trackBy="total"
+                        label="total"
+                    />
                 </div>
             </div>
         </div>
@@ -56,9 +68,6 @@
                 <label class="ml-3 form-control-label" for="product">Stock Act.</label>
                 <input type="text" name="product" id="txtPStock" class="form-control bg-white" placeholder="00" disabled>
             </div>
-        </div>
-        <div class="row from-group">
-
         </div>
         <div class="row form-group">
             <div class="col-md-3">
@@ -228,6 +237,7 @@
 import Swal from "sweetalert2";
 import {computed, reactive, ref, watch} from "vue";
 import VueSelect from 'vue-next-select';
+import Multiselect from "@vueform/multiselect";
 import 'vue-next-select/dist/index.min.css';
 import {useSuppliers} from "../../composables/useSuppliers";
 import {useProducts} from "../../composables/useProducts";
@@ -237,7 +247,8 @@ import {useReimbursement} from "../../composables/useReimbursement";
 export default {
     name: "CreateComponent",
     components:{
-        VueSelect
+        VueSelect,
+        Multiselect
     },
     setup(){
         const form = reactive({
@@ -248,6 +259,7 @@ export default {
             expire_at: '',
             priceSuggest: 0,
             iva: 0,
+            reimbursement: 0,
         });
         const order = reactive({
             num_order: '',
@@ -475,6 +487,29 @@ export default {
             $("#errorPrice").hide();
         }
 
+        const validationReimbursement = () => {
+            let correct = true;
+            if (form.reimbursement !== 0){
+                let total = parseInt(totalOrder.value.replace(',',''));
+                let temp = reimbursements.value.find(item => item.id);
+                if(parseInt(temp.total) > total){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Nota de Crédito',
+                        text:'La nota de crédito supera al total',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    form.reimbursement = 0;
+                    correct = false;
+                } else {
+                    correct =  true;
+                }
+            }
+            return correct;
+        }
+
         const save = async () => {
             let user = JSON.parse(localStorage.getItem('user'));
             order.num_order = form.numOrder;
@@ -485,12 +520,14 @@ export default {
             order.discount = 0;
             order.details = detailsOrder.value;
             order.user_id = user.id;
-            await saveOrder(order);
-            await errors;
-            if (errors.value.length === 0){
-                detailsOrder.value = [];
-                supplier.value = [];
-                clearProduct();
+            if(validationReimbursement()){
+                await saveOrder(order);
+                await errors;
+                if (errors.value.length === 0){
+                    detailsOrder.value = [];
+                    supplier.value = [];
+                    clearProduct();
+                }
             }
         }
 
@@ -499,11 +536,11 @@ export default {
         watch(supplier, () => {
             detailsSupplier.phone = supplier.value.phone,
             detailsSupplier.address = supplier.value.address,
+            getReimbursementSupplier(supplier.value.id)
             $('#txtpCode').focus();
         });
 
-        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, subtotalOrder, totalQty, total, errors, save, calcIva, totalOrder }
-
+        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, subtotalOrder, totalQty, total, errors, save, calcIva, totalOrder, reimbursements}
     }
 }
 </script>
