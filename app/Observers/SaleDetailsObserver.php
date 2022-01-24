@@ -17,6 +17,7 @@ class SaleDetailsObserver
     {
         $product = Product::find($saleDetails->product_id);
         $product->stock = $product->stock - $saleDetails->orderQty;
+        $product->box_stock = $product->stock / $product->unit_box;
         $product->save();
     }
 

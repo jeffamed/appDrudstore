@@ -51,6 +51,10 @@
                     <label class="form-control-label" for="type">Tipo</label>
                     <vue-select v-model="form.type_id" :options="types" label-by="name" value-by="id" placeholder="Seleccione la Tipo" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
                 </div>
+                <div class="col-md-4">
+                    <label class="form-control-label" for="unit">Unidades en Caja</label>
+                    <input type="number" name="cost"  min="0" class="form-control" placeholder="00" v-model="form.unit_box">
+                </div>
             </div>
             <div class="row form-group">
                 <hr>
@@ -117,6 +121,7 @@ export default {
             discount: 0,
             stock: 0,
             box_stock: 0,
+            unit_box: 0,
             expire_at: '',
             supplier_id: 0,
             laboratory_id: 0,
@@ -147,6 +152,7 @@ export default {
             form.discount = 0;
             form.stock = 0;
             form.box_stock = 0;
+            form.unit_box = 0;
             form.expire_at = '';
             form.supplier_id = 0;
             form.laboratory_id = 0;

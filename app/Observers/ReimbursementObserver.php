@@ -43,7 +43,8 @@ class ReimbursementObserver
         if($details){
             foreach ($details as $detail){
                 $product = Product::find($detail->product_id);
-                $product->stock = $product->stock + $detail->qty;
+                $product->box_stock = $product->box_stock + $detail->qty;
+                $product->stock = $product->box_stock * $product->unit_box;
                 $product->save();
             }
         }

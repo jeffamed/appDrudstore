@@ -52,8 +52,8 @@
                 <vue-select v-model="product.type_id" :options="types" label-by="name" :placeholder="product.tipo" value-by="id" clear-on-select close-on-select searchable class="form-control" style="width: 100%"></vue-select>
             </div>
             <div class="col-md-4">
-                <label class="form-control-label" for="expire_at">Fecha de Expiración</label>
-                <input type="date" name="expire_at" class="form-control" v-model="product.expire_at">
+                <label class="form-control-label" for="unit">Unidades en Caja</label>
+                <input type="number" name="cost" min="0" class="form-control" placeholder="00" v-model="product.unit_box">
             </div>
         </div>
         <div class="row form-group">

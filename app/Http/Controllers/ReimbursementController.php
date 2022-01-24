@@ -8,6 +8,7 @@ use App\Models\ReimbursementDetails;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ReimbursementController extends Controller
@@ -93,5 +94,18 @@ class ReimbursementController extends Controller
         $reimbursement->delete();
 
         return response()->json('Eliminado Correctamente');
+    }
+
+    public function findSupplier($supplier)
+    {
+        $reimbursements = collect(DB::table('reimbursements')
+            ->join('suppliers', 'reimbursements.supplier_id','=', 'suppliers.id')
+            ->where([['suppliers.id', $supplier],['reimbursements.status', 'No Aplicado']])
+            ->whereNull('reimbursements.deleted_at')
+            ->select( 'reimbursements.id', 'reimbursements.total')
+            ->take(50)
+            ->get());
+
+        return response()->json($reimbursements);
     }
 }

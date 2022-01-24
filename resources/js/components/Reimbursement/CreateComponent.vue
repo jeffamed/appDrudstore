@@ -29,9 +29,13 @@
                         label="num_order"
                     />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label class="ml-3 form-control-label" for="name">Total de la compra $:</label>
-                    <input type="number" class="form-control" disabled :value="totalOrder">
+                    <input type="text" class="form-control" disabled :value="totalOrder">
+                </div>
+                <div class="col-md-2">
+                    <label class="ml-3 form-control-label" for="name">IVA $:</label>
+                    <input type="text" class="form-control" disabled :value="iva">
                 </div>
             </div>
 
@@ -52,6 +56,7 @@
                             <th class="text-center">F.Venc</th>
                             <th class="text-center">Cantidad</th>
                             <th class="text-center">P. Compra</th>
+                            <th class="text-center">Desc %</th>
                             <th class="text-center">Devolver</th>
                             <th class="text-center">Total</th>
                         </tr>
@@ -63,17 +68,18 @@
                                 <td width="10%" height="42px" class="p-0 text-center">{{ moment(product.expire).format('DD/MM/Y') }}</td>
                                 <td width="10%" height="42px" class="p-0 text-center">{{ product.order }}</td>
                                 <td width="10%" height="42px" class="p-0 text-center">{{ product.unitPrice }}</td>
-                                <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.reimbursement" min="0" :max="product.order"></td>
-                                <td width="10%" height="42px" class="p-0 text-center">{{ parseFloat((product.unitPrice * product.reimbursement)).toFixed(2) }}</td>
+                                <td width="10%" height="42px" class="p-0 text-center">{{ product.discountOrder }}</td>
+                                <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.reimbursement" min="0" :max="product.order" style="background: transparent"></td>
+                                <td width="10%" height="42px" class="p-0 text-center">{{ parseFloat((product.unitPrice * product.reimbursement) - ((product.discountOrder/100)*(product.unitPrice * product.reimbursement))).toFixed(2) }}</td>
                             </tr>
                             <tr v-else>
-                                <td colspan="7" class="text-center">Seleccione una compra</td>
+                                <td colspan="8" class="text-center">Seleccione una compra</td>
                             </tr>
                         </tbody>
                         <tfoot v-show="products.length">
                             <tr>
-                                <td colspan="6">Total de la devolución:</td>
-                                <td class="font-weight-bold text-center">{{ totalReimbursement }}</td>
+                                <td colspan="7">Total de la devolución:</td>
+                                <td class="font-weight-bold text-center">$ {{ totalReimbursement }}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -118,6 +124,7 @@ export default {
         const supplier = ref([]);
         const order = ref('');
         const totalOrder = ref(0);
+        const iva = ref(0);
         const {getOrderSupplier, orders} = useOrder()
         const {allSuppliers, suppliers} = useSuppliers();
         const {searchProduct, products} = useProducts();
@@ -126,22 +133,35 @@ export default {
         const totalReimbursement = computed(() => {
             let sum = 0;
             for (let i = 0; i < products.value.length; i++) {
-                sum = parseFloat(sum) + (parseFloat(products.value[i].reimbursement * products.value[i].unitPrice) );
+                let calc = parseFloat(products.value[i].reimbursement * products.value[i].unitPrice);
+                sum = parseFloat(sum) + ( calc - ((products.value[i].discountOrder / 100) * calc) );
             }
+            let ivacalc = iva.value ? 12 : 0;
+            sum = sum + ((ivacalc / 100) * sum);
             return parseFloat(sum).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
 
         allSuppliers();
 
         const save = async () => {
+            let total = parseFloat(totalReimbursement.value.replace(',', '')).toFixed(2)
             let form = {
                 'supplier_id' : supplier.value,
                 'order_id' : order.value,
-                'total' : totalReimbursement.value.replace(',', ''),
+                'total' : total,
                 'products' : products.value,
             };
             await saveReimbursement(form);
             await errors;
+            await clear();
+        }
+
+        const clear = () => {
+            supplier.value = [];
+            order.value = '';
+            totalOrder.value = 0;
+            iva.value = 0;
+            errorTable.value = false;
         }
 
         watch(supplier, async () => {
@@ -154,11 +174,12 @@ export default {
             products.value = {};
             let find = orders.value.find(  or => or.id === order.value);
             totalOrder.value = parseFloat(find.total).toFixed(2);
-            await searchProduct('order', order.value)
+            iva.value = parseFloat(find.iva).toFixed(2);
+            await searchProduct('reimbursement', order.value)
             await products;
         });
 
-        return{ supplier, suppliers, orders, order, products, totalReimbursement, totalOrder, save, errors }
+        return{ supplier, suppliers, orders, order, products, totalReimbursement, totalOrder, save, errors, iva}
     }
 }
 </script>

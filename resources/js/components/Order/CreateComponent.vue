@@ -28,6 +28,25 @@
                 <input type="text" name="name" class="form-control bg-white" placeholder="Dirección del proveedor" disabled v-model="detailsSupplier.address">
             </div>
         </div>
+        <div v-show="reimbursements.length">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <label class="ml-3 form-control-label" for="name">Nota de Crédito (Devolución) $</label>
+                </div>
+                <div class="col-md-12">
+                    <Multiselect
+                        v-model="form.reimbursement"
+                        placeholder="Seleccione una opción"
+                        valueProp="id"
+                        noOptionsText="La lista esta vacía"
+                        :searchable="true"
+                        :options="reimbursements"
+                        trackBy="total"
+                        label="total"
+                    />
+                </div>
+            </div>
+        </div>
     </div>
     <!--Formulario de producto-->
     <div class="container pb-1 pt-2 mb-3 shadow mt-1 bg-white">
@@ -43,15 +62,12 @@
             </div>
             <div class="col-md-7">
                 <label class="ml-3 form-control-label" for="product">Nombre</label>
-                <input type="text" name="product" id="txtPName" class="form-control bg-white" placeholder="Nombre del Producto + Presentacion" disabled>
+                <input type="text" name="product" id="txtPName" class="form-control bg-white" placeholder="Nombre del Producto * Presentación" disabled>
             </div>
             <div class="col-md-2">
                 <label class="ml-3 form-control-label" for="product">Stock Act.</label>
                 <input type="text" name="product" id="txtPStock" class="form-control bg-white" placeholder="00" disabled>
             </div>
-        </div>
-        <div class="row from-group">
-
         </div>
         <div class="row form-group">
             <div class="col-md-3">
@@ -82,7 +98,7 @@
             </div>
             <!--table-->
             <div class="col-md-12 mt-3">
-                <table class="table table-bordered table-striped table-sm">
+                <table class="table table-bordered table-striped table-sm m-0">
                     <thead>
                         <tr>
                             <th width="5%">Eliminar</th>
@@ -108,20 +124,40 @@
                             <td class="text-center">{{ detail.orderQty }}</td>
                             <td class="text-center"> {{ detail.unitPrice }}</td>
                             <td class="text-center">{{ detail.discount }}</td>
-                            <td class="text-center"> {{ (detail.unitPrice * detail.orderQty) - ((detail.unitPrice * detail.orderQty) * (detail.discount/100)) }}</td>
+                            <td class="text-center"> {{ parseFloat((detail.unitPrice * detail.orderQty) - ((detail.unitPrice * detail.orderQty) * (detail.discount/100))).toFixed(2) }}</td>
                         </tr>
                         <tr v-else>
                             <td colspan="8" class="text-center">No se ha registrado ningun producto...</td>
                         </tr>
                     </tbody>
-                    <tfoot class="border-top">
-                        <tr v-show="detailsOrder.length">
-                            <td colspan="5" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
+                    <tfoot class="border-top" v-show="detailsOrder.length">
+                        <tr >
+                            <td colspan="4" class="font-weight-bold">Total Productos Registrados: {{ total }}</td>
                             <td class="text-center">{{ totalQty }}</td>
                             <td class="text-center"></td>
-                            <td class="text-center font-weight-bold bg-success text-white">$ {{ totalOrder }}</td>
+                            <td class="text-center"></td>
+                            <td class="text-center font-weight-bold">$ {{ subtotalOrder }}</td>
                         </tr>
                     </tfoot>
+                </table>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-4" v-show="detailsOrder.length">
+                <table class="table table-bordered table-striped table-sm">
+                    <tr>
+                        <td colspan="7" class="text-center font-weight-bold">SubTotal: </td>
+                        <td class="text-center font-weight-bold">$ {{ subtotalOrder }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <input type="checkbox" id="checkbox" v-model.number="form.iva" class="form-check-input" true-value="12" false-value="0">
+                            <label class="form-check-label pl-1" for="checkbox">IVA {{ form.iva }}%: </label>
+                        </td>
+                        <td class="text-center">$ {{ calcIva }}</td>
+                    </tr>
+                    <tr><td colspan="7" class="text-center font-weight-bold">Total:</td>
+                        <td class="text-center font-weight-bold bg-success text-white">$ {{ totalOrder }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -160,8 +196,8 @@
                                     <th>Producto</th>
                                     <th class="text-center">F.Venc</th>
                                     <th class="text-center">Cant.</th>
-                                    <th class="text-center">Precio</th>
-                                    <th class="text-center">P.Sug</th>
+                                    <th class="text-center">P.Vnt</th>
+                                    <th class="text-center">P.Comp</th>
                                     <th class="text-center">Desc.</th>
                                     <th class="text-center">Agr.</th>
                                 </tr>
@@ -170,11 +206,11 @@
                                     <tr v-if="products.length" v-for="(product, index) in products" :key="index">
                                         <td>{{ product.code }}</td>
                                         <td width="40%">{{ product.name }} * {{ product.presentation.name }}</td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="date" v-model="product.expireOrder"> </td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.qtyOrder"></td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.costOrder"> </td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.pvp"> </td>
-                                        <td width="5%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.discountOrder"></td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable bg-transparent" type="date" v-model="product.expireOrder"> </td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable bg-transparent" type="number" v-model="product.qtyOrder"></td>
+                                        <td width="10%" height="42px" class="p-0 text-center"> {{ parseFloat(product.cost).toFixed(2) }} </td>
+                                        <td width="10%" height="42px" class="p-0 text-center"> {{ parseFloat(product.price).toFixed(2) }} </td>
+                                        <td width="5%" height="42px" class="p-0"><input class="border-0 inputTable bg-transparent" type="number" step="0.01" v-model="product.discountOrder"></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-success btn-sm" @click="addProd(product)">
                                                 <i class="icon-plus"></i>
@@ -187,7 +223,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <span class="help-block text-danger" id="errorTable" style="display: none">(*) La cantidad o el precio del producto que desea registrar no puede estar en cero</span>
+                        <span class="help-block text-danger" id="errorTable" style="display: none">(*) La cantidad y/o fecha de expiración del producto que desea registrar no puede estar vacío.</span>
                     </div>
                 </div>
             </div>
@@ -201,15 +237,18 @@
 import Swal from "sweetalert2";
 import {computed, reactive, ref, watch} from "vue";
 import VueSelect from 'vue-next-select';
+import Multiselect from "@vueform/multiselect";
 import 'vue-next-select/dist/index.min.css';
 import {useSuppliers} from "../../composables/useSuppliers";
 import {useProducts} from "../../composables/useProducts";
 import {useToast} from "../../composables/useToast";
 import {useOrder} from "../../composables/useOrder";
+import {useReimbursement} from "../../composables/useReimbursement";
 export default {
     name: "CreateComponent",
     components:{
-        VueSelect
+        VueSelect,
+        Multiselect
     },
     setup(){
         const form = reactive({
@@ -219,6 +258,8 @@ export default {
             discount: 0,
             expire_at: '',
             priceSuggest: 0,
+            iva: 0,
+            reimbursement: 0,
         });
         const order = reactive({
             num_order: '',
@@ -227,6 +268,7 @@ export default {
             subtotal : 0,
             total : 0,
             discount : 0,
+            reimbursement : 0
         });
         const detailsSupplier = reactive({
             phone: '',
@@ -239,26 +281,51 @@ export default {
         const total = computed(()=>{
             let sum = 0;
             sum = sum + detailsOrder.value.length;
-
             return sum;
+        });
+        const subtotalOrder = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsOrder.value.length; i++) {
+                let calc = parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice).toFixed(2)
+                let desc = parseFloat((detailsOrder.value[i].discount/100) * calc);
+                sum += parseFloat(calc) - parseFloat(desc);
+            }
+            return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        });
+        const calcIva = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsOrder.value.length; i++) {
+                let calc = parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice).toFixed(2)
+                let desc = parseFloat((detailsOrder.value[i].discount/100) * calc);
+                sum += parseFloat(calc) - parseFloat(desc);
+            }
+            let iva = sum * (parseInt(form.iva) / 100);
+
+            return iva.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
         const totalOrder = computed(() => {
             let sum = 0;
             for (let i = 0; i < detailsOrder.value.length; i++) {
-                sum = parseFloat(sum) + (parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice) - detailsOrder.value[i].discount );
+                let calc = parseFloat(detailsOrder.value[i].orderQty * detailsOrder.value[i].unitPrice).toFixed(2)
+                let desc = parseFloat((detailsOrder.value[i].discount/100) * calc);
+                sum += parseFloat(calc) - parseFloat(desc);
             }
-            return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            let iva = sum * (parseInt(form.iva) / 100);
+            let total = parseFloat(sum + iva);
+
+            return parseFloat(total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
         const totalQty = computed(() => {
             let sum = 0;
             for (let i = 0; i < detailsOrder.value.length; i++) {
                 sum = parseFloat(sum) + parseFloat(detailsOrder.value[i].orderQty);
             }
-            return sum.toFixed(2);
+            return sum;
         });
 
         const {allSuppliers, suppliers} = useSuppliers();
         const {searchProduct, products} = useProducts();
+        const {getReimbursementSupplier, reimbursements} = useReimbursement();
         const {errors, saveOrder} = useOrder();
         const {errorToast} = useToast();
 
@@ -318,7 +385,7 @@ export default {
         const addProd = (product) => {
             $("#errorTable").hide();
 
-            if(product.qtyOrder === 0 || product.costOrder === 0){
+            if(product.qtyOrder === 0 || product.expireOrder === ''){
                 $("#errorTable").show();
                 return;
             }
@@ -337,8 +404,8 @@ export default {
                     'code' : product.code,
                     'discount' : product.discountOrder,
                     'orderQty' : product.qtyOrder,
-                    'unitPrice' : product.costOrder,
-                    'priceSuggest' : product.pvp,
+                    'unitPrice' : product.cost,
+                    'priceSuggest' : product.price,
                     'expire_at': product.expireOrder,
                     'product' : product.name + " * " + product.presentation.name
                 };
@@ -379,6 +446,8 @@ export default {
             form.discount = 0;
             form.priceSuggest = 0;
             form.expire_at = '';
+            form.numOrder = '';
+            form.reimbursement = 0;
             $("#txtPName").val('');
             $("#txtPStock").val('');
         }
@@ -427,20 +496,48 @@ export default {
             $("#errorPrice").hide();
         }
 
+        const validationReimbursement = () => {
+            let correct = true;
+            if (form.reimbursement !== 0){
+                let total = parseInt(totalOrder.value.replace(',',''));
+                let temp = reimbursements.value.find(item => item.id);
+                if(parseInt(temp.total) > total){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Nota de Crédito',
+                        text:'La nota de crédito supera al total',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    form.reimbursement = 0;
+                    correct = false;
+                } else {
+                    correct =  true;
+                }
+            }
+            return correct;
+        }
+
         const save = async () => {
             let user = JSON.parse(localStorage.getItem('user'));
-            if (errors.value.length === 0){
-                order.num_order = form.numOrder;
-                order.supplier_id = supplier.value.id;
-                order.total = totalOrder.value.replace(',','');
-                order.discount = 0;
-                order.details = detailsOrder.value;
-                order.user_id = user.id;
+            order.num_order = form.numOrder;
+            order.supplier_id = supplier.value.id;
+            order.subtotal = parseFloat(subtotalOrder.value.replace(',','')).toFixed(2);
+            order.total = parseFloat(totalOrder.value.replace(',','')).toFixed(2);
+            order.iva = parseFloat(calcIva.value.replace(',','')).toFixed(2);
+            order.discount = 0;
+            order.details = detailsOrder.value;
+            order.user_id = user.id;
+            order.reimbursement = form.reimbursement;
+            if(validationReimbursement()){
                 await saveOrder(order);
                 await errors;
-                detailsOrder.value = [];
-                supplier.value = [];
-                clearProduct();
+                if (errors.value.length === 0){
+                    detailsOrder.value = [];
+                    supplier.value = [];
+                    clearProduct();
+                }
             }
         }
 
@@ -449,11 +546,11 @@ export default {
         watch(supplier, () => {
             detailsSupplier.phone = supplier.value.phone,
             detailsSupplier.address = supplier.value.address,
+            getReimbursementSupplier(supplier.value.id)
             $('#txtpCode').focus();
         });
 
-        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalOrder, totalQty, total, errors, save }
-
+        return {form, products, detailsOrder, suppliers, supplier, detailsSupplier, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, subtotalOrder, totalQty, total, errors, save, calcIva, totalOrder, reimbursements}
     }
 }
 </script>

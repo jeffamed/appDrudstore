@@ -29,6 +29,7 @@ Route::apiResource('role', 'RoleController');
 Route::apiResource('reimbursement', 'ReimbursementController')->except(['update']);
 Route::get('select-customer/{customer}', 'CustomerController@findSelect');
 Route::get('find-orders/{supplier}', 'OrderController@findSupplier');
+Route::get('find-reimbursements/{supplier}', 'ReimbursementController@findSupplier');
 Route::get('findcustomer/{id}', 'CustomerController@findId');
 Route::get('presentation-all', 'PresentationController@getAll');
 Route::get('laboratory-all', 'LaboratoryController@getAll');

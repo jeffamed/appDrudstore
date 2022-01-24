@@ -1,5 +1,5 @@
 import {ref} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useToast} from "./useToast";
 
 export function useOrder(){
@@ -7,6 +7,7 @@ export function useOrder(){
     const orders = ref([]);
     const pagination = ref([]);
     const route = useRoute();
+    const router = useRouter();
     const {successToast, errorToast} = useToast();
 
     const getOrders = async (search = '', condition = 'supplier_id') => {
@@ -30,7 +31,8 @@ export function useOrder(){
         errors.value = '';
         try {
             await axios.post('/api/order', data);
-            await successToast('Registrado')
+            await successToast('Registrado');
+            router.push({ name : 'order'});
         }catch (e) {
             errorToast();
             if (e.response.status == 422){

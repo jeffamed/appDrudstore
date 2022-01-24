@@ -6,9 +6,11 @@ use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
+use App\Models\Reimbursement;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -50,8 +52,7 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $order = Order::create($request->except('details'));
-
+        $order = Order::create($request->except('details','reimbursement'));
         if ($order){
             foreach ($request->details as $detail){
                 $dOrder = new OrderDetails();
@@ -62,8 +63,14 @@ class OrderController extends Controller
                 $dOrder->discount = $detail['discount'];
                 $dOrder->expire_at = $detail['expire_at'];
                 $dOrder->priceSuggest = $detail['priceSuggest'];
-                $dOrder->total = (($detail['orderQty'] * $detail['unitPrice']) - $detail['discount']);
+                $dOrder->total = (($detail['orderQty'] * $detail['unitPrice']) - (($detail['discount'])/100)*($detail['orderQty'] * $detail['unitPrice']));
                 $dOrder->save();
+            }
+            if($request->reimbursement > 0){
+               $reimbursement = Reimbursement::find($request->reimbursement);
+               $reimbursement->status = 'Aplicado';
+               $reimbursement->observation .= ' (*) Aplicado en la fecha '.now().' a la compra con # '.$order->num_order;
+               $reimbursement->save();
             }
         }
 
@@ -118,14 +125,21 @@ class OrderController extends Controller
 
     public function findSupplier($supplier)
     {
-        $orders = collect(DB::table('orders')
+        $data = collect(DB::table('orders')
             ->join('suppliers', 'orders.supplier_id','=', 'suppliers.id')
-            //->where('numOrder','like',$customer.'%')
             ->where('suppliers.id', $supplier)
             ->latest('orders.id')
-            ->select( 'orders.id', 'orders.total', 'orders.num_order')
+            ->select( 'orders.id', 'orders.total', 'orders.num_order', 'orders.iva')
             ->take(50)
             ->get());
+
+        $reimbursement = Reimbursement::pluck('order_id');
+        $orders = collect([]);
+        $data->each(function($data) use ($reimbursement, $orders){
+            if (!$reimbursement->search($data->id)){
+                $orders->push($data);
+            }
+        });
 
         return response()->json($orders);
     }

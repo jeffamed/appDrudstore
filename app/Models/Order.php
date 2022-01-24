@@ -13,7 +13,7 @@ class Order extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['created', 'total_format', 'subtotal_format', 'discount_format', 'proveedor'];
+    protected $appends = ['created', 'total_format', 'subtotal_format', 'proveedor'];
 
     public function supplier()
     {
@@ -48,11 +48,6 @@ class Order extends Model
     public function getSubtotalFormatAttribute()
     {
         return number_format($this->subtotal, 2);
-    }
-
-    public function getDiscountFormatAttribute()
-    {
-        return number_format($this->discount, 2);
     }
 
     public function getCreatedAttribute()

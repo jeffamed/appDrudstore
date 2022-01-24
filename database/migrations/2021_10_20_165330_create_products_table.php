@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->float('discount', 8, 2);
             $table->integer('stock');
             $table->float('box_stock', 8,2);
-            $table->date('expire_at');
+            $table->date('expire_at')->nullable();
             $table->unsignedBigInteger('laboratory_id')->nullable();
             $table->foreign('laboratory_id')->references('id')->on('laboratories');
             $table->unsignedBigInteger('type_id')->nullable();

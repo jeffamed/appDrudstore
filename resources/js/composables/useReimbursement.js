@@ -1,5 +1,5 @@
 import {ref} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useToast} from "./useToast";
 
 export function useReimbursement(){
@@ -7,6 +7,7 @@ export function useReimbursement(){
     const reimbursements = ref([]);
     const pagination = ref([]);
     const route = useRoute();
+    const router = useRouter();
     const {successToast, errorToast} = useToast();
 
     const getReimbursements = async (search = '', condition = 'reimbursement') => {
@@ -21,11 +22,17 @@ export function useReimbursement(){
         reimbursements.value = res.data;
     }
 
+    const getReimbursementSupplier = async(data) => {
+        let res = await axios.get(`/api/find-reimbursements/${data}`);
+        reimbursements.value = res.data;
+    }
+
     const saveReimbursement = async (data) => {
         errors.value = '';
         try {
             await axios.post('/api/reimbursement', data);
-            await successToast('Registrado')
+            await successToast('Registrado');
+            await router.push({name: 'reimbursement'});
         }catch (e) {
             errorToast();
             if (e.response.status == 422){
@@ -40,5 +47,5 @@ export function useReimbursement(){
         await axios.delete(`/api/reimbursement/${data}`);
     }
 
-    return { reimbursements, pagination, route, getReimbursements, saveReimbursement, deleteReimbursement, errors, getReimbursement };
+    return { reimbursements, pagination, route, getReimbursements, saveReimbursement, deleteReimbursement, errors, getReimbursement, getReimbursementSupplier };
 }

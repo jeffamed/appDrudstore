@@ -9,7 +9,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro de eliminar la {{title.toLowerCase()}} del {{ data.proveedor }} con el monto de ${{ data.total_format }}?</p>
+                    <p>¿Estás seguro de eliminar la {{title.toLowerCase()}} al {{ data.proveedor }} con el monto de ${{ data.total_format }}?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnClose">Cerrar</button>

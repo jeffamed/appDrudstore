@@ -40,7 +40,7 @@
                             <th>F.Exp.</th>
                             <th>Cantidad</th>
                             <th>Precio $</th>
-                            <th>Descuento</th>
+                            <th>Descuento %</th>
                             <th>Total $</th>
                         </tr>
                     </thead>
