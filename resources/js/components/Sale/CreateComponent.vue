@@ -16,7 +16,7 @@
                 <label class="ml-3 form-control-label" for="name">Buscar Cliente (Nombre o Cédula)</label>
                 <Multiselect
                     v-model="customer"
-                    placeholder="Seleccione al Cliente"
+                    placeholder="Ingrese el nombre del cliente"
                     :filter-results="false"
                     :min-chars="1"
                     valueProp="code"
@@ -62,16 +62,17 @@
         <div class="row from-group">
             <div class="col-md-3">
                 <label class="form-control-label" for="txtQuantity">Cantidad</label>
-                <input type="text" name="product" id="txtQuantity" class="form-control bg-white" placeholder="00" v-model.number="form.orderQty">
+                <input type="number" name="product" id="txtQuantity" class="form-control bg-white" placeholder="00" v-model.number="form.orderQty">
                 <span class="help-block text-danger" id="errorQty" style="display: none">(*) La cantidad no puede ser cero</span>
             </div>
             <div class="col-md-3">
                 <label class="form-control-label" for="txtPrice">Precio $</label>
-                <input type="text" name="product" id="txtPrice" class="form-control bg-white" placeholder="00" disabled v-model="form.unitPrice">
+                <input type="text" name="product" id="txtPrice" class="form-control" placeholder="00" disabled v-model="form.unitPrice">
             </div>
             <div class="col-md-3">
-                <label class="form-control-label" for="txtDiscount">Descuento $</label>
-                <input type="text" name="discount" id="txtDiscount" class="form-control bg-white" placeholder="00" v-model="form.discount">
+                <label class="form-control-label" for="txtDiscount">Descuento $ <small class="text-muted" v-show="maxDiscount === 0">(Producto sin descuento)</small></label>
+                <input type="number" name="discount" id="txtDiscount" :class="maxDiscount === 0 ? 'form-control' : 'form-control bg-white'" placeholder="00" v-model="form.discount" :max="maxDiscount" min="0" :disabled="maxDiscount === 0">
+
             </div>
             <div class="d-flex align-items-end">
                 <div class="col-md-1 d-flex align-items-end">
@@ -83,7 +84,7 @@
         <div class="row form-group">
             <!--table-->
             <div class="col-md-12 mt-3">
-                <table class="table table-bordered table-striped table-sm">
+                <table class="table table-bordered table-striped table-sm m-0">
                     <thead>
                     <tr>
                         <th width="5%">Eliminar</th>
@@ -105,9 +106,9 @@
                         <td>{{ detail.code }}</td>
                         <td width="40%">{{ detail.product }}</td>
                         <td class="text-center" >{{ detail.orderQty }}</td>
-                        <td class="text-center" > {{ detail.unitPrice }}</td>
-                        <td class="text-center" >{{ detail.discount }}</td>
-                        <td class="text-center" > {{ (detail.unitPrice * detail.orderQty) - detail.discount }}</td>
+                        <td class="text-center" > {{ parseFloat(detail.unitPrice).toFixed(2) }}</td>
+                        <td class="text-center" >{{ parseFloat(detail.discount).toFixed(2) }}</td>
+                        <td class="text-center" > {{ parseFloat((detail.unitPrice * detail.orderQty) - detail.discount).toFixed(2) }}</td>
                     </tr>
                     <tr v-else>
                         <td colspan="7" class="text-center">No se ha registrado ningun producto...</td>
@@ -119,9 +120,28 @@
                         <td class="text-center">{{ totalQty }}</td>
                         <td class="text-center"></td>
                         <td class="text-center">{{ totalDiscount }}</td>
-                        <td class="text-center font-weight-bold bg-success text-white">$ {{ totalSale }}</td>
+                        <td class="text-center font-weight-bold bg-success text-white">$ {{ subtotalSale }}</td>
                     </tr>
                     </tfoot>
+                </table>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-4" v-show="detailsSale.length">
+                <table class="table table-bordered table-striped table-sm">
+                    <tr>
+                        <td colspan="7" class="text-center font-weight-bold">SubTotal: </td>
+                        <td class="text-center font-weight-bold">$ {{ subtotalSale }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <input type="checkbox" id="checkbox" v-model.number="form.iva" class="form-check-input" true-value="12" false-value="0">
+                            <label class="form-check-label pl-1" for="checkbox">IVA {{ form.iva }}%: </label>
+                        </td>
+                        <td class="text-center">$ {{ calcIva }}</td>
+                    </tr>
+                    <tr><td colspan="7" class="text-center font-weight-bold">Total:</td>
+                        <td class="text-center font-weight-bold bg-success text-white">$ {{ totalSale }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -190,10 +210,10 @@
                                 <tr v-if="products.length" v-for="(product, index) in products" :key="index">
                                     <td>{{ product.code }}</td>
                                     <td width="45%">{{ product.name }} * {{ product.presentation.name }}</td>
-                                    <td height="42px" class="p-0"><input class="border-0 inputTable" type="number" :style="product.stock < 10 ? 'color: red' : ''" v-model="product.stock" disabled> </td>
-                                    <td width="12%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model.number="product.qtyOrder"></td>
-                                    <td width="13%" height="42px" class="p-0"><input class="border-0 inputTable font-weight-bold" type="number" v-model="product.price" disabled> </td>
-                                    <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model.number="product.discountOrder"></td>
+                                    <td height="42px" class="p-0"><input class="border-0 inputTable b-transparent" type="number" :style="product.stock < 10 ? 'color: red' : ''" v-model="product.stock" disabled> </td>
+                                    <td width="12%" height="42px" class="p-0"><input class="border-0 inputTable b-transparent" type="number" v-model.number="product.qtyOrder"></td>
+                                    <td width="13%" height="42px" class="p-0"><input class="border-0 inputTable b-transparent font-weight-bold" type="number" v-model="product.price" disabled> </td>
+                                    <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable b-transparent" type="number" step="0.01" v-model.number="product.discountOrder" min="0" :max="product.discount" :disabled="product.discount === 0"></td>
                                     <td width="auto" class="text-center">
                                         <button type="button" class="btn btn-success btn-sm" @click="addProd(product)">
                                             <i class="icon-plus"></i>
@@ -207,8 +227,8 @@
                             </table>
                         </div>
                         <span class="help-block text-danger" id="errorTable" style="display: none">(*) La cantidad del producto que desea registrar no puede ser cero</span>
-                        <br>
                         <span class="help-block text-danger" id="errorTable2" style="display: none">(*) No hay suficiente inventario</span>
+                        <span class="help-block text-danger" id="errorTable3" style="display: none">(*) Verifique, el descuento aplicado es mayor al permitido</span>
                     </div>
                 </div>
             </div>
@@ -307,6 +327,7 @@ export default {
             orderQty: 0,
             unitPrice: 0,
             discount: 0,
+            iva: 0,
         });
         const type = ref(false);
         const usage = ref([]);
@@ -319,17 +340,35 @@ export default {
         });
         const detailsSale = ref([]);
         const search = ref('');
+        const maxDiscount = ref('');
         const errorForm = ref(false);
         const total = computed(()=>{
             let sum = 0;
             sum = sum + detailsSale.value.length;
             return sum;
         });
+        const subtotalSale = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsSale.value.length; i++) {
+                sum = parseFloat(sum) + (parseFloat(detailsSale.value[i].orderQty * detailsSale.value[i].unitPrice) - detailsSale.value[i].discount );
+            }
+            return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        });
+        const calcIva = computed(() => {
+            let sum = 0;
+            for (let i = 0; i < detailsSale.value.length; i++) {
+                sum = parseFloat(sum) + (parseFloat(detailsSale.value[i].orderQty * detailsSale.value[i].unitPrice) - detailsSale.value[i].discount );
+            }
+            let iva = sum * (parseInt(form.iva) / 100);
+            return iva.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        });
         const totalSale = computed(() => {
             let sum = 0;
             for (let i = 0; i < detailsSale.value.length; i++) {
                 sum = parseFloat(sum) + (parseFloat(detailsSale.value[i].orderQty * detailsSale.value[i].unitPrice) - detailsSale.value[i].discount );
             }
+            let iva = sum * (parseInt(form.iva) / 100);
+            sum = sum + iva;
             return sum.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
         });
         const totalQty = computed(() => {
@@ -337,7 +376,7 @@ export default {
             for (let i = 0; i < detailsSale.value.length; i++) {
                 sum = parseFloat(sum) + parseFloat(detailsSale.value[i].orderQty);
             }
-            return sum.toFixed(2);
+            return sum;
         });
         const totalDiscount = computed(() => {
             let sum = 0;
@@ -396,7 +435,7 @@ export default {
                     $("#txtPName").val(products.value.name+" * "+ products.value.presentacion);
                     $("#txtStock").text(products.value.stock);
                     form.unitPrice = products.value.price;
-                    form.discount = products.value.discount;
+                    maxDiscount.value = products.value.discount;
                     $("#txtQuantity").focus().select();
                 }else{
                     Swal.fire({
@@ -438,6 +477,8 @@ export default {
 
         const addProd = (product) => {
             $("#errorTable").hide();
+            $("#errorTable2").hide();
+            $("#errorTable3").hide();
 
             if(product.qtyOrder === 0){
                 $("#errorTable").show();
@@ -446,6 +487,11 @@ export default {
 
             if(product.qtyOrder > product.stock){
                 $("#errorTable2").show();
+                return;
+            }
+
+            if(product.discountOrder > product.discount){
+                $("#errorTable3").show();
                 return;
             }
 
@@ -502,6 +548,7 @@ export default {
             form.orderQty = 0;
             form.unitPrice = 0;
             form.discount = 0;
+            maxDiscount.value = '';
             $("#txtPName").val('');
             $("#txtStock").text('');
             $("#txtPrice").val('');
@@ -534,6 +581,9 @@ export default {
                 errorToast();
                 $("#errorUpper").show();
                 error = true;
+            }else if (form.discount > products.value.discount){
+               Swal.fire('Verifique','El descuento no puede superar el monto comprado', 'error');
+                error = true;
             }
 
             errorForm.value = error;
@@ -550,6 +600,8 @@ export default {
         const save = async () => {
             let user = JSON.parse(localStorage.getItem('user'));
             sale.customer_id = customer.value;
+            sale.iva = calcIva.value.replace(',','');
+            sale.subtotal = subtotalSale.value.replace(',','');
             sale.total = totalSale.value.replace(',','');
             sale.discount = totalDiscount.value.replace(',','');
             sale.details = detailsSale.value;
@@ -587,7 +639,7 @@ export default {
            await searchProduct('usage', usage.value.id);
         });
 
-        return {formCustomer, errorsC, saveC, clearCustomer, form, type, usages, usage, products, detailsSale, customer, detailsCustomer, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, totalSale, totalQty, totalDiscount, total, errors, save, fetchCustomer }
+        return {formCustomer, errorsC, saveC, clearCustomer, form, type, usages, usage, products, detailsSale, customer, detailsCustomer, search, clearProduct, modalProduct, searchProd, addDetails, addProd, remove, subtotalSale, totalQty, totalDiscount, total, errors, save, fetchCustomer, maxDiscount, calcIva, totalSale }
 
     }
 }
@@ -612,5 +664,8 @@ export default {
     height: 100%;
     background: #f2f2f2;
     text-align: center;
+}
+.b-transparent{
+    background: transparent;
 }
 </style>

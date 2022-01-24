@@ -206,11 +206,11 @@
                                     <tr v-if="products.length" v-for="(product, index) in products" :key="index">
                                         <td>{{ product.code }}</td>
                                         <td width="40%">{{ product.name }} * {{ product.presentation.name }}</td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="date" v-model="product.expireOrder"> </td>
-                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" v-model="product.qtyOrder"></td>
-                                        <td width="10%" height="42px" class="p-0"> {{ parseFloat(product.cost).toFixed(2) }} </td>
-                                        <td width="10%" height="42px" class="p-0" > {{ parseFloat(product.price).toFixed(2) }} </td>
-                                        <td width="5%" height="42px" class="p-0"><input class="border-0 inputTable" type="number" step="0.01" v-model="product.discountOrder"></td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable bg-transparent" type="date" v-model="product.expireOrder"> </td>
+                                        <td width="10%" height="42px" class="p-0"><input class="border-0 inputTable bg-transparent" type="number" v-model="product.qtyOrder"></td>
+                                        <td width="10%" height="42px" class="p-0 text-center"> {{ parseFloat(product.cost).toFixed(2) }} </td>
+                                        <td width="10%" height="42px" class="p-0 text-center"> {{ parseFloat(product.price).toFixed(2) }} </td>
+                                        <td width="5%" height="42px" class="p-0"><input class="border-0 inputTable bg-transparent" type="number" step="0.01" v-model="product.discountOrder"></td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-success btn-sm" @click="addProd(product)">
                                                 <i class="icon-plus"></i>
