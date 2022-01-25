@@ -7,18 +7,32 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="border border-secondary p-1">
-                    <p class="font-weight-bold text-muted">Datos de Compra</p>
-                    <div class="d-flex justify-content-between">
-                        <p class="font-weight-bold font-lg mb-0 mr-5">Compra # {{ orders.id }} </p>
-                        <p class="text-muted">Fecha: {{orders.created}}</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="font-weight-bold text-muted">Datos de Compra</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="font-weight-bold font-lg mb-0 mr-5">Compra # {{ orders.id }} </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><span class="text-muted font-weight-bold">Fecha:</span> {{orders.created}}</p>
+                        </div>
                     </div>
-                    <div class="d-flex">
-                        <p class="w-25"><span class="text-muted">IVA:</span> {{orders.iva}}</p>
-                        <p class="w-25"><span class="text-muted">SubTotal:</span>$ {{orders.subtotal_format}}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><span class="text-muted font-weight-bold">IVA: </span> {{orders.iva}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><span class="text-muted font-weight-bold">SubTotal: </span>$ {{orders.subtotal_format}}</p>
+                        </div>
                     </div>
-                    <div class="d-flex">
-                        <p class="w-25"><span class="text-muted">Descuento:</span> {{orders.discount_format}}</p>
-                        <p class="w-25"><span class="text-muted">Total:</span>$ {{orders.total_format}}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><span class="text-muted font-weight-bold">Descuento:</span> {{orders.discount_format}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><span class="text-muted font-weight-bold">Total:</span>$ {{orders.total_format}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
