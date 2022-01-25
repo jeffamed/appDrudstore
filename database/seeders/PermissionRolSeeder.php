@@ -202,5 +202,21 @@ class PermissionRolSeeder extends Seeder
             'permission_id' => '47',
             'rol_id' => '1',
         ]);
+        DB::table('permission_rol')->insert([
+            'permission_id' => '48',
+            'rol_id' => '1',
+        ]);
+        DB::table('permission_rol')->insert([
+            'permission_id' => '49',
+            'rol_id' => '1',
+        ]);
+        DB::table('permission_rol')->insert([
+            'permission_id' => '50',
+            'rol_id' => '1',
+        ]);
+        DB::table('permission_rol')->insert([
+            'permission_id' => '51',
+            'rol_id' => '1',
+        ]);
     }
 }

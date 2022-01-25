@@ -16,12 +16,12 @@
             <td v-text="item.stock"></td>
             <td>{{ item.expire_at ? moment(item.expire_at).format('DD/MM/Y') : 'N/A' }}</td>
             <td class="text-center">
-                <router-link v-show="btnUpdate" class="btn btn-warning btn-sm" :to="{ name: 'product.update', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
-                <button v-show="btnDelete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
+                <router-link v-if="btnUpdate" class="btn btn-warning btn-sm" :to="{ name: 'product.update', params: { id: item.id } }"><i class="icon-pencil"></i></router-link>
+                <button v-if="btnDelete" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar" @click="load(item)">
                     <i class="icon-trash"></i>
                 </button>
                 <router-link class="btn btn-info btn-sm" :to="{ name: 'product.show', params: { id: item.id } }"><i class="icon-eye"></i></router-link>
-                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalBonificacion" @click="load(item)"><i class="icon-plus"></i></button>
+                <button v-if="btnBonus" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalBonificacion" @click="load(item)"><i class="icon-plus"></i></button>
             </td>
         </tr>
         <tr v-else>
@@ -53,12 +53,13 @@ export default {
         const permissions = localStorage.getItem('permissions');
         const btnUpdate = computed(() => {return permissions.includes('product.update')})
         const btnDelete = computed(() => {return permissions.includes('product.delete')})
+        const btnBonus = computed(() => {return permissions.includes('product.bonus')})
 
         const load = (data) => {
             context.emit('load', data);
         }
 
-        return { load, btnDelete, btnUpdate };
+        return { load, btnDelete, btnUpdate , btnBonus};
     }
 }
 </script>

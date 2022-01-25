@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Devoluciones
-                <router-link :to="{ name: 'reimbursement.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
+                <router-link v-if="btnCreate" :to="{ name: 'reimbursement.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
             </div>
             <div class="card-body">
                 <search-component @search="findReimbursement" />
@@ -39,7 +39,7 @@ export default {
         const {getReimbursements, pagination, reimbursements, route, deleteReimbursement} = useReimbursement();
         const { successToast } = useToast();
         const permissions = localStorage.getItem('permissions');
-        const btnCreate = computed(() => {return permissions.includes('order.create')})
+        const btnCreate = computed(() => {return permissions.includes('reimbursement.create')})
 
         const loadReimbursement = (data) => {
             reimbursement.value = { ...data };

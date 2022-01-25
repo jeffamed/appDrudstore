@@ -12,22 +12,22 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-social-dropbox"></i> Almacén</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link v-show="enableProduct" :to="{ name : 'product' }" class="nav-link"><i class="icon-bag"></i> Productos</router-link>
+                            <router-link v-if="enableProduct" :to="{ name : 'product' }" class="nav-link"><i class="icon-bag"></i> Productos</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableLocation" :to="{ name : 'location' }" class="nav-link"><i class="icon-location-pin"></i> Ubicación</router-link>
+                            <router-link v-if="enableLocation" :to="{ name : 'location' }" class="nav-link"><i class="icon-location-pin"></i> Ubicación</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableType" :to="{ name : 'type' }" class="nav-link"><i class="icon-folder"></i> Tipos</router-link>
+                            <router-link v-if="enableType" :to="{ name : 'type' }" class="nav-link"><i class="icon-folder"></i> Tipos</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enablePresentation" :to="{ name : 'presentation' }" class="nav-link"><i class="icon-present"></i> Presentación</router-link>
+                            <router-link v-if="enablePresentation" :to="{ name : 'presentation' }" class="nav-link"><i class="icon-present"></i> Presentación</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableUsage" :to="{ name : 'usage' }" class="nav-link"><i class="icon-list"></i> Usos</router-link>
+                            <router-link v-if="enableUsage" :to="{ name : 'usage' }" class="nav-link"><i class="icon-list"></i> Usos</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableLaboratory" :to="{ name : 'laboratory' }" class="nav-link"><i class="icon-chemistry"></i> Laboratorios</router-link>
+                            <router-link v-if="enableLaboratory" :to="{ name : 'laboratory' }" class="nav-link"><i class="icon-chemistry"></i> Laboratorios</router-link>
                         </li>
                     </ul>
                 </li>
@@ -35,13 +35,13 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Compras</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link v-show="enableOrder" :to="{ name : 'order' }" class="nav-link"><i class="icon-wallet"></i> Compras</router-link>
+                            <router-link v-if="enableOrder" :to="{ name : 'order' }" class="nav-link"><i class="icon-wallet"></i> Compras</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableSupplier" :to="{ name : 'supplier' }" class="nav-link"><i class="icon-notebook"></i> Proveedores</router-link>
+                            <router-link v-if="enableSupplier" :to="{ name : 'supplier' }" class="nav-link"><i class="icon-notebook"></i> Proveedores</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name : 'reimbursement' }" class="nav-link"><i class="icon-tag"></i> Devoluciones</router-link>
+                            <router-link v-if="enableReimbursement" :to="{ name : 'reimbursement' }" class="nav-link"><i class="icon-tag"></i> Devoluciones</router-link>
                         </li>
                     </ul>
                 </li>
@@ -49,10 +49,10 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-basket"></i> Ventas</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link v-show="enableSales" :to="{ name : 'sale' }" class="nav-link"><i class="icon-basket-loaded"></i> Ventas</router-link>
+                            <router-link v-if="enableSales" :to="{ name : 'sale' }" class="nav-link"><i class="icon-basket-loaded"></i> Ventas</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableCustomer" :to="{ name : 'customer' }" class="nav-link"><i class="icon-people"></i> Clientes</router-link>
+                            <router-link v-if="enableCustomer" :to="{ name : 'customer' }" class="nav-link"><i class="icon-people"></i> Clientes</router-link>
 
                         </li>
                     </ul>
@@ -61,10 +61,10 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-people"></i> Acceso</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <router-link v-show="enableUser" class="nav-link" :to="{ name : 'user' }"><i class="icon-user"></i> Usuarios</router-link>
+                            <router-link v-if="enableUser" class="nav-link" :to="{ name : 'user' }"><i class="icon-user"></i> Usuarios</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-show="enableRole" class="nav-link" :to="{ name : 'role' }"><i class="icon-user-following"></i> Roles</router-link>
+                            <router-link v-if="enableRole" class="nav-link" :to="{ name : 'role' }"><i class="icon-user-following"></i> Roles</router-link>
                         </li>
                     </ul>
                 </li>
@@ -72,10 +72,10 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Reportes</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" v-show="enableOrder" :href="void(0)" @click="reportOrder"><i class="icon-chart"></i> Reporte Ingresos</a>
+                            <a class="nav-link" v-if="enableOrder" :href="void(0)" @click="reportOrder"><i class="icon-chart"></i> Reporte Ingresos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" v-show="enableSales" :href="void(0)" @click="reportSale"><i class="icon-chart"></i> Reporte Ventas</a>
+                            <a class="nav-link" v-if="enableSales" :href="void(0)" @click="reportSale"><i class="icon-chart"></i> Reporte Ventas</a>
                         </li>
                     </ul>
                 </li>
@@ -104,6 +104,7 @@ export default {
         const enableCustomer = computed(() => {return permissions.includes('customer')});
         const enableUser = computed(() => {return permissions.includes('user')});
         const enableRole = computed(() => {return permissions.includes('role')});
+        const enableReimbursement = computed(() => {return permissions.includes('reimbursement')});
         function openAlmacen(){
             if ($('#ddAlmacen').hasClass('open')){
                 $('#ddAlmacen').removeClass('open');
@@ -183,7 +184,7 @@ export default {
                     link.click();
                 });
         }
-        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole, reportSale, reportOrder}
+        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole, reportSale, reportOrder, enableReimbursement}
     }
 }
 </script>
