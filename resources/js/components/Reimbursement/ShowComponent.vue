@@ -9,10 +9,10 @@
                 <div class="border border-secondary p-1">
                     <p class="font-weight-bold">Información del Proveedor</p>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <p ><span class="text-muted">R.U.C.:</span> {{ reimbursements.ruc }} </p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <p><span class="text-muted">Teléfono:</span> {{ reimbursements.phone }} </p>
                         </div>
                     </div>
@@ -22,19 +22,19 @@
                 <div class="border border-secondary p-1 mt-3">
                     <p class="font-weight-bold">Datos de la Devolución</p>
                     <div class="row">
-                        <div class="col-md-6">
-                            <p class="font-weight-bold font-lg w-25">Devolucion # {{ reimbursements.id }} </p>
+                        <div class="col-md-4">
+                            <p class="font-weight-bold font-lg">Devolucion # {{ reimbursements.id }} </p>
                         </div>
-                        <div class="col-md-6">
-                            <p><span class="text-muted w-25">Fecha:</span> {{ moment(reimbursements.created).format('DD/MM/Y') }} </p>
+                        <div class="col-md-8">
+                            <p><span class="text-muted">Fecha:</span> {{ moment(reimbursements.created).format('DD/MM/Y') }} </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <p class="w-25"><span class="text-muted">Total:</span>$ {{ reimbursements.total }} </p>
+                        <div class="col-md-4">
+                            <p><span class="text-muted">Total: </span> $ {{ reimbursements.total }} </p>
                         </div>
-                        <div class="col-md-6">
-                            <p class="w-25"><span class="text-muted">Observación:</span> {{ reimbursements.observation }} </p>
+                        <div class="col-md-8">
+                            <p><span class="text-muted">Observación:</span> {{ reimbursements.observation }} </p>
                         </div>
                     </div>
                 </div>
