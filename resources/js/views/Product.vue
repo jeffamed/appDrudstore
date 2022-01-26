@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Productos
-                <router-link v-show="btnCreate" :to="{ name: 'product.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
+                <router-link v-if="btnCreate" :to="{ name: 'product.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
                 <button class="btn btn-sm btn-success float-right" @click="download"><span class="icon-cloud-download"></span></button>
             </div>
             <div class="card-body">

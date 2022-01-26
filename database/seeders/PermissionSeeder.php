@@ -205,5 +205,21 @@ class PermissionSeeder extends Seeder
             'name' => 'role.delete',
             'label' => 'Eliminar Roles',
         ]);
+        DB::table('permissions')->insert([
+            'name' => 'product.bonus',
+            'label' => 'Agregar Bonificación',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'reimbursement',
+            'label' => 'Devoluciones',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'reimbursement.create',
+            'label' => 'Crear Devolución',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'reimbursement.delete',
+            'label' => 'Eliminar Devolución',
+        ]);
     }
 }

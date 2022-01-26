@@ -61,10 +61,14 @@ class LoginController extends Controller
             ?: redirect()->intended($this->redirectPath());
     }
 
-    public function verified()
+    public function verified(User $user)
     {
-        $user = Auth::user() ?? 'unauthorization';
-        return response()->json($user);
+        $permissions = [];
+        foreach ($user->rol->permissions as $permission){
+            $permissions[] = $permission->name;
+        }
+        $user->permissions = $permissions;
+        return $user->permissions;
     }
 
     public function logout(Request $request)

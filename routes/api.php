@@ -47,7 +47,5 @@ Route::get('report_sale', 'SaleController@reportSale')->name('reportSale');
 Route::get('report_order', 'OrderController@reportOrder')->name('reportOrder');
 
 Route::post('login', 'LoginController@login');
-Route::get('verified', function (Request $request){
-    return $request->user();
-});
+Route::get('verified/{user}', 'LoginController@verified');
 Route::post('logout', 'LoginController@logout');
