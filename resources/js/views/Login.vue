@@ -42,8 +42,12 @@
 <script>
 import {reactive, ref} from 'vue';
 import {useRouter} from 'vue-router';
+import moment from 'moment';
 export default {
     name: "Login",
+    created: function () {
+        this.moment = moment;
+    },
     setup(){
         const form = reactive({
             email: '',
@@ -66,8 +70,10 @@ export default {
                     delete rsp.data.email_verified_at
                     localStorage.setItem('user', JSON.stringify(rsp.data));
                     localStorage.setItem('permissions', JSON.stringify(rsp.data.permissions));
+                    localStorage.setItem('time_session', moment().add(1, 'days').format('Y-MM-DD'));
                     router.push({ name: 'dashboard'})
                 }).catch(e => {
+                    errors.value = '';
                     if (e.response.status == 422){
                         for (const key in e.response.data.errors) {
                             errors.value += e.response.data.errors[key][0] + ' / ';

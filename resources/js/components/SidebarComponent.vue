@@ -72,10 +72,13 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Reportes</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" v-if="enableOrder" :href="void(0)" @click="reportOrder"><i class="icon-chart"></i> Reporte Ingresos</a>
+                            <a class="nav-link" v-if="enableOrder" href="#" @click.prevent="reportOrder"><i class="icon-chart"></i> Reporte Ingresos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" v-if="enableSales" :href="void(0)" @click="reportSale"><i class="icon-chart"></i> Reporte Ventas</a>
+                            <a class="nav-link" v-if="enableSales" href="#" @click.prevent="reportSale"><i class="icon-chart"></i> Reporte Ventas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" v-if="enableProduct" href="#" @click.prevent="download"><i class="icon-chart"></i> Reporte Inventarios</a>
                         </li>
                     </ul>
                 </li>
@@ -184,7 +187,20 @@ export default {
                     link.click();
                 });
         }
-        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole, reportSale, reportOrder, enableReimbursement}
+
+        const download = () => {
+            axios({ url: '/api/all_product', method: 'GET', responseType: 'blob'})
+                .then(response=>{
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'Inventario.pdf');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        }
+
+        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole, reportSale, reportOrder, enableReimbursement, download}
     }
 }
 </script>

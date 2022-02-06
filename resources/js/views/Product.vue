@@ -5,7 +5,6 @@
             <div class="card-header">
                 <i class="fa fa-align-justify"></i> Productos
                 <router-link v-if="btnCreate" :to="{ name: 'product.create' }" class="btn btn-secondary"><i class="icon-plus"></i> Nuevo</router-link>
-                <button class="btn btn-sm btn-success float-right" @click="download"><span class="icon-cloud-download"></span></button>
             </div>
             <div class="card-body">
                 <search-component @search="findProduct" />
@@ -89,18 +88,6 @@ export default {
             await successToast('Eliminado');
         }
 
-        const download = () => {
-            axios({ url: '/api/all_product', method: 'GET', responseType: 'blob'})
-            .then(response=>{
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'Inventario.pdf');
-                document.body.appendChild(link);
-                link.click();
-            });
-        }
-
         const addBonus = () => {
             let bonif = {
                 cantidad : bonus.value
@@ -120,7 +107,7 @@ export default {
 
         onMounted(getProducts);
 
-        return {products, bonus, pagination, product, loadProduct, destroyProduct, findProduct, btnCreate, download, addBonus}
+        return {products, bonus, pagination, product, loadProduct, destroyProduct, findProduct, btnCreate, addBonus}
     }
 }
 </script>
