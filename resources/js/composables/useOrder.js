@@ -5,6 +5,7 @@ import {useToast} from "./useToast";
 export function useOrder(){
     const errors = ref('');
     const orders = ref([]);
+    const sup = ref([]);
     const pagination = ref([]);
     const route = useRoute();
     const router = useRouter();
@@ -20,6 +21,7 @@ export function useOrder(){
     const getOrder = async(data) => {
         let res = await axios.get(`/api/order/${data}`);
         orders.value = res.data;
+        sup.value = orders.value.supplier;
     }
 
     const getOrderSupplier = async(data) => {
@@ -47,5 +49,5 @@ export function useOrder(){
         await axios.delete(`/api/order/${data}`);
     }
 
-    return { orders, pagination, route, getOrders, saveOrder, deleteOrder, errors, getOrder, getOrderSupplier };
+    return { orders, pagination, route, getOrders, saveOrder, deleteOrder, errors, getOrder, getOrderSupplier, sup };
 }

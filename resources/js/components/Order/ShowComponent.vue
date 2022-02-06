@@ -11,27 +11,27 @@
                         <div class="col-md-12">
                             <p class="font-weight-bold text-muted">Datos de Compra</p>
                         </div>
-                        <div class="col-md-6">
-                            <p class="font-weight-bold font-lg mb-0 mr-5">Compra # {{ orders.id }} </p>
+                        <div class="col-md-12">
+                            <p class="font-weight-bold font-lg mr-5">Compra # {{ orders.num_order }} </p>
                         </div>
                         <div class="col-md-6">
-                            <p><span class="text-muted font-weight-bold">Fecha:</span> {{orders.created}}</p>
+                            <p><span class="text-muted font-weight-bold">Ref # </span>{{ orders.id }} </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><span class="text-muted font-weight-bold">Fecha: </span> {{orders.created}}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <p><span class="text-muted font-weight-bold">IVA: </span> {{orders.iva}}</p>
-                        </div>
                         <div class="col-md-6">
                             <p><span class="text-muted font-weight-bold">SubTotal: </span>$ {{orders.subtotal_format}}</p>
                         </div>
+                        <div class="col-md-6">
+                            <p><span class="text-muted font-weight-bold">IVA: </span>$ {{orders.iva}}</p>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <p><span class="text-muted font-weight-bold">Descuento:</span> {{orders.discount_format}}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><span class="text-muted font-weight-bold">Total:</span>$ {{orders.total_format}}</p>
+                            <p class="font-weight-bold"><span class="text-muted font-weight-bold">Total: </span>$ {{orders.total_format}}</p>
                         </div>
                     </div>
                 </div>
@@ -39,10 +39,10 @@
             <div class="col-md-6">
                 <div class="border border-secondary p-1">
                     <p class="font-weight-bold text-muted">Información del Proveedor</p>
-                    <p><span class="font-weight-bold">R.U.C.:</span> {{ orders.supplier.ruc }}</p>
-                    <p class="font-lg"><span class="font-weight-bold">Proveedor: </span>{{orders.supplier.name}}</p>
-                    <p class="font-lg"><span class="font-weight-bold">Teléfono: </span>{{orders.supplier.phone}}</p>
-                    <p><span class="font-weight-bold">Dirección: </span>{{orders.supplier.address}}</p>
+                    <p><span class="font-weight-bold">R.U.C.:</span> {{ sup.ruc }}</p>
+                    <p class="font-lg"><span class="font-weight-bold">Proveedor: </span>{{ sup.name }}</p>
+                    <p class="font-lg"><span class="font-weight-bold">Teléfono: </span>{{ sup.phone }}</p>
+                    <p><span class="font-weight-bold">Dirección: </span>{{ sup.address }}</p>
                 </div>
             </div>
             <div class="col-md-12 my-3">
@@ -51,7 +51,7 @@
                         <tr>
                             <th>#</th>
                             <th>Producto</th>
-                            <th>F.Exp.</th>
+                            <th>F.Expiración</th>
                             <th>Cantidad</th>
                             <th>Precio $</th>
                             <th>Descuento %</th>
@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
                 <router-link :to="{name: 'order'}" class="btn btn-secondary">Regresar</router-link>
             </div>
         </div>
@@ -88,15 +88,15 @@ export default {
     props: {
         id : {
             required: true,
-            type: String,
+            type: Number,
         }
     },
     setup(props){
-        const { getOrder, orders } = useOrder();
+        const { getOrder, orders, sup } = useOrder();
 
         getOrder(props.id);
 
-        return {orders};
+        return {orders, sup};
     }
 }
 </script>

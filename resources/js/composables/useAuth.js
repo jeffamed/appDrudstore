@@ -17,6 +17,7 @@ export function useAuth(){
         let rsp = await axios.post('/api/logout');
         localStorage.removeItem('user');
         localStorage.removeItem('permissions');
+        localStorage.removeItem('time_session')
         router.push({ name: 'login'});
     }
 

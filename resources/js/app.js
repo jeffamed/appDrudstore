@@ -10,8 +10,10 @@ import axios from "axios";
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import permissionreload from "./module/permission";
+import verifySession from "./module/verifySession";
 
 permissionreload();
+verifySession();
 const app = createApp(App);
 
 /*componente importados de manera global*/

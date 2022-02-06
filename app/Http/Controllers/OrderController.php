@@ -143,4 +143,14 @@ class OrderController extends Controller
 
         return response()->json($orders);
     }
+
+    public function document(Order $order)
+    {
+        $supplier = Supplier::find($order->supplier_id);
+
+        $details = OrderDetails::with('product')->where('order_id', $order->id)->get();
+
+        $pdf = \PDF::loadView('report.document_order', compact('order','supplier','details'))->setPaper('letter', 'landscape');
+        return $pdf->download('compra.pdf');
+    }
 }

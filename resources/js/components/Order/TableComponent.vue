@@ -8,7 +8,7 @@
         <tbody>
         <tr v-for="item in data" :key="item.id" v-if="data.length">
             <td class="text-center" v-text="item.id"></td>
-            <td class="text-center" v-text="item.num_order"></td>
+            <td v-text="item.num_order"></td>
             <td v-text="item.user.name"></td>
             <td v-text="item.proveedor"></td>
             <td class="text-center" v-text="item.subtotal_format"></td>
@@ -20,6 +20,7 @@
                     <i class="icon-trash"></i>
                 </button>
                 <router-link :to="{name:'order.show', params: { id: item.id } }" class="btn btn-sm btn-info text-white"><i class="icon-eye"></i></router-link>
+                <button class="btn btn-sm btn-success" @click="download(item.id,item.proveedor)"><span class="icon-cloud-download"></span></button>
             </td>
         </tr>
         <tr v-else>
@@ -41,7 +42,7 @@ export default {
         },
         header:{
             type: Array,
-            default: ['#','# Factura','Usuario', 'Proveedor','SubTotal $','IVA $','Total $', 'Registrado','Opc.']
+            default: ['#','Compra #','Usuario', 'Proveedor','SubTotal $','IVA $','Total $', 'Registrado','Opc.']
         }
     },
     setup(props, context)
@@ -51,8 +52,19 @@ export default {
         const load = (data) => {
             context.emit('load', data);
         }
+        const download = (id, supplier) => {
+            axios({ url: `/api/document-order/${id}`, method: 'GET', responseType: 'blob'})
+                .then(response=>{
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', `Compra-${supplier}.pdf`);
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        }
 
-        return { load, btnDelete };
+        return { load, btnDelete, download };
     }
 }
 </script>
