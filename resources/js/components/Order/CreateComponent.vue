@@ -446,7 +446,6 @@ export default {
             form.discount = 0;
             form.priceSuggest = 0;
             form.expire_at = '';
-            form.numOrder = '';
             form.reimbursement = 0;
             $("#txtPName").val('');
             $("#txtPStock").val('');
@@ -536,6 +535,7 @@ export default {
                 if (errors.value.length === 0){
                     detailsOrder.value = [];
                     supplier.value = [];
+                    form.numOrder = '';
                     clearProduct();
                 }
             }
