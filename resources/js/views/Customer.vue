@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <delete-component title="Cliente" body="al cliente" :data="customer.full_name" @delete="destroyCustomer" />
+    <delete-component title="Cliente" body="al cliente" :data="customer" @delete="destroyCustomer" />
 
     <!--Inicio del modal agregar-->
     <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
@@ -187,6 +187,7 @@ export default {
         }
 
         const destroyCustomer = async (id) => {
+            console.log(id);
             await deleteCustomer(id);
             await getCustomers();
             await successToast('Eliminado');
