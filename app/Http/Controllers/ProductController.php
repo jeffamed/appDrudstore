@@ -49,10 +49,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $product->laboratorio = $product->laboratory->name;
-        $product->presentacion = $product->presentation->name;
-        $product->ubicacion = $product->location->name;
-        $product->tipo = $product->type->name;
+        $product->laboratorio = optional($product->laboratory)->name;
+        $product->presentacion = optional($product->presentation)->name;
+        $product->ubicacion = optional($product->location)->name;
+        $product->tipo = optional($product->type)->name;
         $product->proveedor = optional($product->supplier)->name;
         $product->usage_id = $product->usages->map(function ($item, $key){
             return $item->id;
