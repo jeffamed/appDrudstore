@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="img/favicon.png">
-    <title>Farmacia - LaravelVue</title>
+    <title>Farmacia - Farmared's 257</title>
     <!-- Main styles for this application -->
     <link href="{{ config('app.env') === 'production' ? secure_asset('css/coreui.css') : asset('css/coreui.css') }}" rel="stylesheet">
 </head>
