@@ -53,7 +53,7 @@ class ProductController extends Controller
         $product->presentacion = $product->presentation->name;
         $product->ubicacion = $product->location->name;
         $product->tipo = $product->type->name;
-        $product->proveedor = $product->supplier->name;
+        $product->proveedor = optional($product->supplier)->name;
         $product->usage_id = $product->usages->map(function ($item, $key){
             return $item->id;
         });
