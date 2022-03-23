@@ -4,7 +4,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="javascript:void(0)" @click="dashboard"></a>
-        <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
+        <button class="navbar-toggler sidebar-toggler d-none" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
         <ul class="nav navbar-nav ml-auto">
