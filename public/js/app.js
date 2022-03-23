@@ -19719,11 +19719,11 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$props$data$name;
+  var _ref, _$props$data$full_nam;
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_5, "Eliminar " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
   /* TEXT */
-  ), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "¿Estás seguro de eliminar " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.body.length ? $props.body : $props.title.toLowerCase()) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(typeof $props.data === 'string' ? $props.data : (_$props$data$name = $props.data.name) !== null && _$props$data$name !== void 0 ? _$props$data$name : $props.data.description) + "?", 1
+  ), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "¿Estás seguro de eliminar " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.body.length ? $props.body : $props.title.toLowerCase()) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(typeof $props.data === 'string' ? $props.data : (_ref = (_$props$data$full_nam = $props.data.full_name) !== null && _$props$data$full_nam !== void 0 ? _$props$data$full_nam : $props.data.name) !== null && _ref !== void 0 ? _ref : $props.data.description) + "?", 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
