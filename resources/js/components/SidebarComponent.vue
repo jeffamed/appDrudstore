@@ -72,13 +72,13 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-pie-chart"></i> Reportes</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" v-if="enableOrder" href="#" @click.prevent="reportOrder"><i class="icon-chart"></i> Reporte Ingresos</a>
+                            <a class="nav-link" v-if="enableReportOrder" href="#" @click.prevent="reportOrder"><i class="icon-chart"></i> Reporte Ingresos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" v-if="enableSales" href="#" @click.prevent="reportSale"><i class="icon-chart"></i> Reporte Ventas</a>
+                            <a class="nav-link" v-if="enableReportSales" href="#" @click.prevent="reportSale"><i class="icon-chart"></i> Reporte Ventas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" v-if="enableProduct" href="#" @click.prevent="download"><i class="icon-chart"></i> Reporte Inventarios</a>
+                            <a class="nav-link" v-if="enableReportStock" href="#" @click.prevent="download"><i class="icon-chart"></i> Reporte Inventarios</a>
                         </li>
                     </ul>
                 </li>
@@ -108,6 +108,9 @@ export default {
         const enableUser = computed(() => {return permissions.includes('user')});
         const enableRole = computed(() => {return permissions.includes('role')});
         const enableReimbursement = computed(() => {return permissions.includes('reimbursement')});
+        const enableReportSales = computed(() => {return permissions.includes('report.sales')});
+        const enableReportOrder = computed(() => {return permissions.includes('report.order')});
+        const enableReportStock = computed(() => {return permissions.includes('report.stock')});
         function openAlmacen(){
             if ($('#ddAlmacen').hasClass('open')){
                 $('#ddAlmacen').removeClass('open');
@@ -200,7 +203,7 @@ export default {
                 });
         }
 
-        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole, reportSale, reportOrder, enableReimbursement, download}
+        return {openAlmacen, openCompras, openVentas, openAcceso, openReportes, enableSales, enableProduct, enableLocation, enableType, enablePresentation, enableUsage, enableLaboratory, enableOrder, enableSupplier, enableCustomer, enableUser, enableRole, reportSale, reportOrder, enableReimbursement, download, enableReportSales, enableReportOrder, enableReportStock}
     }
 }
 </script>
