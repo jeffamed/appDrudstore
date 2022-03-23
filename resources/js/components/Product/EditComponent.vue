@@ -133,12 +133,15 @@ export default {
         }
 
         getProduct(props.id);
-        onMounted(getSuppliers());
-        onMounted(getLaboratories());
-        onMounted(getPresentations());
-        onMounted(getLocations());
-        onMounted(getTypes());
-        onMounted(allUsages());
+        setTimeout(() => {
+            onMounted(getSuppliers());
+            onMounted(getLaboratories());
+            onMounted(getPresentations());
+            onMounted(getLocations());
+            onMounted(getTypes());
+            onMounted(allUsages());
+            console.log('termine')
+        }, 2000)
 
         return {suppliers, laboratories, presentations, locations, types, usages, product, errors, save}
     }
