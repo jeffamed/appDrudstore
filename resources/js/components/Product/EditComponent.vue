@@ -132,13 +132,13 @@ export default {
             await updateProduct(props.id);
         }
 
-        onMounted(getProduct(props.id));
-        getSuppliers();
-        getLaboratories();
-        getPresentations();
-        getLocations();
-        getTypes();
-        allUsages();
+        getProduct(props.id);
+        onMounted(getSuppliers());
+        onMounted(getLaboratories());
+        onMounted(getPresentations());
+        onMounted(getLocations());
+        onMounted(getTypes());
+        onMounted(allUsages());
 
         return {suppliers, laboratories, presentations, locations, types, usages, product, errors, save}
     }
