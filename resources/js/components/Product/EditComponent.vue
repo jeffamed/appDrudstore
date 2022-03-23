@@ -121,11 +121,11 @@ export default {
     },
     setup(props){
         const {getProduct, updateProduct, product, errors} = useProducts();
-        const {getSuppliers, suppliers} = useSuppliers();
-        const {getLaboratories, laboratories} = useLaboratories();
-        const {getPresentations, presentations} = usePresentations();
-        const {getLocations, locations} = useLocations();
-        const {getTypes, types} = useTypes();
+        const {allSuppliers, suppliers} = useSuppliers();
+        const {allLaboratories, laboratories} = useLaboratories();
+        const {allPresentations, presentations} = usePresentations();
+        const {allLocations, locations} = useLocations();
+        const {allTypes, types} = useTypes();
         const {allUsages, usages} = useUsages();
 
         const save = async() => {
@@ -134,11 +134,11 @@ export default {
 
         getProduct(props.id);
         setTimeout(() => {
-            onMounted(getSuppliers());
-            onMounted(getLaboratories());
-            onMounted(getPresentations());
-            onMounted(getLocations());
-            onMounted(getTypes());
+            onMounted(allSuppliers());
+            onMounted(allLaboratories());
+            onMounted(allPresentations());
+            onMounted(allLocations());
+            onMounted(allTypes());
             onMounted(allUsages());
             console.log('termine')
         }, 2000)
