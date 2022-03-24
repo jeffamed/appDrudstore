@@ -102,7 +102,7 @@ export default {
           daySale.value = rsp.data.day;
           weekSale.value = rsp.data.week;
           dayOrder.value = rsp.data.order;
-          moneySale.value = rsp.data.money;
+          moneySale.value = parseFloat(rsp.data.money).toFixed(2);
 
         }
 
