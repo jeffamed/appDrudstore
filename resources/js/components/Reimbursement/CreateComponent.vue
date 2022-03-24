@@ -42,7 +42,7 @@
             <div class="row form-group">
                 <div class="col-md-12">
                     <label class="ml-3 form-control-label" for="name">Observación</label>
-                    <textarea cols="3" rows="3" class="form-control"></textarea>
+                    <textarea cols="3" rows="3" class="form-control" v-model="observation"></textarea>
                 </div>
             </div>
             <div class="row form-group">
@@ -125,6 +125,7 @@ export default {
         const order = ref('');
         const totalOrder = ref(0);
         const iva = ref(0);
+        const observation = ref('');
         const {getOrderSupplier, orders} = useOrder()
         const {allSuppliers, suppliers} = useSuppliers();
         const {searchProduct, products} = useProducts();
@@ -150,7 +151,9 @@ export default {
                 'order_id' : order.value,
                 'total' : total,
                 'products' : products.value,
+                'observation' : observation.value
             };
+            console.log(form);
             await saveReimbursement(form);
             await errors;
             await clear();
@@ -179,7 +182,7 @@ export default {
             await products;
         });
 
-        return{ supplier, suppliers, orders, order, products, totalReimbursement, totalOrder, save, errors, iva}
+        return{ supplier, suppliers, orders, order, products, totalReimbursement, totalOrder, save, errors, iva, observation}
     }
 }
 </script>

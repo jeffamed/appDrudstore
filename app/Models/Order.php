@@ -58,6 +58,6 @@ class Order extends Model
 
     public function getProveedorAttribute()
     {
-        return $this->supplier->name;
+        return optional($this->supplier)->name;
     }
 }
