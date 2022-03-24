@@ -100,7 +100,7 @@ export default {
           labelSale.value = rsp.data.sales.month;
           dataSale.value = rsp.data.sales.total;
           daySale.value = rsp.data.day;
-          weekSale.value = rsp.data.week;
+          weekSale.value = parseFloat(rsp.data.week).toFixed(2);
           dayOrder.value = rsp.data.order;
           moneySale.value = parseFloat(rsp.data.money).toFixed(2);
 
