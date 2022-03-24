@@ -34,7 +34,8 @@ class ReimbursementRequest extends BaseRequest
         return [
             'supplier_id' => 'required|integer',
             'order_id' => 'required|integer',
-            'total' => 'required|numeric|not_in:0'
+            'total' => 'required|numeric|not_in:0',
+            'observation' => 'nullable'
         ];
     }
 
