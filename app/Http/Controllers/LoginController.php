@@ -55,6 +55,7 @@ class LoginController extends Controller
                 $permissions[] = $permission->name;
             }
             $user->permissions = $permissions;
+            $user->token = $request->user()->createToken('tokens')->plainTextToken;
             return response()->json($user, 200);
         }
         return $this->authenticated($request, $this->guard()->user())
