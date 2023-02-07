@@ -68,6 +68,7 @@ export default {
                     delete rsp.data.phone
                     delete rsp.data.delete_at
                     delete rsp.data.email_verified_at
+                    localStorage.setItem('token', JSON.stringify(rsp.data.token).replace(/['"]+/g, ''));
                     localStorage.setItem('user', JSON.stringify(rsp.data));
                     localStorage.setItem('permissions', JSON.stringify(rsp.data.permissions));
                     localStorage.setItem('time_session', moment().add(1, 'days').format('Y-MM-DD'));

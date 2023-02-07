@@ -19850,9 +19850,15 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+var tokenSPA = localStorage.getItem("token");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.withCredentials = true;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common = {
+  "X-Requested-With": 'XMLHttpRequest',
+  "Accept": "application/json",
+  "Authorization": "Bearer ".concat(tokenSPA),
+  "Content-Type": "application/json"
+};
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {

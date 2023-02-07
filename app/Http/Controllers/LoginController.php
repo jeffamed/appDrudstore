@@ -55,6 +55,7 @@ class LoginController extends Controller
                 $permissions[] = $permission->name;
             }
             $user->permissions = $permissions;
+            $user->token = $request->user()->createToken('tokens')->plainTextToken;
             return response()->json($user, 200);
         }
         return $this->authenticated($request, $this->guard()->user())
@@ -63,6 +64,7 @@ class LoginController extends Controller
 
     public function verified(User $user)
     {
+        Log::info(auth()->user());
         $permissions = [];
         foreach ($user->rol->permissions as $permission){
             $permissions[] = $permission->name;
