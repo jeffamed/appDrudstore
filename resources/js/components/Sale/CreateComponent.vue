@@ -605,7 +605,6 @@ export default {
             sale.total = totalSale.value.replace(',','');
             sale.discount = totalDiscount.value.replace(',','');
             sale.details = detailsSale.value;
-            sale.user_id = user.id;
             await saveSale(sale);
             await sale_id;
             await errors;

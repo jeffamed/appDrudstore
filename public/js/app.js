@@ -19859,11 +19859,10 @@ window.axios.defaults.headers.common = {
   "Authorization": "Bearer ".concat(tokenSPA),
   "Content-Type": "application/json"
 };
+var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  var _token = document.head.querySelector('meta[name="csrf-token"]');
-
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = _token.content;
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }

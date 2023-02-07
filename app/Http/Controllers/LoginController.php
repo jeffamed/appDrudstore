@@ -64,6 +64,7 @@ class LoginController extends Controller
 
     public function verified(User $user)
     {
+        Log::info(auth()->user());
         $permissions = [];
         foreach ($user->rol->permissions as $permission){
             $permissions[] = $permission->name;

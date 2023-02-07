@@ -53,6 +53,6 @@ class Sale extends Model
 
     public function getClienteAttribute()
     {
-        return $this->customer->name.' '.$this->customer->last_name;
+        return optional($this->customer)->name.' '.optional($this->customer)->last_name;
     }
 }

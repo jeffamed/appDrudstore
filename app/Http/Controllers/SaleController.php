@@ -48,6 +48,7 @@ class SaleController extends Controller
      */
     public function store(SaleRequest $request)
     {
+        $request['user_id'] = auth()->id();
         $sale = Sale::create($request->except('details'));
 
         if ($sale){
