@@ -5,7 +5,7 @@ window._ = require('lodash');
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-const tokenSPA = localStorage.getItem("token");
+const tokenSPA = window.Laravel?.csrfToken || localStorage.getItem("token") ;
 window.axios = require('axios');
 window.axios.defaults.withCredentials = true;
 window.axios.defaults.headers.common = {

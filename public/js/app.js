@@ -19843,6 +19843,8 @@ app.use(_router__WEBPACK_IMPORTED_MODULE_1__["default"], (axios__WEBPACK_IMPORTE
   \***********************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+var _window$Laravel;
+
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -19850,7 +19852,7 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-var tokenSPA = localStorage.getItem("token");
+var tokenSPA = ((_window$Laravel = window.Laravel) === null || _window$Laravel === void 0 ? void 0 : _window$Laravel.csrfToken) || localStorage.getItem("token");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.withCredentials = true;
 window.axios.defaults.headers.common = {
@@ -19901,8 +19903,11 @@ function permissionreload() {
   if (localStorage.getItem('user')) {
     var user = JSON.parse(localStorage.getItem('user'));
     axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/verified/".concat(user.id)).then(function (rsp) {
-      localStorage.removeItem('permissions');
-      localStorage.setItem('permissions', rsp.data);
+      //localStorage.removeItem('permissions');
+      //localStorage.setItem('permissions',rsp.data);
+      window.Laravel = {
+        permissions: rsp.data
+      };
     })["catch"](function (e) {
       return console.log(e);
     });

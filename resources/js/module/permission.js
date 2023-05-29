@@ -5,8 +5,11 @@ function permissionreload() {
         const user = JSON.parse(localStorage.getItem('user'));
         axios.get(`/api/verified/${user.id}`)
             .then(rsp => {
-                localStorage.removeItem('permissions');
-                localStorage.setItem('permissions',rsp.data);
+                //localStorage.removeItem('permissions');
+                //localStorage.setItem('permissions',rsp.data);
+                window.Laravel = {
+                    permissions: rsp.data
+                }
             })
             .catch( e => console.log(e))
     }
